@@ -140,7 +140,7 @@
 
     .widget-body { padding: 20px; }
     
-    /* === INFO BAR (DESIGN REFINADO/LEVE) === */
+    /* === INFO BAR (DESIGN LEVE) === */
     .info-bar {
         display: grid;
         grid-template-columns: 1fr;
@@ -150,20 +150,19 @@
         .info-bar { grid-template-columns: 1fr 1fr; }
     }
     .info-box {
-        background: #ffffff; /* Fundo branco para leveza */
+        background: #ffffff;
         border: 1px solid var(--border-color);
-        padding: 12px 16px; /* Altura reduzida */
+        padding: 12px 16px;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        min-height: 70px; /* Altura mínima reduzida */
+        min-height: 70px;
         position: relative;
         overflow: hidden;
-        border-left: 4px solid var(--red-mppe); /* Apenas detalhe colorido */
+        border-left: 4px solid var(--red-mppe);
     }
-    /* Variação de cor para o Rodízio */
     .info-box.blue-accent {
         border-left-color: #0056b3; 
     }
@@ -222,7 +221,7 @@
     }
     .search-button:hover { background: var(--red-mppe-hover); }
 
-    /* === WIDGET: PRÓXIMOS ATOS E AVISOS === */
+    /* === WIDGET: PRÓXIMOS ATOS === */
     .acts-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 768px) { .acts-grid { grid-template-columns: 1fr 1fr; } }
     .act-card {
@@ -303,27 +302,56 @@
     
     /* === FIX: MODAL GRANDE E SCROLL === */
     .modal-content.large {
-        max-width: 1200px; /* Aumentado */
-        width: 95%;        /* Ocupa quase toda a tela no mobile */
+        max-width: 1200px;
+        width: 95%;
         max-height: 90vh;
         display: flex;
         flex-direction: column;
     }
     
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+    .modal-header-left { display: flex; align-items: center; gap: 15px; } /* Wrapper para titulo e botoes */
     .modal-header h3 { margin: 0; color: var(--text-primary); }
+    
     .modal-buttons { display: flex; justify-content: flex-end; align-items:center; gap: 10px; margin-top: 20px; flex-shrink: 0; }
     .modal-buttons button { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border-color); background: #fff; box-shadow: var(--shadow); font-weight: 600; cursor: pointer; }
     .data-table { width: 100%; border-collapse: collapse; }
     .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
 
+    /* === BOTÕES DE VISUALIZAÇÃO === */
+    .view-toggles {
+        display: flex;
+        background-color: var(--bg-primary);
+        padding: 4px;
+        border-radius: 8px;
+        gap: 4px;
+    }
+    .view-btn {
+        background: transparent;
+        border: none;
+        padding: 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    .view-btn:hover { background-color: rgba(0,0,0,0.05); }
+    .view-btn.active {
+        background-color: #fff;
+        color: var(--red-mppe);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .view-btn svg { width: 18px; height: 18px; }
+
     /* === CALENDAR STYLES (FONT ARIAL) === */
     .calendar-wrapper {
         flex: 1;
         overflow-y: auto;
-        overflow-x: hidden;
-        /* Fonte compacta solicitada */
-        font-family: Arial, Helvetica, sans-serif; 
+        overflow-x: auto; /* Permite scroll horizontal na tabela */
+        font-family: Arial, Helvetica, sans-serif;
     }
     .calendar-title {
         text-align: center;
@@ -331,32 +359,49 @@
         font-weight: 700;
         margin-bottom: 15px;
         font-size: 1.2rem;
-        font-family: 'Inter', sans-serif; /* Título mantém a font bonita */
+        font-family: 'Inter', sans-serif;
     }
+    
+    /* GRID PADRÃO (TABELA) */
     .calendar-grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
         gap: 12px;
+        min-width: 800px; /* Força largura mínima para ser tabela no mobile */
     }
+    
+    /* MODO LISTA (MOBILE STYLE) */
+    .calendar-grid.list-view {
+        grid-template-columns: 1fr; /* 1 coluna */
+        min-width: auto; /* Remove largura mínima */
+    }
+    
     .calendar-header-day {
         text-align: center; font-weight: 600; color: var(--text-secondary);
         font-size: 0.9rem; padding-bottom: 8px; border-bottom: 3px solid var(--gold-accent);
     }
+    
+    /* Esconde cabeçalho no modo lista */
+    .calendar-grid.list-view .calendar-header-day { display: none; }
+
     .calendar-day-card {
         background: var(--bg-primary); border: 1px solid var(--border-color);
         border-radius: 8px; min-height: 140px;
         display: flex; flex-direction: column;
         overflow: hidden; 
     }
+    /* Ajuste altura no modo lista */
+    .calendar-grid.list-view .calendar-day-card { min-height: auto; }
+
     .day-number {
         background: var(--bg-secondary); padding: 6px 10px; font-weight: 700;
         font-size: 0.95rem; border-bottom: 1px solid var(--border-color);
         display: flex; justify-content: space-between; align-items: center;
-        font-family: 'Inter', sans-serif; /* Numero do dia mantem font padrão */
+        font-family: 'Inter', sans-serif;
     }
     .day-number.is-holiday { color: var(--red-mppe); background-color: #fdecee; }
     .day-events {
-        padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; /* Arial fica melhor menor */
+        padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; 
         flex: 1;
         overflow-x: auto; 
     }
@@ -365,52 +410,23 @@
     .event-tag {
         padding: 5px 6px; border-radius: 4px; background: #fff; border: 1px solid #ddd;
         line-height: 1.3; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        white-space: nowrap; /* Impede quebra de linha dos processos */
+        white-space: nowrap; 
     }
-    /* Cores de Atividade */
     .event-tag.juri { border-left: 4px solid var(--red-mppe); }
     .event-tag.audiencia { border-left: 4px solid var(--gold-accent); }
     
-    /* === CORES DOS PROMOTORES (LEVES E DISCRETAS) === */
-    /* Dr. Arroxelas: Vermelho leve */
-    .event-tag.promoter-red {
-        background-color: #ffcdd2; 
-        color: #b71c1c;
-        border: 1px solid #ef9a9a;
-        font-weight: bold;
-        white-space: normal; /* Nomes podem quebrar se precisar */
-    }
-    /* Dr. Marcelo: Azul leve */
-    .event-tag.promoter-blue {
-        background-color: #bbdefb;
-        color: #0d47a1;
-        border: 1px solid #90caf9;
-        font-weight: bold;
-        white-space: normal;
-    }
-    /* Dra. Ângela: Amarelo leve */
-    .event-tag.promoter-yellow {
-        background-color: #fff9c4;
-        color: #f57f17;
-        border: 1px solid #fff59d;
-        font-weight: bold;
-        white-space: normal;
-    }
-    /* Genérico */
-    .event-tag.promoter-general {
-        background-color: #f5f5f5;
-        font-weight: bold;
-        white-space: normal;
-    }
+    .event-tag.promoter-red { background-color: #ffcdd2; color: #b71c1c; border: 1px solid #ef9a9a; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-blue { background-color: #bbdefb; color: #0d47a1; border: 1px solid #90caf9; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; border: 1px solid #fff59d; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; white-space: normal; }
     
     @media (max-width: 768px) {
-        .calendar-grid { grid-template-columns: 1fr; } 
-        .calendar-header-day { display: none; }
-        .calendar-day-card { min-height: auto; }
+        /* .calendar-grid padrão já força scroll via min-width */
         .wrap { padding-inline: 16px; }
         .mobile-quick-links { display: grid; }
         .main-content { padding-top: 16px; }
         .main-column { gap: 16px; }
+        .modal-header-left { flex-direction: column; align-items: flex-start; gap: 8px; }
     }
     @media (max-width: 600px) {
       .processo-input-group { gap: 2px; flex-wrap: nowrap; }
@@ -700,7 +716,17 @@
   <div class="modal-overlay" id="pautaModal">
     <div class="modal-content large">
       <div class="modal-header">
-        <h3>Pauta da 3ª Vara</h3>
+        <div class="modal-header-left">
+            <h3>Pauta da 3ª Vara</h3>
+            <div class="view-toggles">
+                <button class="view-btn active" id="btnViewTable" aria-label="Visualização em Tabela">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </button>
+                <button class="view-btn" id="btnViewList" aria-label="Visualização em Lista">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
         <a href="https://drive.google.com/drive/u/1/folders/1bwhXAvW-jsVn4sfHTTfpgg_lgDMB6PwP" target="_blank" rel="noopener" class="widget-config-link" aria-label="Ver Pasta Original">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </a>
@@ -720,7 +746,7 @@
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
 
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiGD1wiyiQhwRlrn9XjnRG9QP8YD1xO6nLAT3Tr2tnZHlsjFOv5GwjodmvLe7njQahHg/exec'; 
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6zH_ZSzAnPsS4eR5Iwxnr23ivt2Elq-tsgYcm_kaUuWSk81fsyFQOntt-mZA3Kwl1pA/exec'; 
 
       var API_KEY   = 'AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y';
       var GAPI_URL  = 'https://apis.google.com/js/api.js';
@@ -856,7 +882,12 @@
           }
           const titleDiv = document.createElement('div'); titleDiv.className = 'calendar-title';
           titleDiv.textContent = data.title || 'Pauta Mensal'; container.appendChild(titleDiv);
-          const grid = document.createElement('div'); grid.className = 'calendar-grid';
+          
+          const grid = document.createElement('div'); 
+          grid.className = 'calendar-grid'; 
+          // Default ID para controle de view
+          grid.id = 'pautaGrid';
+          
           ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'].forEach(d => {
               const h = document.createElement('div'); h.className = 'calendar-header-day'; h.textContent = d; grid.appendChild(h);
           });
@@ -871,13 +902,11 @@
                   const tag = document.createElement('div'); tag.className = 'event-tag';
                   const lower = line.toLowerCase();
                   
-                  // Lógica de Cores dos Promotores
                   if (lower.includes('arroxelas')) tag.classList.add('promoter-red');
                   else if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
                   else if (lower.includes('ângela') || lower.includes('angela')) tag.classList.add('promoter-yellow');
                   else if (lower.includes('dr.') || lower.includes('dra.')) tag.classList.add('promoter-general');
                   
-                  // Lógica de Tipos de Atividade
                   if (lower.includes('júri') || lower.includes('juri')) tag.classList.add('juri');
                   else if (lower.includes('audiência')) tag.classList.add('audiencia');
                   else if (lower.includes('carnaval')) { tag.style.background = '#fdecee'; tag.style.color = '#7a0e18'; tag.style.textAlign = 'center'; tag.style.fontWeight = 'bold'; }
@@ -971,6 +1000,27 @@
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
         const mobPauta = $('#mobilePauta3VaraBtn');
         if(mobPauta) { mobPauta.addEventListener('click', (e) => { e.preventDefault(); openModalById('#pautaModal'); openPautaHandler(); }); }
+        
+        // === CONTROLE DE VIEW DO GRID DA PAUTA ===
+        const btnTable = $('#btnViewTable');
+        const btnList = $('#btnViewList');
+        
+        if(btnTable && btnList) {
+            btnTable.addEventListener('click', () => {
+                btnTable.classList.add('active');
+                btnList.classList.remove('active');
+                const grid = $('#pautaGrid');
+                if(grid) grid.classList.remove('list-view');
+            });
+            
+            btnList.addEventListener('click', () => {
+                btnList.classList.add('active');
+                btnTable.classList.remove('active');
+                const grid = $('#pautaGrid');
+                if(grid) grid.classList.add('list-view');
+            });
+        }
+        // ==========================================
 
         const inputs = $$('.processo-input-group input');
         inputs.forEach((input, index) => {
