@@ -140,44 +140,59 @@
 
     .widget-body { padding: 20px; }
     
-    /* === INFO BAR (NOVO DESIGN INTEGRADO AO FUNDO) === */
+    /* === INFO BAR (DESIGN LEVE) === */
     .info-bar {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Sempre lado a lado */
+        grid-template-columns: 1fr;
         gap: 16px;
-        margin-bottom: 8px; /* Espaço para o próximo widget */
     }
-    
-    .info-item {
+    @media (min-width: 600px) {
+        .info-bar { grid-template-columns: 1fr 1fr; }
+    }
+    .info-box {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        padding: 12px 16px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* Sem background, sem borda */
+        min-height: 70px;
+        position: relative;
+        overflow: hidden;
+        border-left: 4px solid var(--red-mppe);
+    }
+    .info-box.blue-accent {
+        border-left-color: #0056b3; 
     }
     
     .info-label {
         font-size: 0.75rem; 
         text-transform: uppercase; 
         letter-spacing: 0.5px; 
-        color: var(--red-mppe); /* Destaque na cor da marca */
+        color: var(--text-secondary);
         margin-bottom: 4px;
         display: flex; 
         align-items: center; 
         gap: 6px;
-        font-weight: 700;
+        font-weight: 600;
     }
-    .info-label svg { width: 14px; height: 14px; }
-    /* Cor diferente para o ícone do rodízio */
-    .info-item.rodizio .info-label { color: #0056b3; }
+    .info-label svg { width: 14px; height: 14px; color: var(--red-mppe); }
+    .info-box.blue-accent .info-label svg { color: #0056b3; }
 
     .info-content {
-        font-size: 0.95rem; /* Fonte ajustada para mobile */
+        font-size: 1rem; 
         font-weight: 700; 
         line-height: 1.2;
         color: var(--text-primary);
     }
+    .info-sub { 
+        font-size: 0.8rem; 
+        color: var(--text-secondary); 
+        margin-top: 2px; 
+    }
     
-    /* Loading animation */
     .loading-pulse { animation: pulse 1.5s infinite ease-in-out; opacity: 0.6; }
     @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 0.8; } 100% { opacity: 0.4; } }
 
@@ -280,54 +295,30 @@
     .footer { border-top: 1px solid var(--border-color); background: var(--bg-secondary); text-align: center; padding: 20px; }
     .footer .small { font-size: .85rem; color: var(--text-secondary); }
     
-    /* === MODAL STYLES GERAIS === */
+    /* === MODAL STYLES === */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 1000; }
     .modal-overlay.active { display: flex; }
     .modal-content { background: #fff; padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); width: 90%; max-width: 600px; }
     
-    /* === MODAL DA PAUTA - ESTILO UNIFICADO/FLUIDO === */
+    /* === FIX: MODAL GRANDE E SCROLL === */
     .modal-content.large {
         max-width: 1200px;
         width: 95%;
-        /* Altura automática: o modal cresce com o conteúdo e rola a página, sem scroll interno forçado */
-        height: auto;
-        max-height: none; 
-        display: block;
-        padding: 20px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
     }
     
-    /* Header do modal reorganizado */
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
-    .modal-header-left { display: flex; align-items: center; gap: 15px; } 
+    .modal-header-left { display: flex; align-items: center; gap: 15px; } /* Wrapper para titulo e botoes */
     .modal-header h3 { margin: 0; color: var(--text-primary); }
     
-    /* Controles do header (Visualização, Pasta, Fechar) */
-    .modal-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+    .modal-buttons { display: flex; justify-content: flex-end; align-items:center; gap: 10px; margin-top: 20px; flex-shrink: 0; }
+    .modal-buttons button { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border-color); background: #fff; box-shadow: var(--shadow); font-weight: 600; cursor: pointer; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
 
-    /* Botão de Fechar no TOPO (Estilo 'X') */
-    .close-modal-x {
-        background: transparent;
-        border: none;
-        color: var(--text-secondary);
-        cursor: pointer;
-        padding: 4px;
-        border-radius: 50%;
-        transition: background .2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .close-modal-x:hover {
-        background: var(--bg-primary);
-        color: var(--red-mppe);
-    }
-    .close-modal-x svg { width: 24px; height: 24px; }
-
-    /* Botões de Visualização */
+    /* === BOTÕES DE VISUALIZAÇÃO === */
     .view-toggles {
         display: flex;
         background-color: var(--bg-primary);
@@ -355,17 +346,11 @@
     }
     .view-btn svg { width: 18px; height: 18px; }
 
-    /* Botões do Rodapé de Férias/Rodízio (Mantidos) */
-    .modal-buttons { display: flex; justify-content: flex-end; align-items:center; gap: 10px; margin-top: 20px; }
-    .modal-buttons button { padding: 10px 18px; border-radius: 8px; border: 1px solid var(--border-color); background: #fff; box-shadow: var(--shadow); font-weight: 600; cursor: pointer; }
-
-    .data-table { width: 100%; border-collapse: collapse; }
-    .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
-
     /* === CALENDAR STYLES (FONT ARIAL) === */
     .calendar-wrapper {
-        /* Remove overflow:auto para permitir que a tabela expanda o modal */
-        overflow: visible; 
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: auto; /* Permite scroll horizontal na tabela */
         font-family: Arial, Helvetica, sans-serif;
     }
     .calendar-title {
@@ -380,22 +365,15 @@
     /* GRID PADRÃO (TABELA) */
     .calendar-grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr); 
+        grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
         gap: 12px;
-        /* Largura mínima para garantir o layout de tabela mesmo no mobile */
-        min-width: 800px; 
+        min-width: 800px; /* Força largura mínima para ser tabela no mobile */
     }
     
-    /* Para permitir o scroll horizontal APENAS da tabela no mobile, caso o usuário dê zoom out */
-    .calendar-scroll-container {
-        overflow-x: auto;
-        padding-bottom: 5px;
-    }
-    
-    /* MODO LISTA */
+    /* MODO LISTA (MOBILE STYLE) */
     .calendar-grid.list-view {
-        grid-template-columns: 1fr; 
-        min-width: auto; 
+        grid-template-columns: 1fr; /* 1 coluna */
+        min-width: auto; /* Remove largura mínima */
     }
     
     .calendar-header-day {
@@ -403,6 +381,7 @@
         font-size: 0.9rem; padding-bottom: 8px; border-bottom: 3px solid var(--gold-accent);
     }
     
+    /* Esconde cabeçalho no modo lista */
     .calendar-grid.list-view .calendar-header-day { display: none; }
 
     .calendar-day-card {
@@ -411,6 +390,7 @@
         display: flex; flex-direction: column;
         overflow: hidden; 
     }
+    /* Ajuste altura no modo lista */
     .calendar-grid.list-view .calendar-day-card { min-height: auto; }
 
     .day-number {
@@ -423,7 +403,7 @@
     .day-events {
         padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; 
         flex: 1;
-        overflow-x: visible; /* Deixa o conteudo crescer */
+        overflow-x: auto; 
     }
     
     /* === TAGS / ETIQUETAS DO CALENDÁRIO === */
@@ -441,12 +421,12 @@
     .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; white-space: normal; }
     
     @media (max-width: 768px) {
+        /* .calendar-grid padrão já força scroll via min-width */
         .wrap { padding-inline: 16px; }
         .mobile-quick-links { display: grid; }
         .main-content { padding-top: 16px; }
         .main-column { gap: 16px; }
         .modal-header-left { flex-direction: column; align-items: flex-start; gap: 8px; }
-        .modal-content.large { padding: 15px; width: 100%; border-radius: 0; min-height: 100vh; }
     }
     @media (max-width: 600px) {
       .processo-input-group { gap: 2px; flex-wrap: nowrap; }
@@ -546,19 +526,21 @@
             </div>
 
             <div class="info-bar">
-                <div class="info-item" id="boxProximoAto">
+                <div class="info-box" id="boxProximoAto">
                     <div class="info-label">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         Dr. Arroxelas
                     </div>
-                    <div class="info-content loading-pulse">Analisando...</div>
+                    <div class="info-content loading-pulse">Analisando pauta...</div>
+                    <div class="info-sub">Próximo compromisso</div>
                 </div>
-                <div class="info-item rodizio" id="boxPlantao">
+                <div class="info-box blue-accent" id="boxPlantao">
                     <div class="info-label">
                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        Rodízio
+                        Rodízio Agora
                     </div>
                     <div class="info-content loading-pulse">Verificando...</div>
+                    <div class="info-sub" id="rodizioSub">Secretaria</div>
                 </div>
             </div>
             
@@ -745,23 +727,17 @@
                 </button>
             </div>
         </div>
-        <div class="modal-controls">
-            <a href="https://drive.google.com/drive/u/1/folders/1bwhXAvW-jsVn4sfHTTfpgg_lgDMB6PwP" target="_blank" rel="noopener" class="widget-config-link" aria-label="Ver Pasta Original">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-            <button class="close-modal-x" id="closePautaBtn" aria-label="Fechar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-        </div>
+        <a href="https://drive.google.com/drive/u/1/folders/1bwhXAvW-jsVn4sfHTTfpgg_lgDMB6PwP" target="_blank" rel="noopener" class="widget-config-link" aria-label="Ver Pasta Original">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
       </div>
-      
-      <div class="calendar-scroll-container">
-          <div id="pautaContainer" class="calendar-wrapper">
-             <div class="empty" id="pautaLoading">Carregando e analisando tabela...</div>
-          </div>
+      <div id="pautaContainer" class="calendar-wrapper">
+         <div class="empty" id="pautaLoading">Carregando e analisando tabela...</div>
       </div>
-      
+      <div class="modal-buttons">
+        <button class="cancel" id="closePautaBtn">Fechar</button>
       </div>
+    </div>
   </div>
 
   <script>
@@ -770,7 +746,7 @@
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
 
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywSyu7vWjfQYFZduybrJgJxAEenU-xkd0Wfuv4HVDPA6ARpuDTVgjJ9wfKd0amtx2tgA/exec'; 
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiGD1wiyiQhwRlrn9XjnRG9QP8YD1xO6nLAT3Tr2tnZHlsjFOv5GwjodmvLe7njQahHg/exec'; 
 
       var API_KEY   = 'AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y';
       var GAPI_URL  = 'https://apis.google.com/js/api.js';
@@ -909,6 +885,7 @@
           
           const grid = document.createElement('div'); 
           grid.className = 'calendar-grid'; 
+          // Default ID para controle de view
           grid.id = 'pautaGrid';
           
           ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'].forEach(d => {
@@ -943,6 +920,7 @@
 
       async function updateRodizioAtual() {
           const box = $('#boxPlantao .info-content');
+          const sub = $('#rodizioSub');
           try {
               const response = await fetch(`${APPS_SCRIPT_URL}?action=getRodizio`);
               const data = await response.json();
@@ -950,29 +928,30 @@
               const now = new Date();
               const day = now.getDay(); 
               const hour = now.getHours();
-              if(day === 0 || day === 6) { box.textContent = 'Fim de Semana'; box.classList.remove('loading-pulse'); return; }
+              if(day === 0 || day === 6) { box.textContent = 'Fim de Semana'; sub.textContent = 'Sem expediente'; box.classList.remove('loading-pulse'); return; }
               const idx = day - 1;
-              let name = 'Fora do Horário';
-              if (hour >= 7 && hour < 12) { name = data.shifts[0].names[idx] || 'N/A'; }
-              else if (hour >= 12 && hour < 18) { name = data.shifts[1].names[idx] || 'N/A'; }
-              else { name = 'Fechado'; }
-              box.textContent = name; box.classList.remove('loading-pulse');
+              let name = 'Fora do Horário'; let turno = '';
+              if (hour >= 7 && hour < 12) { name = data.shifts[0].names[idx] || 'N/A'; turno = 'Turno Manhã (07h-12h)'; }
+              else if (hour >= 12 && hour < 18) { name = data.shifts[1].names[idx] || 'N/A'; turno = 'Turno Tarde (12h-18h)'; }
+              else { name = 'Fechado'; turno = 'Expediente encerrado'; }
+              box.textContent = name; sub.textContent = turno; box.classList.remove('loading-pulse');
           } catch (e) { console.error(e); box.textContent = 'Erro Conexão'; box.classList.remove('loading-pulse'); }
       }
 
       async function updateNextAct() {
           const box = $('#boxProximoAto .info-content');
+          const sub = $('#boxProximoAto .info-sub');
           try {
               const response = await fetch(`${APPS_SCRIPT_URL}?action=getNextAct`);
               const data = await response.json();
               box.classList.remove('loading-pulse');
               if (data.error) { box.textContent = 'Erro'; return; }
-              if (!data.found) { box.textContent = 'Nada consta'; return; }
+              if (!data.found) { box.textContent = 'Nada consta'; sub.textContent = 'Nenhum compromisso futuro'; return; }
               const now = new Date();
               const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
               const dateStr = `${data.dia} de ${months[now.getMonth()]}`;
-              // Texto concatenado sem sub-linha
               box.textContent = `${data.tipo} - Dia ${data.dia}`;
+              sub.textContent = `Próximo compromisso em ${dateStr}`;
           } catch (e) { console.error(e); box.textContent = 'Erro'; box.classList.remove('loading-pulse'); }
       }
 
@@ -1041,6 +1020,7 @@
                 if(grid) grid.classList.add('list-view');
             });
         }
+        // ==========================================
 
         const inputs = $$('.processo-input-group input');
         inputs.forEach((input, index) => {
