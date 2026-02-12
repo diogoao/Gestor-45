@@ -141,19 +141,20 @@
 
     .widget-body { padding: 20px; }
     
-    /* === INFO SECTION UNIFICADA === */
+    /* === INFO SECTION UNIFICADA (DESIGN INTELIGENTE) === */
     .unified-info-card {
         background: #fff;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
         border: 1px solid var(--border-color);
         display: flex;
-        flex-direction: row;
+        flex-direction: row; /* Sempre lado a lado */
         overflow: hidden;
         position: relative;
         min-height: 85px;
     }
 
+    /* Detalhe lateral esquerdo e direito */
     .unified-info-card::before {
         content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: var(--red-mppe); z-index: 2;
     }
@@ -171,10 +172,12 @@
         z-index: 1;
     }
 
+    /* Divisor central sutil */
     .info-segment:first-child {
         border-right: 1px solid rgba(0,0,0,0.06);
     }
 
+    /* Ícones de fundo decorativos */
     .bg-icon {
         position: absolute;
         right: 5px;
@@ -198,7 +201,7 @@
         align-items: center;
         gap: 6px;
         opacity: 0.8;
-        color: inherit;
+        color: inherit; /* Herda a cor do segmento */
     }
     
     .info-content {
@@ -215,6 +218,7 @@
         margin-top: 2px;
     }
 
+    /* Ajuste para telas muito pequenas */
     @media (max-width: 400px) {
         .info-content { font-size: 0.85rem; }
         .unified-info-card { min-height: 75px; }
@@ -224,7 +228,7 @@
     .loading-pulse { animation: pulse 1.5s infinite ease-in-out; opacity: 0.6; }
     @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 0.8; } 100% { opacity: 0.4; } }
 
-    /* === BUSCA DE PROCESSOS === */
+    /* === WIDGET: BUSCA DE PROCESSOS === */
     .search-widget .widget-body { display: flex; flex-direction: column; gap: 20px; }
     .processo-input-group {
       display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap;
@@ -232,11 +236,15 @@
     .processo-input-group input {
       border: 1px solid var(--border-color); border-radius: 8px; height: 44px;
       text-align: center; font-size: 1rem; padding: 0 4px;
+      -moz-appearance: textfield;
     }
+    .processo-input-group input::-webkit-outer-spin-button,
+    .processo-input-group input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .processo-input-group input:focus {
       outline: none; border-color: var(--red-mppe);
       box-shadow: 0 0 0 3px rgba(122, 14, 24, 0.2);
     }
+    .processo-input-group .sep { font-size: 1.2rem; color: var(--text-secondary); padding: 0 2px; }
     #p-1 { width: 90px; } #p-2, #p-5 { width: 45px; } #p-3, #p-6 { width: 65px; } #p-4 { width: 35px; }
     .search-button {
       padding: 12px 22px; border-radius: 8px; border: none;
@@ -245,7 +253,7 @@
     }
     .search-button:hover { background: var(--red-mppe-hover); }
 
-    /* === PRÓXIMOS ATOS === */
+    /* === WIDGET: PRÓXIMOS ATOS === */
     .acts-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 768px) { .acts-grid { grid-template-columns: 1fr 1fr; } }
     .act-card {
@@ -267,7 +275,7 @@
     .avisos-list { display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 8px;}
     .aviso-item { background: var(--bg-primary); border-left: 3px solid var(--red-mppe); border-radius: 0 8px 8px 0; padding: 12px 15px; }
     .aviso-author { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; }
-    .aviso-text { line-height: 1.5; white-space: pre-wrap; font-size: 0.9rem; }
+    .aviso-text { line-height: 1.5; white-space: pre-wrap; font-size: 0.9rem; overflow-wrap: break-word; }
     
     /* === SIDEBAR E LINKS === */
     .sidebar-links { display: flex; flex-direction: column; gap: 10px; }
@@ -278,6 +286,7 @@
     }
     .sidebar-link:hover { background: var(--bg-primary); color: var(--text-primary); }
     .sidebar-link svg { width: 20px; height: 20px; color: var(--red-mppe); flex-shrink: 0; }
+    .sidebar-widget .widget-body { padding: 12px; }
 
     /* === MOBILE QUICK LINKS === */
     .mobile-quick-links {
@@ -286,13 +295,30 @@
       gap: 6px;
     }
     .mobile-quick-link-wrapper {
-      display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--red-mppe); text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--red-mppe);
+      text-decoration: none;
     }
     .mobile-quick-link-btn {
-      width: 100%; display: flex; align-items: center; justify-content: center;
-      background: var(--bg-secondary); border: 1px solid var(--border-color);
-      border-radius: var(--radius); box-shadow: var(--shadow); aspect-ratio: 1 / 1;
-      color: var(--red-mppe); transition: all .2s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      aspect-ratio: 1 / 1;
+      color: var(--red-mppe);
+      transition: all .2s;
+    }
+    .mobile-quick-link-wrapper:hover .mobile-quick-link-btn {
+      background: var(--bg-primary);
+      border-color: var(--red-mppe);
+      transform: translateY(-2px);
     }
     .mobile-quick-link-btn svg { width: 24px; height: 24px; }
     .mobile-quick-link-label { font-size: 0.75rem; font-weight: 400; text-align: center; }
@@ -301,55 +327,130 @@
     .footer { border-top: 1px solid var(--border-color); background: var(--bg-secondary); text-align: center; padding: 20px; }
     .footer .small { font-size: .85rem; color: var(--text-secondary); }
     
-    /* === MODAL STYLES === */
+    /* === MODAL STYLES GERAIS === */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 1000; }
     .modal-overlay.active { display: flex; }
     .modal-content { background: #fff; padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); width: 90%; max-width: 600px; }
     
+    /* === MODAL DA PAUTA (OTIMIZADO) === */
     .modal-content.large {
-        max-width: 1200px; width: 95%; height: auto; max-height: 95vh; display: block; padding: 20px; overflow-y: auto;
+        max-width: 1200px;
+        width: 95%;
+        height: auto;
+        max-height: 95vh; /* Limite de altura seguro para desktop */
+        display: block;
+        padding: 20px;
+        overflow-y: auto; /* Scroll se necessário */
     }
     
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
     .modal-header-left { display: flex; align-items: center; gap: 15px; } 
+    .modal-header h3 { margin: 0; color: var(--text-primary); }
+    
     .modal-controls { display: flex; align-items: center; gap: 10px; }
-    .close-modal-x { background: transparent; border: none; cursor: pointer; color: var(--text-secondary); display: flex; }
-    .close-modal-x:hover { color: var(--red-mppe); }
+
+    .close-modal-x {
+        background: transparent; border: none; color: var(--text-secondary);
+        cursor: pointer; padding: 4px; border-radius: 50%;
+        transition: background .2s; display: flex; align-items: center; justify-content: center;
+    }
+    .close-modal-x:hover { background: var(--bg-primary); color: var(--red-mppe); }
+    .close-modal-x svg { width: 24px; height: 24px; }
 
     .view-toggles { display: flex; background-color: var(--bg-primary); padding: 4px; border-radius: 8px; gap: 4px; }
     .view-btn {
-        background: transparent; border: none; padding: 6px; border-radius: 6px; cursor: pointer; color: var(--text-secondary); display: flex;
+        background: transparent; border: none; padding: 6px; border-radius: 6px;
+        cursor: pointer; color: var(--text-secondary); display: flex;
+        align-items: center; justify-content: center; transition: all 0.2s;
     }
+    .view-btn:hover { background-color: rgba(0,0,0,0.05); }
     .view-btn.active { background-color: #fff; color: var(--red-mppe); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .view-btn svg { width: 18px; height: 18px; }
+
+    /* === RESPONSIVIDADE DO MODAL (MOBILE FULL SCREEN) === */
+    @media (max-width: 768px) {
+        .modal-content.large {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            border-radius: 0;
+            padding: 0; /* Remove margens brancas */
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            padding: 12px 16px; /* Padding interno do header */
+            border-bottom: 1px solid var(--border-color);
+            background: #fff;
+            margin-bottom: 0;
+        }
+        .calendar-scroll-container {
+            flex: 1;
+            padding: 10px; /* Padding apenas no conteúdo */
+            overflow-y: auto; /* Scroll vertical no conteúdo */
+        }
+        .modal-buttons { display: none; } /* Esconde botões extras do rodapé no mobile para ganhar espaço */
+        .modal-header-left { gap: 10px; }
+        .modal-header h3 { font-size: 1.1rem; }
+    }
+
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
 
     /* === CALENDAR STYLES === */
-    .calendar-title { text-align: center; color: var(--red-mppe); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
+    .calendar-wrapper { overflow: visible; font-family: Arial, Helvetica, sans-serif; }
+    .calendar-title { text-align: center; color: var(--red-mppe); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; font-family: 'Inter', sans-serif; }
     .calendar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; min-width: 800px; }
     .calendar-scroll-container { overflow-x: auto; }
+    
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width: auto; }
-    .calendar-header-day { text-align: center; font-weight: 600; color: var(--text-secondary); padding-bottom: 8px; border-bottom: 3px solid var(--gold-accent); }
-    .calendar-day-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; min-height: 140px; display: flex; flex-direction: column; }
-    .day-number { background: var(--bg-secondary); padding: 6px 10px; font-weight: 700; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; }
+    .calendar-header-day { text-align: center; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem; padding-bottom: 8px; border-bottom: 3px solid var(--gold-accent); }
+    .calendar-grid.list-view .calendar-header-day { display: none; }
+
+    .calendar-day-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; min-height: 140px; display: flex; flex-direction: column; overflow: hidden; }
+    .calendar-grid.list-view .calendar-day-card { min-height: auto; }
+
+    .day-number { background: var(--bg-secondary); padding: 6px 10px; font-weight: 700; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-family: 'Inter', sans-serif; }
     .day-number.is-holiday { color: var(--red-mppe); background-color: #fdecee; }
-    .day-events { padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; flex: 1; }
-    .event-tag { padding: 5px 6px; border-radius: 4px; background: #fff; border: 1px solid #ddd; line-height: 1.3; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .day-events { padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; flex: 1; overflow-x: visible; }
+    
+    .event-tag { padding: 5px 6px; border-radius: 4px; background: #fff; border: 1px solid #ddd; line-height: 1.3; box-shadow: 0 1px 2px rgba(0,0,0,0.05); white-space: nowrap; }
     .event-tag.juri { border-left: 4px solid var(--red-mppe); }
     .event-tag.audiencia { border-left: 4px solid var(--gold-accent); }
-    .event-tag.promoter-red { background-color: #ffcdd2; color: #b71c1c; font-weight: bold; }
-    .event-tag.promoter-blue { background-color: #bbdefb; color: #0d47a1; font-weight: bold; }
-    .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; font-weight: bold; }
-
+    .event-tag.promoter-red { background-color: #ffcdd2; color: #b71c1c; border: 1px solid #ef9a9a; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-blue { background-color: #bbdefb; color: #0d47a1; border: 1px solid #90caf9; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; border: 1px solid #fff59d; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; white-space: normal; }
+    
+    /* === OUTROS MEDIAS === */
     @media (max-width: 768px) {
+        .wrap { padding-inline: 16px; }
         .mobile-quick-links { display: grid; }
-        .modal-content.large { width: 100%; height: 100%; max-height: 100%; border-radius: 0; padding: 0; display: flex; flex-direction: column; }
-        .calendar-scroll-container { flex: 1; padding: 10px; }
+        .main-content { padding-top: 16px; }
+        .main-column { gap: 16px; }
+    }
+    @media (max-width: 600px) {
+      .processo-input-group { gap: 2px; flex-wrap: nowrap; }
+      .processo-input-group input { font-size: 14px; height: 38px; padding: 0 1px; }
+      .processo-input-group .sep { padding: 0; font-size: 1rem; }
+      #p-1 { width: 70px; } #p-2, #p-5 { width: 32px; } #p-3, #p-6 { width: 50px; } #p-4 { width: 28px; }
     }
 
-    /* === AUTOMINUTA === */
+    /* === WIDGET: AUTOMINUTA === */
     .autominuta-widget .widget-body { display: flex; flex-direction: column; gap: 16px; }
-    .file-upload-label { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px; border: 2px dashed var(--border-color); border-radius: var(--radius); cursor: pointer; color: var(--text-secondary); }
-    .file-upload-label:hover { border-color: var(--red-mppe); color: var(--red-mppe); }
-    .status-link-btn { display: inline-block; padding: 10px 16px; border-radius: var(--radius); background-color: var(--bg-primary); border: 1px solid var(--border-color); font-weight: 500; }
+    .autominuta-desc { font-size: 0.9rem; color: var(--text-secondary); margin: 0; line-height: 1.5; text-align: center; }
+    .file-upload-label { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px; border: 2px dashed var(--border-color); border-radius: var(--radius); cursor: pointer; transition: all .2s; color: var(--text-secondary); }
+    .file-upload-label:hover { border-color: var(--red-mppe); background-color: var(--bg-primary); color: var(--red-mppe); }
+    .file-upload-label #fileUploadText { font-weight: 500; }
+    #uploadDespachoBtn { background-color: var(--gold-accent); }
+    #uploadDespachoBtn:hover { background-color: #a88f5a; }
+    #uploadDespachoBtn:disabled { background-color: #ccc; cursor: not-allowed; }
+    .autominuta-status { font-size: 0.9rem; font-weight: 500; text-align: center; }
+    .autominuta-status.loading { color: var(--text-secondary); }
+    .autominuta-status.success { color: #28a745; }
+    .autominuta-status.error { color: var(--red-mppe); }
+    .status-link-btn { display: inline-block; padding: 10px 16px; border-radius: var(--radius); background-color: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 500; font-size: 0.9rem; text-decoration: none; transition: all .2s; }
+    .status-link-btn:hover { background-color: var(--bg-secondary); border-color: var(--red-mppe); color: var(--red-mppe); box-shadow: var(--shadow); transform: translateY(-2px); }
   </style>
 </head>
 <body>
@@ -375,39 +476,39 @@
           <div class="main-column">
 
             <div class="mobile-quick-links">
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener" aria-label="Acervo da 45ª">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                 </div>
                 <span class="mobile-quick-link-label">Acervo</span>
               </a>
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener" aria-label="Modelos de Peças">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                 </div>
                 <span class="mobile-quick-link-label">Modelos</span>
               </a>
-              <a id="mobilePauta3VaraBtn" class="mobile-quick-link-wrapper" href="#">
+              <a id="mobilePauta3VaraBtn" class="mobile-quick-link-wrapper" href="#" rel="noopener" aria-label="Pauta da 3ª Vara">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </div>
                 <span class="mobile-quick-link-label">Pauta</span>
               </a>
-              <a id="mobileFeriasBtn" class="mobile-quick-link-wrapper" href="#">
+              <a id="mobileFeriasBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Escala de Férias">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                 </div>
                 <span class="mobile-quick-link-label">Férias</span>
               </a>
-              <a id="mobileRodizioBtn" class="mobile-quick-link-wrapper" href="#">
+              <a id="mobileRodizioBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Rodízio Secretaria">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
                 </div>
                 <span class="mobile-quick-link-label">Rodízio</span>
               </a>
-              <a class="mobile-quick-link-wrapper" href="#" target="_blank">
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Telefones Úteis">
                 <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg>
                 </div>
                 <span class="mobile-quick-link-label">Fones</span>
               </a>
@@ -420,7 +521,7 @@
                     <div class="info-content loading-pulse">Analisando...</div>
                 </div>
                 <div class="info-segment rodizio" id="boxPlantao">
-                    <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     <div class="info-label">Rodízio</div>
                     <div class="info-content loading-pulse">Verificando...</div>
                     <div class="info-sub" id="rodizioSub">Secretaria</div>
@@ -430,23 +531,23 @@
             <div class="widget search-widget">
               <div class="widget-header">
                 <div class="widget-header-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <h2>Busca por Processos</h2>
                 </div>
               </div>
               <div class="widget-body">
                 <div class="processo-input-group">
-                  <input type="tel" id="p-1" maxlength="7" placeholder="0000000">
+                  <input type="tel" id="p-1" maxlength="7" placeholder="0000000" pattern="\d{7}">
                   <span class="sep">-</span>
-                  <input type="tel" id="p-2" maxlength="2" placeholder="00">
+                  <input type="tel" id="p-2" maxlength="2" placeholder="00" pattern="\d{2}">
                   <span class="sep">.</span>
-                  <input type="tel" id="p-3" maxlength="4" placeholder="0000">
+                  <input type="tel" id="p-3" maxlength="4" placeholder="0000" pattern="\d{4}">
                   <span class="sep">.</span>
-                  <input type="tel" id="p-4" maxlength="1" value="8">
+                  <input type="tel" id="p-4" maxlength="1" value="8" pattern="\d{1}">
                   <span class="sep">.</span>
-                  <input type="tel" id="p-5" maxlength="2" value="17">
+                  <input type="tel" id="p-5" maxlength="2" value="17" pattern="\d{2}">
                   <span class="sep">.</span>
-                  <input type="tel" id="p-6" maxlength="4" placeholder="0000">
+                  <input type="tel" id="p-6" maxlength="4" placeholder="0000" pattern="\d{4}">
                 </div>
                 <button id="processoSearchBtn" class="search-button">Pesquisar Processo</button>
               </div>
@@ -455,7 +556,7 @@
             <div class="widget">
               <div class="widget-header">
                 <div class="widget-header-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     <h2>Próximos Atos</h2>
                 </div>
               </div>
@@ -478,16 +579,17 @@
             <div class="widget autominuta-widget">
               <div class="widget-header">
                 <div class="widget-header-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg>
                     <h2>Autominuta</h2>
                 </div>
               </div>
               <div class="widget-body">
-                <p class="autominuta-desc">Upload da imagem do despacho para gerar minuta.</p>
+                <p class="autominuta-desc">Faça o upload da imagem do despacho para gerar a minuta de ciência ou 422.</p>
                 <label for="despachoFile" class="file-upload-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                     <span id="fileUploadText">Clique para selecionar uma imagem</span>
                 </label>
-                <input type="file" id="despachoFile" accept="image/*" style="display: none;">
+                <input type="file" id="despachoFile" accept="image/png, image/jpeg, image/webp" style="display: none;">
                 <button id="uploadDespachoBtn" class="search-button">Enviar e Gerar Minuta</button>
                 <div id="uploadStatus" class="autominuta-status"></div>
               </div>
@@ -496,9 +598,12 @@
             <div class="widget">
               <div class="widget-header">
                 <div class="widget-header-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     <h2>Avisos e Recados</h2>
                 </div>
+                <a href="https://docs.google.com/spreadsheets/d/1ohPXG2tec6GWdxl9RGKasw2wyJpCBs-2DZju9LN0kGI/edit" target="_blank" rel="noopener" class="widget-config-link" aria-label="Editar Avisos">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </a>
               </div>
               <div class="widget-body">
                  <div id="avisosContainer" class="avisos-list"></div>
@@ -511,28 +616,54 @@
           <div class="sidebar-column">
             <div class="widget sidebar-widget">
               <div class="widget-header">
-                <div class="widget-header-title"><h2>Acessos Rápidos</h2></div>
+                <div class="widget-header-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="m19 19-7-7 7-7"/></svg>
+                  <h2>Acessos Rápidos</h2>
+                </div>
               </div>
               <div class="widget-body">
                 <div class="sidebar-links">
-                  <a class="sidebar-link" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">Acervo da 45ª</a>
-                  <a class="sidebar-link" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">Modelos de Peças</a>
-                  <a id="pauta3VaraBtn" class="sidebar-link" href="#">Pauta da 3ª Vara</a>
+                  <a class="sidebar-link" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    Acervo da 45ª
+                  </a>
+                  <a class="sidebar-link" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    Modelos de Peças
+                  </a>
+                  <a id="pauta3VaraBtn" class="sidebar-link" href="#" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Pauta da 3ª Vara
+                  </a>
                 </div>
               </div>
             </div>
 
             <div class="widget sidebar-widget">
               <div class="widget-header">
-                <div class="widget-header-title"><h2>Consultas</h2></div>
+                <div class="widget-header-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  <h2>Consultas</h2>
+                </div>
               </div>
               <div class="widget-body">
                 <div class="sidebar-links">
-                  <a id="feriasBtn" class="sidebar-link" href="#">Escala de Férias</a>
-                  <a id="rodizioBtn" class="sidebar-link" href="#">Rodízio Secretaria</a>
+                  <a id="feriasBtn" class="sidebar-link" href="#">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                    Escala de Férias
+                  </a>
+                  <a id="rodizioBtn" class="sidebar-link" href="#">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+                    Rodízio Secretaria
+                  </a>
+                  <a class="sidebar-link" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg>
+                    Telefones Úteis
+                  </a>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -541,31 +672,63 @@
     <footer class="footer"><div class="wrap"><span class="small">© <span id="y"></span> Diogo Assis de Oliveira</span></div></footer>
   </div>
 
+  <div class="modal-overlay" id="feriasModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Escala de Férias</h3>
+            <a href="https://docs.google.com/spreadsheets/d/1ohPXG2tec6GWdxl9RGKasw2wyJpCBs-2DZju9LN0kGI/edit" target="_blank" rel="noopener" class="widget-config-link" aria-label="Editar Escala de Férias">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </a>
+        </div>
+      <div id="feriasContainer"><div class="empty" id="feriasLoading">Carregando dados...</div></div>
+      <div class="modal-buttons">
+        <button class="cancel" id="closeFeriasBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="rodizioModal">
+    <div class="modal-content">
+      <div class="modal-header"><h3>Rodízio da Secretaria</h3></div>
+      <div id="rodizioContainer"><div class="empty" id="rodizioLoading">Carregando dados...</div></div>
+      <div class="modal-buttons">
+        <button class="cancel" id="closeRodizioBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="pautaModal">
     <div class="modal-content large">
       <div class="modal-header">
         <div class="modal-header-left">
-            <h3>Pauta da 3ª Vara (CSV)</h3>
+            <h3>Pauta da 3ª Vara</h3>
             <div class="view-toggles">
-                <button class="view-btn active" id="btnViewTable">Tabela</button>
-                <button class="view-btn" id="btnViewList">Lista</button>
+                <button class="view-btn active" id="btnViewTable" aria-label="Visualização em Tabela">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </button>
+                <button class="view-btn" id="btnViewList" aria-label="Visualização em Lista">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </button>
             </div>
         </div>
         <div class="modal-controls">
-            <button class="close-modal-x" id="closePautaBtn">Fechar</button>
+            <a href="https://drive.google.com/drive/u/1/folders/1bwhXAvW-jsVn4sfHTTfpgg_lgDMB6PwP" target="_blank" rel="noopener" class="widget-config-link" aria-label="Ver Pasta Original">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+            <button class="close-modal-x" id="closePautaBtn" aria-label="Fechar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
         </div>
       </div>
       
       <div class="calendar-scroll-container">
           <div id="pautaContainer" class="calendar-wrapper">
-             <div class="empty" id="pautaLoading">Carregando dados do arquivo CSV...</div>
+             <div class="empty" id="pautaLoading">Sincronizando pauta (CSV)...</div>
           </div>
       </div>
-    </div>
+      
+      </div>
   </div>
-
-  <div class="modal-overlay" id="feriasModal"><div class="modal-content"><div id="feriasContainer"></div><button id="closeFeriasBtn">Fechar</button></div></div>
-  <div class="modal-overlay" id="rodizioModal"><div class="modal-content"><div id="rodizioContainer"></div><button id="closeRodizioBtn">Fechar</button></div></div>
 
   <script>
     (function(){
@@ -573,99 +736,311 @@
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
 
-      // === URL DO SEU SCRIPT DO GOOGLE ===
-      // Nota: Certifique-se que no seu Apps Script, a função getPauta agora lê tabela.csv
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyKi0j3LdzuXcDdQuokcyqilo0Um7uI34wGbIaGFNY6E-cPjflFWm0VTG5dMHnoBN29xQ/exec'; 
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZu0zsl2CgY5c8IdIk9XO91a_1kZbWklrppQQO9FLT-8sIE037rcZuaOjwEgsMehNhKQ/exec'; 
 
       var API_KEY   = 'AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y';
-      var AUD_ROOT  = '1vJCG69eYpY-eBUFMfMLF6QM-YIPFgKpQ';
+      var GAPI_URL  = 'https://apis.google.com/js/api.js';
+      var AUD_ROOT = '1vJCG69eYpY-eBUFMfMLF6QM-YIPFgKpQ';
       var JURI_ROOT = '12dbDJQNFNAeyZhftKQaCvsluTVU2PGxG';
       
-      function y(){ $('#y').textContent = new Date().getFullYear(); }
+      function y(){ var yEl=$('#y'); if(yEl) yEl.textContent=new Date().getFullYear(); }
       
-      // Funções de Drive simplificadas
+      var Drive = (function(){
+        var gapiReady = false; var initOncePromise = null;
+        async function initGapiWithRetry(maxAttempts){
+          if (gapiReady) return; if (initOncePromise) return initOncePromise;
+          initOncePromise = (async function(){
+            await loadGapiScript(12000);
+            var attempt = 0, lastErr=null;
+            while (attempt < maxAttempts){
+              try{
+                await new Promise((res, rej) => gapi.load('client', {callback: res, onerror: ()=>rej(new Error('gapi.load client falhou'))}));
+                await gapi.client.init({ apiKey: API_KEY, discoveryDocs:['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'] });
+                gapiReady = true; return;
+              }catch(e){ lastErr=e; attempt++; await sleep(400*attempt); }
+            }
+            throw (lastErr || new Error('Falha ao inicializar gapi client'));
+          })();
+          return initOncePromise;
+        }
+        async function listFolders(parentId){
+          if (!gapiReady) await initGapiWithRetry(3);
+          const r = await gapi.client.drive.files.list({
+            fields: 'files(id,name,webViewLink,mimeType)', orderBy: 'name', pageSize: 1000,
+            q: `'${parentId}' in parents AND mimeType='application/vnd.google-apps.folder' AND trashed=false`
+          });
+          return (r.result && r.result.files) ? r.result.files : [];
+        }
+        async function listFiles(parentId, mimeType) {
+          if (!gapiReady) await initGapiWithRetry(3);
+          const mimeQuery = mimeType ? ` AND mimeType='${mimeType}'` : '';
+          const r = await gapi.client.drive.files.list({
+            fields: 'files(id,name,webViewLink,mimeType)', 
+            orderBy: 'name', 
+            pageSize: 1, 
+            q: `'${parentId}' in parents AND trashed=false${mimeQuery}`
+          });
+          return (r.result && r.result.files) ? r.result.files : [];
+        }
+        function loadGapiScript(timeoutMs){
+          if (window.gapi && gapi.load) return Promise.resolve();
+          return new Promise(function(resolve, reject){
+            var s = document.createElement('script'); s.src = GAPI_URL; s.async = true; s.defer = true;
+            s.onload = resolve; s.onerror = ()=>reject(new Error('Falha de rede ao baixar api.js'));
+            document.head.appendChild(s);
+            setTimeout(()=>reject(new Error('Timeout ao carregar api.js')), timeoutMs||12000);
+          });
+        }
+        function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+        return { initGapiWithRetry, listFolders, listFiles };
+      })();
+
+      function renderVList(containerSel, emptySel, items){
+        var cont=$(containerSel), emp=$(emptySel); if(!cont) return; cont.innerHTML='';
+        if(!items || !items.length){ if(emp) emp.style.display='block'; return; }
+        if(emp) emp.style.display='none';
+        items.forEach(function(f){
+          var a=document.createElement('a'); a.href=f.webViewLink; a.target='_blank'; a.rel='noopener'; a.className='vitem';
+          a.innerHTML = `<span class="vname">${f.name}</span><span class="vopen">Abrir <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>`;
+          cont.appendChild(a);
+        });
+      }
+
       async function renderAtos(){
-        // Lógica de listagem de pastas do Drive...
-        console.log("Atos carregados");
+        try{
+          await Drive.initGapiWithRetry(3);
+          const [fa, fj] = await Promise.all([Drive.listFolders(AUD_ROOT), Drive.listFolders(JURI_ROOT)]);
+          renderVList('#audContainer', '#audEmpty', fa);
+          renderVList('#juriContainer', '#juriEmpty', fj);
+        }catch(e){
+          console.error('Erro ao listar pastas de Atos:', e);
+        }
       }
 
       function setupModal(modalId, openBtnId, closeBtnId, openCallback) {
         const modal = $(modalId), openBtn = $(openBtnId), closeBtn = $(closeBtnId);
-        if(!modal) return;
-        if(openBtn) openBtn.addEventListener('click', (e) => { e.preventDefault(); modal.classList.add('active'); if(openCallback) openCallback(); });
-        if(closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        if(!modal || !closeBtn) return; 
+        if(openBtn) {
+            openBtn.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                modal.classList.add('active'); 
+                if(openCallback) openCallback();
+            });
+        }
+        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
       }
 
-      // === FUNÇÃO PRINCIPAL ALTERADA PARA FOCO EM PERFORMANCE ===
+      function openModalById(id) { const m = $(id); if(m) m.classList.add('active'); }
+
       async function fetchAndRender(action, containerId, loadingId, renderFn) {
           const container = $(containerId), loadingEl = $(loadingId);
           if(loadingEl) loadingEl.style.display = 'block';
-          
+          if(container) container.innerHTML = '';
+          if(container && loadingEl) container.appendChild(loadingEl); 
           try {
-              // Passamos um parâmetro extra 'source=csv' para o seu script saber o que fazer
+              // Alteração aqui: Adicionado &fileType=csv para garantir que o backend use a lógica correta
               const response = await fetch(`${APPS_SCRIPT_URL}?action=${action}&fileType=csv`);
+              if (!response.ok) throw new Error('Falha na resposta da rede.');
               const data = await response.json();
-              
               if(loadingEl) loadingEl.style.display = 'none';
-              if (data.error) { container.innerHTML = `<div class="empty">${data.error}</div>`; return; }
+              if (data.error) { container.innerHTML = `<div class="empty error">${data.error}</div>`; return; }
+              if (!data || (Array.isArray(data) && data.length === 0)) { container.innerHTML = `<div class="empty">Nenhum dado encontrado.</div>`; return; }
               renderFn(data, container);
           } catch (error) {
-              container.innerHTML = `<div class="empty">Erro ao carregar CSV.</div>`;
+              console.error(`Erro ao buscar dados para ${action}:`, error);
+              if(loadingEl) loadingEl.style.display = 'none';
+              container.innerHTML = `<div class="empty">Não foi possível carregar os dados.</div>`;
           }
       }
 
+      function renderTable(data, container, headers) {
+          let tableHTML = '<table class="data-table"><thead><tr>';
+          headers.forEach(h => tableHTML += `<th>${h.title}</th>`);
+          tableHTML += '</tr></thead><tbody>';
+          data.forEach(item => {
+              tableHTML += `<tr>`;
+              headers.forEach(h => tableHTML += `<td>${item[h.key]}</td>`);
+              tableHTML += `</tr>`;
+          });
+          tableHTML += '</tbody></table>';
+          container.innerHTML = tableHTML;
+      }
+      
       function renderCalendar(data, container) {
-          container.innerHTML = '';
-          if(!data.events) return;
-          const grid = document.createElement('div'); grid.className = 'calendar-grid'; grid.id = 'pautaGrid';
+          if(!data.events || data.events.length === 0) {
+              container.innerHTML = '<div class="empty">Calendário vazio ou formato irreconhecível.</div>'; return;
+          }
+          const titleDiv = document.createElement('div'); titleDiv.className = 'calendar-title';
+          titleDiv.textContent = data.title || 'Pauta Mensal'; container.appendChild(titleDiv);
+          
+          const grid = document.createElement('div'); 
+          grid.className = 'calendar-grid'; 
+          grid.id = 'pautaGrid';
           
           ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'].forEach(d => {
               const h = document.createElement('div'); h.className = 'calendar-header-day'; h.textContent = d; grid.appendChild(h);
           });
-
           data.events.forEach(day => {
               const card = document.createElement('div'); card.className = 'calendar-day-card';
-              card.innerHTML = `<div class="day-number"><span>Dia ${day.dia}</span></div>`;
+              const isHoliday = day.conteudo.some(t => t.toUpperCase().includes('CARNAVAL') || t.toUpperCase().includes('FERIADO'));
+              const dayNum = document.createElement('div'); dayNum.className = `day-number ${isHoliday ? 'is-holiday' : ''}`;
+              dayNum.innerHTML = `<span>Dia ${day.dia}</span>`; card.appendChild(dayNum);
               const contentBox = document.createElement('div'); contentBox.className = 'day-events';
-              
               day.conteudo.forEach(line => {
-                  if(!line.trim()) return;
+                  if(line.trim() === '') return;
                   const tag = document.createElement('div'); tag.className = 'event-tag';
                   const lower = line.toLowerCase();
+                  
                   if (lower.includes('arroxelas')) tag.classList.add('promoter-red');
-                  if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
-                  if (lower.includes('juri')) tag.classList.add('juri');
-                  tag.innerText = line;
-                  contentBox.appendChild(tag);
+                  else if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
+                  else if (lower.includes('ângela') || lower.includes('angela')) tag.classList.add('promoter-yellow');
+                  else if (lower.includes('dr.') || lower.includes('dra.')) tag.classList.add('promoter-general');
+                  
+                  if (lower.includes('júri') || lower.includes('juri')) tag.classList.add('juri');
+                  else if (lower.includes('audiência')) tag.classList.add('audiencia');
+                  else if (lower.includes('carnaval')) { tag.style.background = '#fdecee'; tag.style.color = '#7a0e18'; tag.style.textAlign = 'center'; tag.style.fontWeight = 'bold'; }
+                  
+                  tag.innerText = line; contentBox.appendChild(tag);
               });
               card.appendChild(contentBox); grid.appendChild(card);
           });
           container.appendChild(grid);
       }
 
+      async function updateRodizioAtual() {
+          const box = $('#boxPlantao .info-content');
+          try {
+              const response = await fetch(`${APPS_SCRIPT_URL}?action=getRodizio`);
+              const data = await response.json();
+              if(data.error || !data.shifts) { box.textContent = 'Indisponível'; box.classList.remove('loading-pulse'); return; }
+              const now = new Date();
+              const day = now.getDay(); 
+              const hour = now.getHours();
+              if(day === 0 || day === 6) { box.textContent = 'Fim de Semana'; box.classList.remove('loading-pulse'); return; }
+              const idx = day - 1;
+              let name = 'Fora do Horário';
+              if (hour >= 7 && hour < 12) { name = data.shifts[0].names[idx] || 'N/A'; }
+              else if (hour >= 12 && hour < 18) { name = data.shifts[1].names[idx] || 'N/A'; }
+              else { name = 'Fechado'; }
+              box.textContent = name; box.classList.remove('loading-pulse');
+          } catch (e) { console.error(e); box.textContent = 'Erro Conexão'; box.classList.remove('loading-pulse'); }
+      }
+
+      async function updateNextAct() {
+          const box = $('#boxProximoAto .info-content');
+          try {
+              const response = await fetch(`${APPS_SCRIPT_URL}?action=getNextAct&fileType=csv`);
+              const data = await response.json();
+              box.classList.remove('loading-pulse');
+              if (data.error) { box.textContent = 'Erro'; return; }
+              if (!data.found) { box.textContent = 'Nada consta'; return; }
+              const now = new Date();
+              const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+              const dateStr = `${data.dia} de ${months[now.getMonth()]}`;
+              // Texto concatenado sem sub-linha
+              box.textContent = `${data.tipo} - Dia ${data.dia}`;
+          } catch (e) { console.error(e); box.textContent = 'Erro'; box.classList.remove('loading-pulse'); }
+      }
+
       document.addEventListener('DOMContentLoaded', function() {
         y();
         renderAtos();
         
-        // Modal Pauta - Agora buscando do CSV via Apps Script
-        setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', () => {
-            fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar);
+        updateRodizioAtual();
+        updateNextAct();
+
+        fetchAndRender('getAvisos', '#avisosContainer', '#avisosLoading', (data, c) => {
+             data.forEach(item => {
+                 const avisoEl = document.createElement('div'); avisoEl.className = 'aviso-item';
+                 const safeAuthor = document.createElement('strong'); safeAuthor.textContent = item.autor;
+                 const safeAviso = document.createElement('div'); safeAviso.textContent = item.aviso;
+                 avisoEl.innerHTML = `<div class="aviso-author">Por: ${safeAuthor.outerHTML}</div><div class="aviso-text">${safeAviso.innerHTML.replace(/\n/g, '<br>')}</div>`;
+                 c.appendChild(avisoEl);
+             });
         });
 
-        // Evento Mobile Pauta
-        if($('#mobilePauta3VaraBtn')) {
-          $('#mobilePauta3VaraBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            $('#pautaModal').classList.add('active');
-            fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar);
+        setupModal('#feriasModal', '#feriasBtn', '#closeFeriasBtn', () => {
+            fetchAndRender('getFerias', '#feriasContainer', '#feriasLoading', (data, c) => 
+                renderTable(data, c, [{key:'nome', title:'Nome'}, {key:'inicio', title:'Início'}, {key:'fim', title:'Fim'}])
+            );
+        });
+        const mobFerias = $('#mobileFeriasBtn');
+        if(mobFerias) mobFerias.addEventListener('click', (e) => { e.preventDefault(); openModalById('#feriasModal'); $('#feriasBtn').click(); });
+
+        setupModal('#rodizioModal', '#rodizioBtn', '#closeRodizioBtn', () => {
+            fetchAndRender('getRodizio', '#rodizioContainer', '#rodizioLoading', (data, c) => {
+                let tableHTML = '<table class="data-table"><thead><tr><th>Turno</th>';
+                data.headers.forEach(header => tableHTML += `<th>${header}</th>`);
+                tableHTML += '</tr></thead><tbody>';
+                data.shifts.forEach(shift => {
+                    tableHTML += `<tr><td>${shift.turn}</td>`;
+                    shift.names.forEach(name => tableHTML += `<td>${name}</td>`);
+                    tableHTML += `</tr>`;
+                });
+                c.innerHTML = tableHTML + '</tbody></table>';
+            });
+        });
+        const mobRodizio = $('#mobileRodizioBtn');
+        if(mobRodizio) mobRodizio.addEventListener('click', (e) => { e.preventDefault(); openModalById('#rodizioModal'); $('#rodizioBtn').click(); });
+
+        const openPautaHandler = () => { fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
+        setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
+        const mobPauta = $('#mobilePauta3VaraBtn');
+        if(mobPauta) { mobPauta.addEventListener('click', (e) => { e.preventDefault(); openModalById('#pautaModal'); openPautaHandler(); }); }
+        
+        // === CONTROLE DE VIEW DO GRID DA PAUTA ===
+        const btnTable = $('#btnViewTable');
+        const btnList = $('#btnViewList');
+        
+        if(btnTable && btnList) {
+            btnTable.addEventListener('click', () => {
+                btnTable.classList.add('active');
+                btnList.classList.remove('active');
+                const grid = $('#pautaGrid');
+                if(grid) grid.classList.remove('list-view');
+            });
+            
+            btnList.addEventListener('click', () => {
+                btnList.classList.add('active');
+                btnTable.classList.remove('active');
+                const grid = $('#pautaGrid');
+                if(grid) grid.classList.add('list-view');
+            });
+        }
+
+        const inputs = $$('.processo-input-group input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => { if (input.value.length >= input.maxLength && index < inputs.length - 1) inputs[index + 1].focus(); });
+            input.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && input.value.length === 0 && index > 0) inputs[index - 1].focus(); });
+        });
+        
+        const searchBtn = $('#processoSearchBtn');
+        if (searchBtn) {
+          searchBtn.addEventListener('click', () => {
+              const p1 = $('#p-1').value.padStart(7, '0'); const p2 = $('#p-2').value; const p3 = $('#p-3').value;
+              const p4 = $('#p-4').value; const p5 = $('#p-5').value; const p6 = $('#p-6').value;
+              if (!p1 || !p2 || !p3 || !p4 || !p5 || !p6) { alert('Preencha o processo completo.'); return; }
+              const numeroProcesso = `${p1}-${p2}.${p3}.${p4}.${p5}.${p6}`;
+              window.open(`https://drive.google.com/drive/search?q=${encodeURIComponent(numeroProcesso)}&scope=folder&f=1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw`, '_blank');
           });
         }
 
-        // Busca de processo
-        $('#processoSearchBtn').addEventListener('click', () => {
-            const num = `${$('#p-1').value}-${$('#p-2').value}.${$('#p-3').value}.${$('#p-4').value}.${$('#p-5').value}.${$('#p-6').value}`;
-            window.open(`https://drive.google.com/drive/search?q=${num}`, '_blank');
-        });
+        const fileInput = $('#despachoFile'); const uploadBtn = $('#uploadDespachoBtn'); const statusEl = $('#uploadStatus'); const fileUploadText = $('#fileUploadText');
+        if (fileInput && uploadBtn) {
+          fileInput.addEventListener('change', () => { if (fileInput.files.length > 0) { fileUploadText.textContent = fileInput.files[0].name; statusEl.innerHTML = ''; statusEl.className = 'autominuta-status'; } });
+          uploadBtn.addEventListener('click', async () => {
+            const file = fileInput.files[0]; if (!file) { statusEl.textContent = 'Selecione uma imagem.'; statusEl.className = 'autominuta-status error'; return; }
+            uploadBtn.disabled = true; uploadBtn.textContent = 'Enviando...'; statusEl.textContent = 'Carregando...'; statusEl.className = 'autominuta-status loading';
+            try {
+              const toBase64 = file => new Promise((res, rej) => { const r = new FileReader(); r.readAsDataURL(file); r.onload = () => res(r.result); r.onerror = rej; });
+              const base64String = await toBase64(file);
+              await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ fileName: file.name, fileData: base64String }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+              const folderUrl = 'https://script.google.com/macros/s/AKfycbyKi0j3LdzuXcDdQuokcyqilo0Um7uI34wGbIaGFNY6E-cPjflFWm0VTG5dMHnoBN29xQ/exec';
+              statusEl.innerHTML = `<a href="${folderUrl}" target="_blank" class="status-link-btn">Sucesso! Minuta pronta em 30s.</a>`; statusEl.className = 'autominuta-status success'; fileInput.value = null; fileUploadText.textContent = 'Selecionar outra imagem';
+            } catch (error) { statusEl.textContent = `Erro: ${error.message}`; statusEl.className = 'autominuta-status error'; } finally { uploadBtn.disabled = false; uploadBtn.textContent = 'Enviar e Gerar Minuta'; }
+          });
+        }
       });
     })();
   </script>
