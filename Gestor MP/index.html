@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="logo45.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     /* === VARIÁVEIS DE DESIGN === */
@@ -141,20 +141,19 @@
 
     .widget-body { padding: 20px; }
     
-    /* === INFO SECTION UNIFICADA (DESIGN INTELIGENTE) === */
+    /* === INFO SECTION UNIFICADA === */
     .unified-info-card {
         background: #fff;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
         border: 1px solid var(--border-color);
         display: flex;
-        flex-direction: row; /* Sempre lado a lado */
+        flex-direction: row; 
         overflow: hidden;
         position: relative;
         min-height: 85px;
     }
 
-    /* Detalhe lateral esquerdo e direito */
     .unified-info-card::before {
         content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: var(--red-mppe); z-index: 2;
     }
@@ -170,14 +169,22 @@
         justify-content: center;
         position: relative;
         z-index: 1;
+        transition: background-color 0.2s;
     }
 
-    /* Divisor central sutil */
+    /* CARD CLICÁVEL (Botão Pauta) */
+    .info-segment.proximo { 
+        color: var(--red-mppe); 
+        cursor: pointer;
+    }
+    .info-segment.proximo:hover {
+        background-color: #fef2f2;
+    }
+
     .info-segment:first-child {
         border-right: 1px solid rgba(0,0,0,0.06);
     }
 
-    /* Ícones de fundo decorativos */
     .bg-icon {
         position: absolute;
         right: 5px;
@@ -188,7 +195,6 @@
         pointer-events: none;
         color: currentColor;
     }
-    .info-segment.proximo { color: var(--red-mppe); }
     .info-segment.rodizio { color: var(--blue-accent); }
 
     .info-label {
@@ -201,7 +207,7 @@
         align-items: center;
         gap: 6px;
         opacity: 0.8;
-        color: inherit; /* Herda a cor do segmento */
+        color: inherit; 
     }
     
     .info-content {
@@ -218,7 +224,6 @@
         margin-top: 2px;
     }
 
-    /* Ajuste para telas muito pequenas */
     @media (max-width: 400px) {
         .info-content { font-size: 0.85rem; }
         .unified-info-card { min-height: 75px; }
@@ -332,15 +337,15 @@
     .modal-overlay.active { display: flex; }
     .modal-content { background: #fff; padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); width: 90%; max-width: 600px; }
     
-    /* === MODAL DA PAUTA (OTIMIZADO) === */
+    /* === MODAL DA PAUTA === */
     .modal-content.large {
-        max-width: 1200px;
+        max-width: 1300px; /* Mais largo */
         width: 95%;
         height: auto;
-        max-height: 95vh; /* Limite de altura seguro para desktop */
+        max-height: 95vh;
         display: block;
         padding: 20px;
-        overflow-y: auto; /* Scroll se necessário */
+        overflow-y: auto;
     }
     
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
@@ -367,29 +372,28 @@
     .view-btn.active { background-color: #fff; color: var(--red-mppe); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     .view-btn svg { width: 18px; height: 18px; }
 
-    /* === RESPONSIVIDADE DO MODAL (MOBILE FULL SCREEN) === */
     @media (max-width: 768px) {
         .modal-content.large {
             width: 100%;
             height: 100%;
             max-height: 100%;
             border-radius: 0;
-            padding: 0; /* Remove margens brancas */
+            padding: 0;
             display: flex;
             flex-direction: column;
         }
         .modal-header {
-            padding: 12px 16px; /* Padding interno do header */
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border-color);
             background: #fff;
             margin-bottom: 0;
         }
         .calendar-scroll-container {
             flex: 1;
-            padding: 10px; /* Padding apenas no conteúdo */
-            overflow-y: auto; /* Scroll vertical no conteúdo */
+            padding: 10px;
+            overflow-y: auto;
         }
-        .modal-buttons { display: none; } /* Esconde botões extras do rodapé no mobile para ganhar espaço */
+        .modal-buttons { display: none; }
         .modal-header-left { gap: 10px; }
         .modal-header h3 { font-size: 1.1rem; }
     }
@@ -397,10 +401,19 @@
     .data-table { width: 100%; border-collapse: collapse; }
     .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
 
-    /* === CALENDAR STYLES === */
-    .calendar-wrapper { overflow: visible; font-family: Arial, Helvetica, sans-serif; }
-    .calendar-title { text-align: center; color: var(--red-mppe); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; font-family: 'Inter', sans-serif; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; min-width: 800px; }
+    /* === CALENDAR STYLES (AJUSTE LARGURA COLUNAS) === */
+    .calendar-wrapper { 
+        overflow: visible; 
+        font-family: 'Inter', system-ui, sans-serif; 
+    }
+    .calendar-title { text-align: center; color: var(--red-mppe); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
+    
+    .calendar-grid { 
+        display: grid; 
+        /* ALTERAÇÃO: minmax(200px, 1fr) força colunas largas */
+        grid-template-columns: repeat(5, minmax(200px, 1fr)); 
+        gap: 12px; 
+    }
     .calendar-scroll-container { overflow-x: auto; }
     
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width: auto; }
@@ -410,18 +423,96 @@
     .calendar-day-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; min-height: 140px; display: flex; flex-direction: column; overflow: hidden; }
     .calendar-grid.list-view .calendar-day-card { min-height: auto; }
 
-    .day-number { background: var(--bg-secondary); padding: 6px 10px; font-weight: 700; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; font-family: 'Inter', sans-serif; }
+    .day-number { background: var(--bg-secondary); padding: 6px 10px; font-weight: 700; font-size: 0.95rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
     .day-number.is-holiday { color: var(--red-mppe); background-color: #fdecee; }
     .day-events { padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; flex: 1; overflow-x: visible; }
     
-    .event-tag { padding: 5px 6px; border-radius: 4px; background: #fff; border: 1px solid #ddd; line-height: 1.3; box-shadow: 0 1px 2px rgba(0,0,0,0.05); white-space: nowrap; }
+    .event-tag { 
+        padding: 5px 6px; 
+        border-radius: 4px; 
+        background: #fff; 
+        border: 1px solid #ddd; 
+        line-height: 1.3; 
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+        white-space: nowrap; /* ALTERAÇÃO: Texto em uma linha só */
+        font-size: 0.75rem;  /* ALTERAÇÃO: Fonte menor */
+        overflow: hidden;    /* Esconde excesso */
+        text-overflow: ellipsis; /* Adiciona ... se passar */
+        position: relative;
+    }
+
+    /* ESTILO PARA BOTÃO DE PROCESSO (DENTRO DO CALENDÁRIO) */
+    /* Quando a tag É o botão do processo */
+    .event-tag.is-process-btn {
+        background-color: #f0f7ff; /* Azul bem claro */
+        border: 1px solid var(--blue-accent);
+        color: var(--blue-accent);
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.2s;
+        text-align: left;
+    }
+    .event-tag.is-process-btn:hover {
+        background-color: var(--blue-accent);
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    
     .event-tag.juri { border-left: 4px solid var(--red-mppe); }
     .event-tag.audiencia { border-left: 4px solid var(--gold-accent); }
-    .event-tag.promoter-red { background-color: #ffcdd2; color: #b71c1c; border: 1px solid #ef9a9a; font-weight: bold; white-space: normal; }
-    .event-tag.promoter-blue { background-color: #bbdefb; color: #0d47a1; border: 1px solid #90caf9; font-weight: bold; white-space: normal; }
-    .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; border: 1px solid #fff59d; font-weight: bold; white-space: normal; }
-    .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; white-space: normal; }
+    .event-tag.promoter-red { background-color: #ffcdd2; color: #b71c1c; border: 1px solid #ef9a9a; font-weight: bold; }
+    .event-tag.promoter-blue { background-color: #bbdefb; color: #0d47a1; border: 1px solid #90caf9; font-weight: bold; }
+    .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; border: 1px solid #fff59d; font-weight: bold; }
+    .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; }
     
+    /* === MODAL NOVO: DETALHES DO PROCESSO (Glassmorphism) === */
+    .glass-modal {
+        background: rgba(255, 255, 255, 0.75); /* Fundo translúcido */
+        backdrop-filter: blur(16px); /* Desfoque forte */
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        color: var(--text-primary);
+        max-width: 550px;
+    }
+    .glass-header {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+    }
+    .glass-header h3 {
+        color: var(--red-mppe);
+        font-size: 1.3rem;
+        margin: 0;
+    }
+    .glass-body p {
+        margin: 0 0 12px 0;
+        line-height: 1.5;
+    }
+    .glass-body strong {
+        color: var(--red-mppe);
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+    .glass-footer {
+        margin-top: 20px;
+        text-align: right;
+    }
+    .glass-btn-close {
+        background: var(--red-mppe);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+    .glass-btn-close:hover { background: var(--red-mppe-hover); }
+
     /* === OUTROS MEDIAS === */
     @media (max-width: 768px) {
         .wrap { padding-inline: 16px; }
@@ -476,40 +567,28 @@
           <div class="main-column">
 
             <div class="mobile-quick-links">
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener" aria-label="Acervo da 45ª">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                </div>
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div>
                 <span class="mobile-quick-link-label">Acervo</span>
               </a>
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener" aria-label="Modelos de Peças">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                </div>
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></div>
                 <span class="mobile-quick-link-label">Modelos</span>
               </a>
-              <a id="mobilePauta3VaraBtn" class="mobile-quick-link-wrapper" href="#" rel="noopener" aria-label="Pauta da 3ª Vara">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
+              <a id="mobilePauta3VaraBtn" class="mobile-quick-link-wrapper" href="#" rel="noopener">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                 <span class="mobile-quick-link-label">Pauta</span>
               </a>
-              <a id="mobileFeriasBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Escala de Férias">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                </div>
+              <a id="mobileFeriasBtn" class="mobile-quick-link-wrapper" href="#">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
                 <span class="mobile-quick-link-label">Férias</span>
               </a>
-              <a id="mobileRodizioBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Rodízio Secretaria">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-                </div>
+              <a id="mobileRodizioBtn" class="mobile-quick-link-wrapper" href="#">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></div>
                 <span class="mobile-quick-link-label">Rodízio</span>
               </a>
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Telefones Úteis">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
+              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
+                <div class="mobile-quick-link-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg></div>
                 <span class="mobile-quick-link-label">Fones</span>
               </a>
             </div>
@@ -517,17 +596,40 @@
             <div class="unified-info-card">
                 <div class="info-segment proximo" id="boxProximoAto">
                     <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <div class="info-label">Dr. Arroxelas</div>
+                    <div class="info-label">Dr. Arroxelas (Clique para Pauta)</div>
                     <div class="info-content loading-pulse">Analisando...</div>
                 </div>
                 <div class="info-segment rodizio" id="boxPlantao">
                     <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    <div class="info-label">Rodízio</div>
+                    <div class="info-label">Secretaria</div>
                     <div class="info-content loading-pulse">Verificando...</div>
-                    <div class="info-sub" id="rodizioSub">Secretaria</div>
+                    <div class="info-sub" id="rodizioSub"></div>
                 </div>
             </div>
             
+            <div class="widget">
+              <div class="widget-header">
+                <div class="widget-header-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <h2>Próximos Atos</h2>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="acts-grid">
+                  <div class="act-card">
+                    <h3>Audiências</h3>
+                    <div id="audContainer" class="vlist"></div>
+                    <div id="audEmpty" class="empty">Nenhuma audiência encontrada.</div>
+                  </div>
+                  <div class="act-card">
+                    <h3>Sessões do Júri</h3>
+                    <div id="juriContainer" class="vlist"></div>
+                    <div id="juriEmpty" class="empty">Nenhuma sessão do júri encontrada.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="widget search-widget">
               <div class="widget-header">
                 <div class="widget-header-title">
@@ -550,29 +652,6 @@
                   <input type="tel" id="p-6" maxlength="4" placeholder="0000" pattern="\d{4}">
                 </div>
                 <button id="processoSearchBtn" class="search-button">Pesquisar Processo</button>
-              </div>
-            </div>
-
-            <div class="widget">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <h2>Próximos Atos</h2>
-                </div>
-              </div>
-              <div class="widget-body">
-                <div class="acts-grid">
-                  <div class="act-card">
-                    <h3>Audiências</h3>
-                    <div id="audContainer" class="vlist"></div>
-                    <div id="audEmpty" class="empty">Nenhuma audiência encontrada.</div>
-                  </div>
-                  <div class="act-card">
-                    <h3>Sessões do Júri</h3>
-                    <div id="juriContainer" class="vlist"></div>
-                    <div id="juriEmpty" class="empty">Nenhuma sessão do júri encontrada.</div>
-                  </div>
-                </div>
               </div>
             </div>
             
@@ -730,13 +809,27 @@
       </div>
   </div>
 
+  <div class="modal-overlay" id="processoDetailModal">
+    <div class="modal-content glass-modal">
+        <div class="glass-header">
+            <h3 id="procTitle">Detalhes do Processo</h3>
+        </div>
+        <div class="glass-body" id="procBody">
+            <div class="empty">Carregando informações...</div>
+        </div>
+        <div class="glass-footer">
+            <button class="glass-btn-close" id="closeProcBtn">Fechar</button>
+        </div>
+    </div>
+  </div>
+
   <script>
     (function(){
       'use strict';
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
 
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZu0zsl2CgY5c8IdIk9XO91a_1kZbWklrppQQO9FLT-8sIE037rcZuaOjwEgsMehNhKQ/exec'; 
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNc-22YF15LeURvJfk_Ajy2EYaOk3QWoMNNvTZRs0Y7e6LgssSGkqO-pkQsCe3E76v4Q/exec'; 
 
       var API_KEY   = 'AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y';
       var GAPI_URL  = 'https://apis.google.com/js/api.js';
@@ -818,15 +911,20 @@
       }
 
       function setupModal(modalId, openBtnId, closeBtnId, openCallback) {
-        const modal = $(modalId), openBtn = $(openBtnId), closeBtn = $(closeBtnId);
+        const modal = $(modalId), closeBtn = $(closeBtnId);
         if(!modal || !closeBtn) return; 
-        if(openBtn) {
-            openBtn.addEventListener('click', (e) => { 
-                e.preventDefault(); 
-                modal.classList.add('active'); 
-                if(openCallback) openCallback();
-            });
+        
+        if(openBtnId) {
+            const openBtn = $(openBtnId);
+            if(openBtn) {
+                openBtn.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    modal.classList.add('active'); 
+                    if(openCallback) openCallback();
+                });
+            }
         }
+        
         closeBtn.addEventListener('click', () => modal.classList.remove('active'));
         modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
       }
@@ -839,7 +937,6 @@
           if(container) container.innerHTML = '';
           if(container && loadingEl) container.appendChild(loadingEl); 
           try {
-              // Alteração aqui: Adicionado &fileType=csv para garantir que o backend use a lógica correta
               const response = await fetch(`${APPS_SCRIPT_URL}?action=${action}&fileType=csv`);
               if (!response.ok) throw new Error('Falha na resposta da rede.');
               const data = await response.json();
@@ -867,6 +964,40 @@
           container.innerHTML = tableHTML;
       }
       
+      // LOGICA PARA ABRIR DETALHES DO PROCESSO
+      async function openProcessDetail(procNum) {
+          const modal = $('#processoDetailModal');
+          const body = $('#procBody');
+          const title = $('#procTitle');
+          
+          if(!modal || !body) return;
+          
+          title.textContent = `Processo: ${procNum}`;
+          body.innerHTML = '<div class="empty loading-pulse">Carregando informações do banco de dados...</div>';
+          modal.classList.add('active');
+          
+          try {
+              const response = await fetch(`${APPS_SCRIPT_URL}?action=getProcessoDetails&procNum=${encodeURIComponent(procNum)}`);
+              const data = await response.json();
+              
+              if(data.found) {
+                  // Mapeia os dados baseados no arquivo Dados.docx enviado
+                  body.innerHTML = `
+                      <p><strong>Número do Processo</strong>${data.processo}</p>
+                      <p><strong>Réus</strong>${data.reus}</p>
+                      <p><strong>Testemunhas Restantes</strong>${data.testemunhas}</p>
+                      <p><strong>Situação Carcerária</strong>${data.situacao}</p>
+                      <p><strong>Motivação</strong>${data.motivacao}</p>
+                      <p><strong>Antecedentes Criminais</strong>${data.antecedentes}</p>
+                  `;
+              } else {
+                  body.innerHTML = `<div class="empty error">${data.message || 'Processo não encontrado.'}</div>`;
+              }
+          } catch (e) {
+              body.innerHTML = `<div class="empty error">Erro na comunicação com o servidor.</div>`;
+          }
+      }
+
       function renderCalendar(data, container) {
           if(!data.events || data.events.length === 0) {
               container.innerHTML = '<div class="empty">Calendário vazio ou formato irreconhecível.</div>'; return;
@@ -881,27 +1012,53 @@
           ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'].forEach(d => {
               const h = document.createElement('div'); h.className = 'calendar-header-day'; h.textContent = d; grid.appendChild(h);
           });
+          
+          // Regex para detectar o padrão NPU dentro da string completa
+          // Ex: 0001234-55.2024.8.17.0001
+          const procRegex = /\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}/;
+
           data.events.forEach(day => {
               const card = document.createElement('div'); card.className = 'calendar-day-card';
               const isHoliday = day.conteudo.some(t => t.toUpperCase().includes('CARNAVAL') || t.toUpperCase().includes('FERIADO'));
               const dayNum = document.createElement('div'); dayNum.className = `day-number ${isHoliday ? 'is-holiday' : ''}`;
               dayNum.innerHTML = `<span>Dia ${day.dia}</span>`; card.appendChild(dayNum);
               const contentBox = document.createElement('div'); contentBox.className = 'day-events';
+              
               day.conteudo.forEach(line => {
                   if(line.trim() === '') return;
-                  const tag = document.createElement('div'); tag.className = 'event-tag';
-                  const lower = line.toLowerCase();
                   
-                  if (lower.includes('arroxelas')) tag.classList.add('promoter-red');
-                  else if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
-                  else if (lower.includes('ângela') || lower.includes('angela')) tag.classList.add('promoter-yellow');
-                  else if (lower.includes('dr.') || lower.includes('dra.')) tag.classList.add('promoter-general');
-                  
-                  if (lower.includes('júri') || lower.includes('juri')) tag.classList.add('juri');
-                  else if (lower.includes('audiência')) tag.classList.add('audiencia');
-                  else if (lower.includes('carnaval')) { tag.style.background = '#fdecee'; tag.style.color = '#7a0e18'; tag.style.textAlign = 'center'; tag.style.fontWeight = 'bold'; }
-                  
-                  tag.innerText = line; contentBox.appendChild(tag);
+                  // Verifica se a linha CONTÉM um processo
+                  const match = line.match(procRegex);
+
+                  if (match) {
+                      // Extrai o número para a busca (apenas o número)
+                      const procNumFound = match[0];
+                      
+                      // Cria o botão com a linha COMPLETA (Horário + Processo + Nome)
+                      const btn = document.createElement('div'); // div comporta melhor como botão customizado aqui
+                      btn.className = 'event-tag is-process-btn';
+                      btn.textContent = line; // Mantém o texto original
+                      btn.onclick = () => openProcessDetail(procNumFound);
+                      
+                      contentBox.appendChild(btn);
+
+                  } else {
+                      // Tags comuns (Feriados, nomes soltos, etc)
+                      const tag = document.createElement('div'); tag.className = 'event-tag';
+                      const lower = line.toLowerCase();
+                      
+                      if (lower.includes('arroxelas')) tag.classList.add('promoter-red');
+                      else if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
+                      else if (lower.includes('ângela') || lower.includes('angela')) tag.classList.add('promoter-yellow');
+                      else if (lower.includes('dr.') || lower.includes('dra.')) tag.classList.add('promoter-general');
+                      
+                      if (lower.includes('júri') || lower.includes('juri')) tag.classList.add('juri');
+                      else if (lower.includes('audiência')) tag.classList.add('audiencia');
+                      else if (lower.includes('carnaval')) { tag.style.background = '#fdecee'; tag.style.color = '#7a0e18'; tag.style.textAlign = 'center'; tag.style.fontWeight = 'bold'; }
+                      
+                      tag.innerText = line; 
+                      contentBox.appendChild(tag);
+                  }
               });
               card.appendChild(contentBox); grid.appendChild(card);
           });
@@ -910,20 +1067,48 @@
 
       async function updateRodizioAtual() {
           const box = $('#boxPlantao .info-content');
+          const sub = $('#rodizioSub'); // Elemento para o turno
           try {
               const response = await fetch(`${APPS_SCRIPT_URL}?action=getRodizio`);
               const data = await response.json();
-              if(data.error || !data.shifts) { box.textContent = 'Indisponível'; box.classList.remove('loading-pulse'); return; }
+              
+              if(data.error || !data.shifts) { 
+                  box.textContent = 'Indisponível'; 
+                  box.classList.remove('loading-pulse'); 
+                  return; 
+              }
+              
               const now = new Date();
               const day = now.getDay(); 
               const hour = now.getHours();
-              if(day === 0 || day === 6) { box.textContent = 'Fim de Semana'; box.classList.remove('loading-pulse'); return; }
+              
+              if(day === 0 || day === 6) { 
+                  box.textContent = 'Fim de Semana'; 
+                  sub.textContent = '';
+                  box.classList.remove('loading-pulse'); 
+                  return; 
+              }
+              
               const idx = day - 1;
               let name = 'Fora do Horário';
-              if (hour >= 7 && hour < 12) { name = data.shifts[0].names[idx] || 'N/A'; }
-              else if (hour >= 12 && hour < 18) { name = data.shifts[1].names[idx] || 'N/A'; }
-              else { name = 'Fechado'; }
-              box.textContent = name; box.classList.remove('loading-pulse');
+              let turnoTexto = '';
+
+              if (hour >= 7 && hour < 12) { 
+                  name = data.shifts[0].names[idx] || 'N/A'; 
+                  turnoTexto = 'Expediente: Manhã';
+              }
+              else if (hour >= 12 && hour < 18) { 
+                  name = data.shifts[1].names[idx] || 'N/A'; 
+                  turnoTexto = 'Expediente: Tarde';
+              }
+              else { 
+                  name = 'Fechado'; 
+                  turnoTexto = '';
+              }
+              
+              box.textContent = name; 
+              sub.textContent = turnoTexto;
+              box.classList.remove('loading-pulse');
           } catch (e) { console.error(e); box.textContent = 'Erro Conexão'; box.classList.remove('loading-pulse'); }
       }
 
@@ -986,6 +1171,20 @@
 
         const openPautaHandler = () => { fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
+        
+        // Configura o card "Próximo Ato" para abrir o modal da pauta
+        const boxProximo = $('#boxProximoAto');
+        if(boxProximo) {
+            boxProximo.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModalById('#pautaModal');
+                openPautaHandler();
+            });
+        }
+
+        // Setup do modal de processos (o botão de abrir é criado dinamicamente)
+        setupModal('#processoDetailModal', null, '#closeProcBtn', null);
+
         const mobPauta = $('#mobilePauta3VaraBtn');
         if(mobPauta) { mobPauta.addEventListener('click', (e) => { e.preventDefault(); openModalById('#pautaModal'); openPautaHandler(); }); }
         
@@ -1036,7 +1235,7 @@
               const toBase64 = file => new Promise((res, rej) => { const r = new FileReader(); r.readAsDataURL(file); r.onload = () => res(r.result); r.onerror = rej; });
               const base64String = await toBase64(file);
               await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ fileName: file.name, fileData: base64String }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
-              const folderUrl = 'https://script.google.com/macros/s/AKfycbyKi0j3LdzuXcDdQuokcyqilo0Um7uI34wGbIaGFNY6E-cPjflFWm0VTG5dMHnoBN29xQ/exec';
+              const folderUrl = 'https://drive.google.com/drive/u/1/folders/1FSrweMjkg8mytpuTc1yp0aKSOsZ4bv-h';
               statusEl.innerHTML = `<a href="${folderUrl}" target="_blank" class="status-link-btn">Sucesso! Minuta pronta em 30s.</a>`; statusEl.className = 'autominuta-status success'; fileInput.value = null; fileUploadText.textContent = 'Selecionar outra imagem';
             } catch (error) { statusEl.textContent = `Erro: ${error.message}`; statusEl.className = 'autominuta-status error'; } finally { uploadBtn.disabled = false; uploadBtn.textContent = 'Enviar e Gerar Minuta'; }
           });
