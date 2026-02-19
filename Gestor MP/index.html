@@ -391,14 +391,15 @@
     .data-table { width: 100%; border-collapse: collapse; }
     .data-table th, .data-table td { text-align: left; padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
 
-    /* === CALENDAR STYLES (Fonte Sans Serif) === */
+    /* === CALENDAR STYLES === */
     .calendar-wrapper { 
         overflow: visible; 
         font-family: 'Inter', sans-serif; 
     }
     .calendar-title { text-align: center; color: var(--red-mppe); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
-    /* Aumento da largura mínima das colunas para os números dos processos caberem perfeitamente */
-    .calendar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; min-width: 1200px; }
+    
+    /* ALteração: Aumento em +30% da largura mínima das colunas (de 1200px para 1560px) */
+    .calendar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; min-width: 1560px; }
     .calendar-scroll-container { overflow-x: auto; }
     
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width: auto; }
@@ -412,7 +413,6 @@
     .day-number.is-holiday { color: var(--red-mppe); background-color: #fdecee; }
     .day-events { padding: 8px; display: flex; flex-direction: column; gap: 6px; font-size: 0.75rem; flex: 1; overflow-x: visible; }
     
-    /* Textos diretamente no card ("Audiências" e "Júri - 09h") */
     .event-header {
         font-weight: 700;
         text-align: justify;
@@ -423,7 +423,6 @@
     }
     .event-header:first-child { margin-top: 2px; }
 
-    /* Tags de evento (Células) */
     .event-tag { 
         padding: 5px 6px; 
         border-radius: 4px; 
@@ -442,13 +441,14 @@
     .event-tag.promoter-yellow { background-color: #fff9c4; color: #f57f17; border: 1px solid #fff59d; font-weight: bold; white-space: normal; }
     .event-tag.promoter-general { background-color: #f5f5f5; font-weight: bold; white-space: normal; }
     
-    /* Estilos quando a tag é o número de um processo clicável */
+    /* ALteração: Agora tem "overflow: hidden" para manter o processo contínuo numa só linha sem quebrar */
     .event-tag.processo-tag {
         border-left: 4px solid var(--blue-accent);
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s;
-        white-space: normal;
-        word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .event-tag.processo-tag:hover {
         transform: translateY(-2px);
@@ -456,18 +456,74 @@
         border-color: var(--red-mppe);
     }
 
-    /* === MODAL DE INFORMAÇÕES DO PROCESSO === */
-    #processoModal.modal-overlay { background: rgba(0, 0, 0, 0.5); } /* 50% de transparência */
-    .proc-info-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .proc-info-card-item {
-        background: var(--bg-primary);
-        border-left: 3px solid var(--gold-accent);
-        padding: 12px 16px;
-        border-radius: 6px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    /* === NOVO MODAL ELEGANTE E CRIATIVO DO PROCESSO === */
+    #processoModal.modal-overlay { background: rgba(0, 0, 0, 0.5); }
+    .processo-detalhe-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
     }
-    .proc-info-card-item .lbl { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .proc-info-card-item .val { font-size: 0.95rem; color: var(--text-primary); font-weight: 500; line-height: 1.4; }
+    .proc-card-header {
+        background: var(--bg-primary);
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+    }
+    .proc-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .proc-badge.red { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+    .proc-badge.blue { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .proc-badge.green { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+    
+    .proc-card-body {
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .proc-info-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .proc-info-block h4 {
+        margin: 0;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .proc-info-block h4 svg { width: 18px; height: 18px; color: var(--gold-accent); }
+    .proc-info-block p {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--text-primary);
+        line-height: 1.6;
+    }
+    .proc-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 4px 0;
+    }
 
     /* === OUTROS MEDIAS === */
     @media (max-width: 768px) {
@@ -787,13 +843,7 @@
       </div>
       <div id="processoContainer">
          <div class="empty" id="processoLoading">Carregando informações do processo...</div>
-         <div id="processoInfo" class="proc-info-grid" style="display:none;">
-            <div class="proc-info-card-item"><div class="lbl">Réus</div><div class="val" id="procReus"></div></div>
-            <div class="proc-info-card-item"><div class="lbl">Situação Carcerária</div><div class="val" id="procSituacao"></div></div>
-            <div class="proc-info-card-item"><div class="lbl">Motivação</div><div class="val" id="procMotivacao"></div></div>
-            <div class="proc-info-card-item"><div class="lbl">Antecedentes Criminais</div><div class="val" id="procAntecedentes"></div></div>
-            <div class="proc-info-card-item"><div class="lbl">Testemunhas Restantes</div><div class="val" id="procTestemunhas"></div></div>
-         </div>
+         <div id="processoInfo" style="display:none;"></div>
       </div>
     </div>
   </div>
@@ -804,7 +854,7 @@
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
 
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_auNY5QkAHmXb6vCAsiZ3Z2qNQE8o4T9JKWvBUmmMWpgT1Mip5enF3bMHNMdMwzWxRg/exec'; 
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlIRryFR0y1hz33ikxTn4HBOi09JWu02Wk8hn02Z8HyiMDyATKx9s3V1HSQ2TWoj_-pg/exec'; 
 
       var API_KEY   = 'AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y';
       var GAPI_URL  = 'https://apis.google.com/js/api.js';
@@ -956,22 +1006,55 @@
                       infoGrid.innerHTML = `<div class="empty">${data.message || 'Informações não encontradas para este processo.'}</div>`;
                       infoGrid.style.display = 'block';
                   } else {
-                      // Restaura o grid original se foi substituído por mensagem de erro antes
-                      if (!infoGrid.querySelector('#procReus')) {
-                         infoGrid.innerHTML = `
-                            <div class="proc-info-card-item"><div class="lbl">Réus</div><div class="val" id="procReus"></div></div>
-                            <div class="proc-info-card-item"><div class="lbl">Situação Carcerária</div><div class="val" id="procSituacao"></div></div>
-                            <div class="proc-info-card-item"><div class="lbl">Motivação</div><div class="val" id="procMotivacao"></div></div>
-                            <div class="proc-info-card-item"><div class="lbl">Antecedentes Criminais</div><div class="val" id="procAntecedentes"></div></div>
-                            <div class="proc-info-card-item"><div class="lbl">Testemunhas Restantes</div><div class="val" id="procTestemunhas"></div></div>
-                         `;
+                      
+                      // Configuração de cor para a Situação (Preso = Vermelho / Solto = Verde / Outro = Azul)
+                      let situacaoClass = 'proc-badge';
+                      const lowerSit = data.situacao ? data.situacao.toLowerCase() : '';
+                      if (lowerSit.includes('preso')) {
+                          situacaoClass += ' red';
+                      } else if (lowerSit.includes('solto') || lowerSit.includes('liberdade') || lowerSit.includes('livre')) {
+                          situacaoClass += ' green';
+                      } else {
+                          situacaoClass += ' blue';
                       }
-                      $('#procReus').innerText = data.reus;
-                      $('#procSituacao').innerText = data.situacao;
-                      $('#procMotivacao').innerText = data.motivacao;
-                      $('#procAntecedentes').innerText = data.antecedentes;
-                      $('#procTestemunhas').innerText = data.testemunhas;
-                      infoGrid.style.display = 'grid';
+
+                      // Injeção do HTML do novo Cartão Elegante
+                      infoGrid.className = 'processo-detalhe-card';
+                      infoGrid.innerHTML = `
+                          <div class="proc-card-header">
+                              <div class="proc-badge blue" title="Quantidade de Réus (Presos em parênteses)">
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                  <span>${data.reus} Réu(s)</span>
+                              </div>
+                              <div class="proc-badge" title="Testemunhas Restantes">
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l3-9 5 18 3-9h5"></path></svg>
+                                  <span>${data.testemunhas} Testemunha(s)</span>
+                              </div>
+                              <div class="${situacaoClass}" title="Situação Carcerária">
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                  <span>${data.situacao}</span>
+                              </div>
+                          </div>
+                          <div class="proc-card-body">
+                              <div class="proc-info-block">
+                                  <h4>
+                                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                      Motivação do Crime
+                                  </h4>
+                                  <p>${data.motivacao}</p>
+                              </div>
+                              <div class="proc-divider"></div>
+                              <div class="proc-info-block">
+                                  <h4>
+                                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                      Antecedentes Criminais
+                                  </h4>
+                                  <p>${data.antecedentes}</p>
+                              </div>
+                          </div>
+                      `;
+                      
+                      infoGrid.style.display = 'block';
                   }
               })
               .catch(err => {
