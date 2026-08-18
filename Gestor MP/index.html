@@ -244,16 +244,16 @@
        ========================================================== */
     .productivity-card {
       position: relative; overflow: hidden; border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, var(--red-mppe-soft), var(--bg-secondary) 70%);
+      background: linear-gradient(135deg, rgba(122,14,24,.34), rgba(122,14,24,.13) 65%, var(--bg-secondary) 100%);
       color: var(--text-primary); padding: 22px 24px; box-shadow: var(--shadow);
       border: 1px solid var(--border-color);
     }
     [data-theme="dark"] .productivity-card {
-      background: linear-gradient(135deg, rgba(122,14,24,.22), var(--bg-secondary) 72%);
+      background: linear-gradient(135deg, rgba(122,14,24,.46), rgba(122,14,24,.18) 68%, var(--bg-secondary) 100%);
       border-color: var(--border-color);
     }
     .productivity-card .prod-dot-texture {
-      position: absolute; inset: 0; opacity: .07; pointer-events: none;
+      position: absolute; inset: 0; opacity: .09; pointer-events: none;
       background-image: radial-gradient(circle at 1.5px 1.5px, var(--red-mppe) 1.4px, transparent 1.4px);
       background-size: 20px 20px;
     }
@@ -538,7 +538,7 @@
     .promoter-counter { text-align:center; font-size:.8rem; color: var(--text-secondary); margin: 0 0 16px; }
     .promoter-counter strong { color: var(--text-primary); }
 
-    .calendar-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; min-width:1200px; }
+    .calendar-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; min-width:1450px; }
     .calendar-scroll-container { overflow-x:auto; }
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width:auto; }
     .calendar-header-day { text-align:center; font-weight:700; color: var(--text-secondary); font-size:.85rem; padding-bottom:8px; border-bottom:3px solid var(--gold-accent); text-transform: uppercase; letter-spacing: .4px; }
@@ -1085,7 +1085,8 @@
           if (!gapiReady) await initGapiWithRetry(3);
           const r = await gapi.client.drive.files.list({
             fields: 'files(id,name,webViewLink,mimeType)', orderBy: 'name', pageSize: 1000,
-            q: `'${parentId}' in parents AND mimeType='application/vnd.google-apps.folder' AND trashed=false`
+            q: `'${parentId}' in parents AND mimeType='application/vnd.google-apps.folder' AND trashed=false`,
+            supportsAllDrives: true, includeItemsFromAllDrives: true
           });
           return (r.result && r.result.files) ? r.result.files : [];
         }
@@ -1096,7 +1097,8 @@
             fields: 'files(id,name,webViewLink,mimeType)',
             orderBy: 'name',
             pageSize: 1,
-            q: `'${parentId}' in parents AND trashed=false${mimeQuery}`
+            q: `'${parentId}' in parents AND trashed=false${mimeQuery}`,
+            supportsAllDrives: true, includeItemsFromAllDrives: true
           });
           return (r.result && r.result.files) ? r.result.files : [];
         }
@@ -1107,7 +1109,8 @@
             const r = await gapi.client.drive.files.list({
               fields: 'nextPageToken, files(id)', pageSize: 1000,
               q: `'${parentId}' in parents AND trashed=false`,
-              pageToken: pageToken
+              pageToken: pageToken,
+              supportsAllDrives: true, includeItemsFromAllDrives: true
             });
             total += (r.result && r.result.files) ? r.result.files.length : 0;
             pageToken = r.result && r.result.nextPageToken;
