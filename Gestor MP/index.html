@@ -28,6 +28,9 @@
       --blue-accent: #1d5fd6;
       --blue-accent-soft: #eaf1fd;
       --green-accent: #178a4c;
+      --angela-color: #8a6d2e;
+      --angela-dot: #b8860b;
+      --angela-soft: #fff3c4;
 
       --bg-primary: #eef1f6;
       --bg-secondary: #ffffff;
@@ -64,6 +67,8 @@
       --gold-accent-soft: #3a3120;
       --red-mppe-soft: #3a161b;
       --blue-accent-soft: #182338;
+      --angela-color: var(--gold-accent);
+      --angela-soft: #413409;
       --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
       --shadow: 0 6px 16px -4px rgb(0 0 0 / 0.45), 0 2px 6px -2px rgb(0 0 0 / 0.35);
       --shadow-lg: 0 18px 34px -8px rgb(0 0 0 / 0.55), 0 6px 14px -6px rgb(0 0 0 / 0.4);
@@ -94,7 +99,6 @@
       border-radius: 4px;
     }
 
-    /* thin scrollbars */
     ::-webkit-scrollbar { width: 9px; height: 9px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-color-strong); border-radius: 20px; }
@@ -120,7 +124,7 @@
       position: absolute; bottom: 0; left: 0; width: 100%; height: var(--stripe-height);
       background: linear-gradient(90deg, var(--gold-accent), #e3c98c, var(--gold-accent));
     }
-    .wrap { max-width: 1320px; margin-inline: auto; padding-inline: 24px; position: relative; }
+    .wrap { max-width: 960px; margin-inline: auto; padding-inline: 24px; position: relative; }
     .topbar {
       height: var(--header-height);
       display: flex;
@@ -195,16 +199,41 @@
     @keyframes dotpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.35);} 50% { box-shadow: 0 0 0 5px rgba(74,222,128,0);} }
 
     .main-content { flex: 1; padding-block: 32px; }
-    .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 1024px) { .dashboard-grid { grid-template-columns: 2fr 1fr; } }
-    .main-column, .sidebar-column { display: flex; flex-direction: column; gap: 24px; }
+    .main-column { display: flex; flex-direction: column; gap: 24px; }
 
-    /* entrance animation */
     .reveal { opacity: 0; transform: translateY(14px); animation: reveal-in .55s var(--ease) forwards; }
     @keyframes reveal-in { to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion: reduce) {
       .reveal { animation: none; opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
+    }
+
+    /* ==========================================================
+       QUICK ACTIONS GRID
+       ========================================================== */
+    .quick-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .quick-action-card {
+      aspect-ratio: 1 / 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); cursor: pointer; transition: all .2s var(--ease); padding: 10px; text-align: center;
+      color: inherit; font: inherit;
+    }
+    .quick-action-card:hover { border-color: var(--red-mppe); transform: translateY(-3px); box-shadow: var(--shadow); }
+    .quick-action-card:active { transform: translateY(-1px); }
+    .quick-action-card .qa-icon-wrap {
+      width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
+      background: var(--red-mppe-soft); color: var(--red-mppe); flex-shrink: 0;
+    }
+    [data-theme="dark"] .quick-action-card .qa-icon-wrap { color: #f0a3ab; }
+    .quick-action-card svg { width: 21px; height: 21px; }
+    .quick-action-card span.qa-label { font-size: .76rem; font-weight: 600; color: var(--text-primary); line-height: 1.25; }
+    @media (max-width: 420px) {
+      .quick-actions-grid { gap: 8px; }
+      .quick-action-card { padding: 6px; gap: 6px; }
+      .quick-action-card .qa-icon-wrap { width: 34px; height: 34px; }
+      .quick-action-card svg { width: 18px; height: 18px; }
+      .quick-action-card span.qa-label { font-size: .68rem; }
     }
 
     /* ==========================================================
@@ -248,8 +277,6 @@
 
     .widget-body { padding: 20px; }
     .widget-updated { font-size: .68rem; color: var(--text-tertiary); text-align: right; margin-top: 10px; }
-
-    /* card hover lift for the whole widget (subtle) */
     .widget:hover { box-shadow: var(--shadow-lg); }
 
     /* ==========================================================
@@ -288,7 +315,6 @@
       .info-segment { padding: 10px 12px; }
     }
 
-    /* skeleton shimmer (loading) */
     .skeleton { position: relative; overflow: hidden; background: var(--border-color); border-radius: 6px; color: transparent !important; }
     .skeleton::after {
       content: ''; position: absolute; inset: 0; transform: translateX(-100%);
@@ -343,7 +369,7 @@
        PRÓXIMOS ATOS
        ========================================================== */
     .acts-grid { display:grid; grid-template-columns: 1fr; gap: 20px; }
-    @media (min-width: 768px) { .acts-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 640px) { .acts-grid { grid-template-columns: 1fr 1fr; } }
     .act-card { background: var(--bg-tertiary); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-color); }
     .act-card h3 { font-size: .92rem; margin: 0 0 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--text-secondary); }
     .vlist { display:flex; flex-direction:column; gap:8px; }
@@ -364,36 +390,6 @@
     .aviso-author { font-size:.78rem; font-weight:700; color: var(--text-secondary); margin-bottom:5px; display:flex; align-items:center; gap:6px; }
     .aviso-author::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--gold-accent); }
     .aviso-text { line-height:1.55; white-space:pre-wrap; font-size:.92rem; overflow-wrap:break-word; }
-
-    /* ==========================================================
-       SIDEBAR
-       ========================================================== */
-    .sidebar-links { display:flex; flex-direction:column; gap:8px; }
-    .sidebar-link {
-      display:flex; align-items:center; gap:12px; padding:12px 13px;
-      border-radius: 10px; font-weight:500; color: var(--text-primary);
-      transition: background-color .2s, color .2s, transform .15s;
-      border: 1px solid transparent;
-    }
-    .sidebar-link:hover { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color); transform: translateX(2px); }
-    .sidebar-link svg { width: 19px; height: 19px; color: var(--red-mppe); flex-shrink:0; }
-    [data-theme="dark"] .sidebar-link svg { color: #f0a3ab; }
-    .sidebar-widget .widget-body { padding: 12px; }
-
-    /* ==========================================================
-       MOBILE QUICK LINKS
-       ========================================================== */
-    .mobile-quick-links { display:none; grid-template-columns: repeat(6, 1fr); gap:6px; }
-    .mobile-quick-link-wrapper { display:flex; flex-direction:column; align-items:center; gap:4px; color: var(--red-mppe); text-decoration:none; }
-    .mobile-quick-link-btn {
-      width:100%; display:flex; align-items:center; justify-content:center;
-      background: var(--bg-secondary); border:1px solid var(--border-color); border-radius: var(--radius);
-      box-shadow: var(--shadow-sm); aspect-ratio: 1/1; color: var(--red-mppe); transition: all .2s;
-    }
-    [data-theme="dark"] .mobile-quick-link-btn { color: #f0a3ab; }
-    .mobile-quick-link-wrapper:active .mobile-quick-link-btn { background: var(--bg-tertiary); border-color: var(--red-mppe); transform: scale(0.96); }
-    .mobile-quick-link-btn svg { width:23px; height:23px; }
-    .mobile-quick-link-label { font-size:.72rem; font-weight:500; text-align:center; color: var(--text-secondary); }
 
     /* ==========================================================
        FOOTER
@@ -463,44 +459,74 @@
     .data-table tbody tr:hover { background-color: var(--bg-tertiary); }
 
     /* ==========================================================
-       CALENDAR
+       CALENDAR — redesenhado por promotor
        ========================================================== */
     .calendar-wrapper { overflow: visible; font-family: 'Inter', sans-serif; }
-    .calendar-title { text-align:center; color: var(--red-mppe); font-weight:700; margin-bottom:15px; font-size:1.2rem; font-family: var(--font-display); }
+    .calendar-title { text-align:center; color: var(--red-mppe); font-weight:700; margin-bottom:6px; font-size:1.2rem; font-family: var(--font-display); }
     [data-theme="dark"] .calendar-title { color: #f0a3ab; }
 
-    .calendar-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; min-width:1560px; }
+    .promoter-filter-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin: 14px 0 6px; }
+    .promoter-chip {
+      display:flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px;
+      border:1.5px solid var(--border-color); background: var(--bg-secondary); cursor:pointer;
+      font-size:.82rem; font-weight:600; color: var(--text-secondary); transition: all .2s;
+    }
+    .promoter-chip:hover { border-color: var(--border-color-strong); }
+    .promoter-chip .dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+    .promoter-chip .titular-tag { font-size:.6rem; background: var(--gold-accent); color:#2b2110; padding:1px 6px; border-radius:999px; font-weight:800; text-transform:uppercase; }
+    .promoter-chip.active[data-filter="arroxelas"] { border-color: var(--red-mppe); background: var(--red-mppe-soft); color: var(--red-mppe); }
+    .promoter-chip.active[data-filter="angela"] { border-color: var(--angela-dot); background: var(--angela-soft); color: var(--angela-color); }
+    .promoter-chip.active[data-filter="marcelo"] { border-color: var(--blue-accent); background: var(--blue-accent-soft); color: var(--blue-accent); }
+    .promoter-chip.active[data-filter="todos"] { border-color: var(--text-primary); background: var(--bg-tertiary); color: var(--text-primary); }
+    .promoter-counter { text-align:center; font-size:.8rem; color: var(--text-secondary); margin: 0 0 16px; }
+    .promoter-counter strong { color: var(--text-primary); }
+
+    .calendar-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; min-width:1200px; }
     .calendar-scroll-container { overflow-x:auto; }
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width:auto; }
     .calendar-header-day { text-align:center; font-weight:700; color: var(--text-secondary); font-size:.85rem; padding-bottom:8px; border-bottom:3px solid var(--gold-accent); text-transform: uppercase; letter-spacing: .4px; }
     .calendar-grid.list-view .calendar-header-day { display:none; }
 
-    .calendar-day-card { background: var(--bg-tertiary); border:1px solid var(--border-color); border-radius:10px; min-height:140px; display:flex; flex-direction:column; overflow:hidden; transition: box-shadow .2s, border-color .2s; }
+    .calendar-day-card { background: var(--bg-tertiary); border:1px solid var(--border-color); border-radius:10px; min-height:120px; display:flex; flex-direction:column; overflow:hidden; transition: box-shadow .2s, border-color .2s; }
     .calendar-day-card:hover { box-shadow: var(--shadow-sm); }
     .calendar-day-card.is-today { border-color: var(--gold-accent); box-shadow: 0 0 0 2px rgba(182,147,74,0.35); }
     .calendar-grid.list-view .calendar-day-card { min-height:auto; }
 
-    .day-number { background: var(--bg-secondary); padding:7px 10px; font-weight:700; font-size:.92rem; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; }
+    .day-number { background: var(--bg-secondary); padding:7px 10px; font-weight:700; font-size:.9rem; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; }
     .day-number.is-holiday { color: var(--red-mppe); background-color: var(--red-mppe-soft); }
     .day-number .today-tag { font-size: .62rem; background: var(--gold-accent); color: #2b2110; padding: 2px 6px; border-radius: 999px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
-    .day-events { padding:8px; display:flex; flex-direction:column; gap:6px; font-size:.75rem; flex:1; overflow-x:visible; }
+    .day-events { padding:8px 10px; display:flex; flex-direction:column; gap:3px; font-size:.75rem; flex:1; }
 
-    .event-header { font-weight:700; text-align:justify; color: var(--text-primary); font-size:.88rem; margin-top:8px; margin-bottom:2px; }
-    .event-header:first-child { margin-top:2px; }
+    .cal-heading { font-weight:700; color: var(--text-tertiary); font-size:.66rem; text-transform:uppercase; letter-spacing:.5px; margin-top:8px; }
+    .cal-heading:first-child { margin-top:2px; }
 
-    .event-tag { padding:6px 7px; border-radius:6px; background: var(--bg-secondary); border:1px solid var(--border-color); line-height:1.35; box-shadow: var(--shadow-sm); white-space:nowrap; font-family:'Inter',sans-serif; font-size:.83rem; color: var(--text-primary); }
-    .event-tag.juri { border-left:4px solid var(--red-mppe); }
-    .event-tag.audiencia { border-left:4px solid var(--gold-accent); }
-    .event-tag.promoter-red { background-color:#ffe0e2; color:#8f1319; border:1px solid #f3aaae; font-weight:700; white-space:normal; }
-    .event-tag.promoter-blue { background-color:#dbe9ff; color:#123d92; border:1px solid #a9c6f7; font-weight:700; white-space:normal; }
-    .event-tag.promoter-yellow { background-color:#fff3c4; color:#7a5300; border:1px solid #f0dd8a; font-weight:700; white-space:normal; }
-    .event-tag.promoter-general { background-color: var(--bg-tertiary); font-weight:700; white-space:normal; }
-    [data-theme="dark"] .event-tag.promoter-red { background-color:#4a1418; color:#ffb3b8; border-color:#6b2126; }
-    [data-theme="dark"] .event-tag.promoter-blue { background-color:#122a4a; color:#a9c6f7; border-color:#1d3f6f; }
-    [data-theme="dark"] .event-tag.promoter-yellow { background-color:#413409; color:#f0dd8a; border-color:#5c4b12; }
+    .cal-entry { display:flex; align-items:flex-start; gap:6px; padding:4px 2px; border-radius:5px; font-size:.79rem; line-height:1.35; color: var(--text-secondary); transition: opacity .2s, color .2s; }
+    .cal-entry .dot { width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0; background: var(--text-tertiary); }
+    .cal-entry.prom-none .dot { display:none; }
+    .cal-entry .txt { overflow-wrap: anywhere; }
 
-    .event-tag.processo-tag { border-left:4px solid var(--blue-accent); cursor:pointer; transition: transform .2s, box-shadow .2s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .event-tag.processo-tag:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--red-mppe); }
+    .cal-entry.prom-arroxelas { color: var(--red-mppe); font-weight:700; }
+    .cal-entry.prom-arroxelas .dot { background: var(--red-mppe); }
+    [data-theme="dark"] .cal-entry.prom-arroxelas { color: #f0a3ab; }
+    .cal-entry.prom-angela { color: var(--angela-color); font-weight:700; }
+    .cal-entry.prom-angela .dot { background: var(--angela-dot); }
+    .cal-entry.prom-marcelo { color: var(--blue-accent); font-weight:700; }
+    .cal-entry.prom-marcelo .dot { background: var(--blue-accent); }
+    [data-theme="dark"] .cal-entry.prom-marcelo { color: #7fa8f2; }
+    .cal-entry.prom-outro { color: var(--text-secondary); font-weight:600; }
+    .cal-entry.prom-outro .dot { background: var(--text-tertiary); }
+
+    .cal-entry.dimmed { opacity: .4; }
+    .cal-entry.dimmed.prom-arroxelas, .cal-entry.dimmed.prom-angela, .cal-entry.dimmed.prom-marcelo, .cal-entry.dimmed.prom-outro {
+      color: var(--text-tertiary) !important; font-weight: 500 !important;
+    }
+    .cal-entry.dimmed .dot { background: var(--border-color-strong) !important; }
+
+    .cal-entry.processo-tag { cursor: pointer; }
+    .cal-entry.processo-tag .txt { text-decoration: underline dotted; text-underline-offset: 2px; }
+    .cal-entry.processo-tag:hover { opacity: 1 !important; }
+
+    .cal-note { text-align:center; font-weight:700; color: var(--red-mppe); background: var(--red-mppe-soft); border-radius:6px; padding:4px 6px; margin-top:4px; font-size:.78rem; }
 
     /* ==========================================================
        PROCESSO MODAL
@@ -546,7 +572,6 @@
     .status-link-btn { display:inline-block; padding:10px 16px; border-radius: var(--radius); background-color: var(--bg-tertiary); border:1px solid var(--border-color); color: var(--text-primary); font-weight:500; font-size:.9rem; text-decoration:none; transition: all .2s; }
     .status-link-btn:hover { background-color: var(--bg-secondary); border-color: var(--red-mppe); color: var(--red-mppe); box-shadow: var(--shadow); transform: translateY(-2px); }
 
-    /* progress bar for upload */
     .upload-progress { width: 100%; height: 6px; border-radius: 999px; background: var(--bg-tertiary); overflow: hidden; display: none; }
     .upload-progress.active { display: block; }
     .upload-progress-bar { height: 100%; width: 30%; background: linear-gradient(90deg, var(--gold-accent), var(--red-mppe)); border-radius: 999px; animation: indeterminate 1.1s infinite ease-in-out; }
@@ -572,7 +597,6 @@
     .toast.info svg { color: var(--blue-accent); }
     .toast-close { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--text-tertiary); padding: 0; line-height: 0; }
 
-    /* back to top */
     .back-to-top {
       position: fixed; bottom: 20px; left: 20px; z-index: 900;
       width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-color);
@@ -590,7 +614,6 @@
     @media (max-width: 768px) {
       :root { --header-height: 78px; }
       .wrap { padding-inline: 16px; }
-      .mobile-quick-links { display:grid; }
       .main-content { padding-top:16px; }
       .main-column { gap:16px; }
       .title h1 { font-size: 1.08rem; max-width: 46vw; }
@@ -636,217 +659,149 @@
 
     <main class="main-content">
       <div class="wrap">
-        <div class="dashboard-grid">
+        <div class="main-column">
 
-          <div class="main-column">
-
-            <div class="mobile-quick-links reveal">
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener" aria-label="Acervo da 45ª">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                </div>
-                <span class="mobile-quick-link-label">Acervo</span>
-              </a>
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener" aria-label="Modelos de Peças">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                </div>
-                <span class="mobile-quick-link-label">Modelos</span>
-              </a>
-              <a id="mobilePauta3VaraBtn" class="mobile-quick-link-wrapper" href="#" rel="noopener" aria-label="Pauta da 3ª Vara">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <span class="mobile-quick-link-label">Pauta</span>
-              </a>
-              <a id="mobileFeriasBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Escala de Férias">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                </div>
-                <span class="mobile-quick-link-label">Férias</span>
-              </a>
-              <a id="mobileRodizioBtn" class="mobile-quick-link-wrapper" href="#" aria-label="Rodízio Secretaria">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-                </div>
-                <span class="mobile-quick-link-label">Rodízio</span>
-              </a>
-              <a class="mobile-quick-link-wrapper" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Telefones Úteis">
-                <div class="mobile-quick-link-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg>
-                </div>
-                <span class="mobile-quick-link-label">Fones</span>
-              </a>
+          <div class="unified-info-card reveal" style="animation-delay:.03s">
+            <div class="info-segment proximo" id="boxProximoAto" title="Clique para abrir a Pauta" role="button" tabindex="0">
+              <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div class="info-label">Próximo Ato · Dr. Arroxelas</div>
+              <div class="info-content skeleton">Analisando informações do próximo compromisso</div>
             </div>
-
-            <div class="unified-info-card reveal" style="animation-delay:.03s">
-              <div class="info-segment proximo" id="boxProximoAto" title="Clique para abrir a Pauta" role="button" tabindex="0">
-                <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <div class="info-label">Próximo Ato · Dr. Arroxelas</div>
-                <div class="info-content skeleton">Analisando informações do próximo compromisso</div>
-              </div>
-              <div class="info-segment rodizio" id="boxPlantao" title="Clique para ver a Escala de Rodízio" role="button" tabindex="0">
-                <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <div class="info-label">Secretaria de Plantão</div>
-                <div class="info-content skeleton">Verificando escala atual da secretaria</div>
-                <div class="info-sub" id="rodizioSub"></div>
-              </div>
+            <div class="info-segment rodizio" id="boxPlantao" title="Clique para ver a Escala de Rodízio" role="button" tabindex="0">
+              <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <div class="info-label">Secretaria de Plantão</div>
+              <div class="info-content skeleton">Verificando escala atual da secretaria</div>
+              <div class="info-sub" id="rodizioSub"></div>
             </div>
+          </div>
 
-            <div class="widget reveal" style="animation-delay:.06s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                  <h2>Próximos Atos</h2>
-                </div>
-                <div class="header-actions">
-                  <button class="refresh-btn" id="refreshAtosBtn" aria-label="Atualizar próximos atos" title="Atualizar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="widget-body">
-                <div class="acts-grid">
-                  <div class="act-card">
-                    <h3>Audiências</h3>
-                    <div id="audContainer" class="vlist"></div>
-                    <div id="audEmpty" class="empty">Nenhuma audiência encontrada.</div>
-                  </div>
-                  <div class="act-card">
-                    <h3>Sessões do Júri</h3>
-                    <div id="juriContainer" class="vlist"></div>
-                    <div id="juriEmpty" class="empty">Nenhuma sessão do júri encontrada.</div>
-                  </div>
-                </div>
-                <div class="widget-updated" id="atosUpdated"></div>
-              </div>
-            </div>
+          <div class="quick-actions-grid reveal" style="animation-delay:.05s">
+            <a class="quick-action-card" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span>
+              <span class="qa-label">Acervo da 45ª</span>
+            </a>
+            <a class="quick-action-card" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
+              <span class="qa-label">Modelos de Peças</span>
+            </a>
+            <button class="quick-action-card" id="pauta3VaraBtn" type="button">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+              <span class="qa-label">Pauta da 3ª Vara</span>
+            </button>
+            <button class="quick-action-card" id="feriasBtn" type="button">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span>
+              <span class="qa-label">Escala de Férias</span>
+            </button>
+            <button class="quick-action-card" id="rodizioBtn" type="button">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+              <span class="qa-label">Rodízio Secretaria</span>
+            </button>
+            <a class="quick-action-card" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
+              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <span class="qa-label">Telefones Úteis</span>
+            </a>
+          </div>
 
-            <div class="widget search-widget reveal" style="animation-delay:.09s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
-                  <h2>Busca por Processos</h2>
-                </div>
+          <div class="widget reveal" style="animation-delay:.08s">
+            <div class="widget-header">
+              <div class="widget-header-title">
+                <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+                <h2>Próximos Atos</h2>
               </div>
-              <div class="widget-body">
-                <p class="processo-hint">Digite o número ou cole o processo completo no primeiro campo</p>
-                <div class="processo-input-group">
-                  <input type="tel" id="p-1" maxlength="7" placeholder="0000000" pattern="\d{7}" inputmode="numeric" aria-label="Número sequencial">
-                  <span class="sep">-</span>
-                  <input type="tel" id="p-2" maxlength="2" placeholder="00" pattern="\d{2}" inputmode="numeric" aria-label="Dígito verificador">
-                  <span class="sep">.</span>
-                  <input type="tel" id="p-3" maxlength="4" placeholder="0000" pattern="\d{4}" inputmode="numeric" aria-label="Ano">
-                  <span class="sep">.</span>
-                  <input type="tel" id="p-4" maxlength="1" value="8" pattern="\d{1}" inputmode="numeric" aria-label="Segmento do Judiciário">
-                  <span class="sep">.</span>
-                  <input type="tel" id="p-5" maxlength="2" value="17" pattern="\d{2}" inputmode="numeric" aria-label="Tribunal">
-                  <span class="sep">.</span>
-                  <input type="tel" id="p-6" maxlength="4" placeholder="0000" pattern="\d{4}" inputmode="numeric" aria-label="Unidade de origem">
-                </div>
-                <button id="processoSearchBtn" class="btn-primary search-button">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                  Pesquisar Processo
+              <div class="header-actions">
+                <button class="refresh-btn" id="refreshAtosBtn" aria-label="Atualizar próximos atos" title="Atualizar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
                 </button>
               </div>
             </div>
-
-            <div class="widget autominuta-widget reveal" style="animation-delay:.12s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg></span>
-                  <h2>Autominuta</h2>
+            <div class="widget-body">
+              <div class="acts-grid">
+                <div class="act-card">
+                  <h3>Audiências</h3>
+                  <div id="audContainer" class="vlist"></div>
+                  <div id="audEmpty" class="empty">Nenhuma audiência encontrada.</div>
+                </div>
+                <div class="act-card">
+                  <h3>Sessões do Júri</h3>
+                  <div id="juriContainer" class="vlist"></div>
+                  <div id="juriEmpty" class="empty">Nenhuma sessão do júri encontrada.</div>
                 </div>
               </div>
-              <div class="widget-body">
-                <p class="autominuta-desc">Faça o upload da imagem do despacho para gerar a minuta de ciência ou 422.</p>
-                <label for="despachoFile" class="file-upload-label" id="fileUploadLabel">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                  <span id="fileUploadText">Clique ou arraste uma imagem aqui</span>
-                </label>
-                <input type="file" id="despachoFile" accept="image/png, image/jpeg, image/webp" style="display: none;">
-                <button id="uploadDespachoBtn" class="btn-primary search-button">Enviar e Gerar Minuta</button>
-                <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar"></div></div>
-                <div id="uploadStatus" class="autominuta-status" role="status" aria-live="polite"></div>
-              </div>
+              <div class="widget-updated" id="atosUpdated"></div>
             </div>
-
-            <div class="widget reveal" style="animation-delay:.15s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
-                  <h2>Avisos e Recados</h2>
-                </div>
-                <div class="header-actions">
-                  <button class="refresh-btn" id="refreshAvisosBtn" aria-label="Atualizar avisos" title="Atualizar">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-                  </button>
-                  <a href="https://docs.google.com/spreadsheets/d/1ohPXG2tec6GWdxl9RGKasw2wyJpCBs-2DZju9LN0kGI/edit" target="_blank" rel="noopener" class="widget-config-link" aria-label="Editar Avisos" title="Editar planilha">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                  </a>
-                </div>
-              </div>
-              <div class="widget-body">
-                <div id="avisosContainer" class="avisos-list"></div>
-                <div id="avisosLoading" class="empty">Carregando avisos...</div>
-                <div class="widget-updated" id="avisosUpdated"></div>
-              </div>
-            </div>
-
           </div>
 
-          <div class="sidebar-column">
-            <div class="widget sidebar-widget reveal" style="animation-delay:.06s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="m19 19-7-7 7-7"/></svg></span>
-                  <h2>Acessos Rápidos</h2>
-                </div>
-              </div>
-              <div class="widget-body">
-                <div class="sidebar-links">
-                  <a class="sidebar-link" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                    Acervo da 45ª
-                  </a>
-                  <a class="sidebar-link" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                    Modelos de Peças
-                  </a>
-                  <a id="pauta3VaraBtn" class="sidebar-link" href="#" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Pauta da 3ª Vara
-                  </a>
-                </div>
+          <div class="widget search-widget reveal" style="animation-delay:.11s">
+            <div class="widget-header">
+              <div class="widget-header-title">
+                <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                <h2>Busca por Processos</h2>
               </div>
             </div>
-
-            <div class="widget sidebar-widget reveal" style="animation-delay:.09s">
-              <div class="widget-header">
-                <div class="widget-header-title">
-                  <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span>
-                  <h2>Consultas</h2>
-                </div>
+            <div class="widget-body">
+              <p class="processo-hint">Digite o número ou cole o processo completo no primeiro campo</p>
+              <div class="processo-input-group">
+                <input type="tel" id="p-1" maxlength="7" placeholder="0000000" pattern="\d{7}" inputmode="numeric" aria-label="Número sequencial">
+                <span class="sep">-</span>
+                <input type="tel" id="p-2" maxlength="2" placeholder="00" pattern="\d{2}" inputmode="numeric" aria-label="Dígito verificador">
+                <span class="sep">.</span>
+                <input type="tel" id="p-3" maxlength="4" placeholder="0000" pattern="\d{4}" inputmode="numeric" aria-label="Ano">
+                <span class="sep">.</span>
+                <input type="tel" id="p-4" maxlength="1" value="8" pattern="\d{1}" inputmode="numeric" aria-label="Segmento do Judiciário">
+                <span class="sep">.</span>
+                <input type="tel" id="p-5" maxlength="2" value="17" pattern="\d{2}" inputmode="numeric" aria-label="Tribunal">
+                <span class="sep">.</span>
+                <input type="tel" id="p-6" maxlength="4" placeholder="0000" pattern="\d{4}" inputmode="numeric" aria-label="Unidade de origem">
               </div>
-              <div class="widget-body">
-                <div class="sidebar-links">
-                  <a id="feriasBtn" class="sidebar-link" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                    Escala de Férias
-                  </a>
-                  <a id="rodizioBtn" class="sidebar-link" href="#">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-                    Rodízio Secretaria
-                  </a>
-                  <a class="sidebar-link" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg>
-                    Telefones Úteis
-                  </a>
-                </div>
-              </div>
+              <button id="processoSearchBtn" class="btn-primary search-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Pesquisar Processo
+              </button>
             </div>
-
           </div>
+
+          <div class="widget autominuta-widget reveal" style="animation-delay:.14s">
+            <div class="widget-header">
+              <div class="widget-header-title">
+                <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg></span>
+                <h2>Autominuta</h2>
+              </div>
+            </div>
+            <div class="widget-body">
+              <p class="autominuta-desc">Faça o upload da imagem do despacho para gerar a minuta de ciência ou 422.</p>
+              <label for="despachoFile" class="file-upload-label" id="fileUploadLabel">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span id="fileUploadText">Clique ou arraste uma imagem aqui</span>
+              </label>
+              <input type="file" id="despachoFile" accept="image/png, image/jpeg, image/webp" style="display: none;">
+              <button id="uploadDespachoBtn" class="btn-primary search-button">Enviar e Gerar Minuta</button>
+              <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar"></div></div>
+              <div id="uploadStatus" class="autominuta-status" role="status" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="widget reveal" style="animation-delay:.17s">
+            <div class="widget-header">
+              <div class="widget-header-title">
+                <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
+                <h2>Avisos e Recados</h2>
+              </div>
+              <div class="header-actions">
+                <button class="refresh-btn" id="refreshAvisosBtn" aria-label="Atualizar avisos" title="Atualizar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+                </button>
+                <a href="https://docs.google.com/spreadsheets/d/1ohPXG2tec6GWdxl9RGKasw2wyJpCBs-2DZju9LN0kGI/edit" target="_blank" rel="noopener" class="widget-config-link" aria-label="Editar Avisos" title="Editar planilha">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </a>
+              </div>
+            </div>
+            <div class="widget-body">
+              <div id="avisosContainer" class="avisos-list"></div>
+              <div id="avisosLoading" class="empty">Carregando avisos...</div>
+              <div class="widget-updated" id="avisosUpdated"></div>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>
@@ -891,7 +846,7 @@
         <div class="modal-header-left">
           <h3 id="pautaModalTitle">Pauta da 3ª Vara</h3>
           <div class="view-toggles">
-            <button class="view-btn active" id="btnViewTable" aria-label="Visualização em Tabela">
+            <button class="view-btn active" id="btnViewTable" aria-label="Visualização em Grade">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </button>
             <button class="view-btn" id="btnViewList" aria-label="Visualização em Lista">
@@ -1133,7 +1088,6 @@
 
       function openModalById(id) { const m = $(id); if(m) m.classList.add('active'); }
 
-      // Fecha qualquer modal aberto ao pressionar Escape, mesmo sem foco dentro dele
       document.addEventListener('keydown', function(e){
         if(e.key !== 'Escape') return;
         $$('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
@@ -1280,13 +1234,88 @@
           });
       }
 
+      /* ============================================================
+         PAUTA — calendário reorganizado por promotor
+         ============================================================ */
+      var PROMOTER_META = {
+        arroxelas: { label: 'Dr. Arroxelas', dot: 'var(--red-mppe)' },
+        angela: { label: 'Dra. Ângela', dot: 'var(--angela-dot)' },
+        marcelo: { label: 'Dr. Marcelo', dot: 'var(--blue-accent)' },
+        todos: { label: 'Todos', dot: 'var(--text-tertiary)' }
+      };
+      var pautaFilter = 'arroxelas';
+
+      function isHeaderLine(lower){
+        return lower === 'audiências' || lower === 'audiencias' || lower.includes('júri - 09h') || lower.includes('juri - 09h');
+      }
+      function getPromoterKey(lower){
+        if (lower.includes('arroxelas')) return 'arroxelas';
+        if (lower.includes('marcelo')) return 'marcelo';
+        if (lower.includes('ângela') || lower.includes('angela')) return 'angela';
+        if (lower.includes('dr.') || lower.includes('dra.')) return 'outro';
+        return null;
+      }
+
+      function computePromoterCounter(data, filter){
+        var count = 0;
+        (data.events || []).forEach(day => {
+          (day.conteudo || []).forEach(line => {
+            if (line.trim() === '') return;
+            var lower = line.toLowerCase();
+            if (isHeaderLine(lower)) return;
+            var key = getPromoterKey(lower);
+            if (filter === 'todos') { if (key) count++; }
+            else if (key === filter) count++;
+          });
+        });
+        return count;
+      }
+
+      function applyPromoterFilter(filter){
+        pautaFilter = filter;
+        $$('.promoter-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.filter === filter));
+        $$('.cal-entry[data-promoter]').forEach(entry => {
+          var key = entry.dataset.promoter;
+          if (filter === 'todos' || key === 'none' || key === filter) entry.classList.remove('dimmed');
+          else entry.classList.add('dimmed');
+        });
+        var counterEl = $('#promoterCounter');
+        if (counterEl && window.__lastPautaData) {
+          var count = computePromoterCounter(window.__lastPautaData, filter);
+          if (filter === 'todos') {
+            counterEl.innerHTML = `<strong>${count}</strong> compromisso(s) distribuídos entre os promotores neste calendário.`;
+          } else {
+            counterEl.innerHTML = `<strong>${count}</strong> compromisso(s) de ${PROMOTER_META[filter].label} neste calendário.`;
+          }
+        }
+      }
+
       function renderCalendar(data, container) {
         if(!data.events || data.events.length === 0) {
           container.innerHTML = '<div class="empty">Calendário vazio ou formato irreconhecível.</div>'; return;
         }
+        window.__lastPautaData = data;
+        container.innerHTML = '';
+
         const titleDiv = document.createElement('div'); titleDiv.className = 'calendar-title';
         titleDiv.textContent = data.title || 'Pauta Mensal'; container.appendChild(titleDiv);
 
+        const filterRow = document.createElement('div'); filterRow.className = 'promoter-filter-row';
+        filterRow.innerHTML = `
+          <button class="promoter-chip" data-filter="todos"><span class="dot" style="background:${PROMOTER_META.todos.dot}"></span>Todos</button>
+          <button class="promoter-chip" data-filter="arroxelas"><span class="dot" style="background:${PROMOTER_META.arroxelas.dot}"></span>Dr. Arroxelas <span class="titular-tag">Titular</span></button>
+          <button class="promoter-chip" data-filter="angela"><span class="dot" style="background:${PROMOTER_META.angela.dot}"></span>Dra. Ângela</button>
+          <button class="promoter-chip" data-filter="marcelo"><span class="dot" style="background:${PROMOTER_META.marcelo.dot}"></span>Dr. Marcelo</button>
+        `;
+        container.appendChild(filterRow);
+        Array.from(filterRow.querySelectorAll('.promoter-chip')).forEach(chip => {
+          chip.addEventListener('click', () => applyPromoterFilter(chip.dataset.filter));
+        });
+
+        const counterP = document.createElement('p'); counterP.className = 'promoter-counter'; counterP.id = 'promoterCounter';
+        container.appendChild(counterP);
+
+        const scrollWrap = document.createElement('div');
         const grid = document.createElement('div');
         grid.className = 'calendar-grid';
         grid.id = 'pautaGrid';
@@ -1308,39 +1337,43 @@
             if(line.trim() === '') return;
             const lower = line.toLowerCase();
 
-            if (lower === 'audiências' || lower === 'audiencias' || lower.includes('júri - 09h') || lower.includes('juri - 09h')) {
+            if (isHeaderLine(lower)) {
               const headerTag = document.createElement('div');
-              headerTag.className = 'event-header';
+              headerTag.className = 'cal-heading';
               headerTag.innerText = line;
               contentBox.appendChild(headerTag);
               return;
             }
 
-            const tag = document.createElement('div'); tag.className = 'event-tag';
+            if (lower.includes('carnaval')) {
+              const note = document.createElement('div'); note.className = 'cal-note'; note.innerText = line;
+              contentBox.appendChild(note);
+              return;
+            }
+
+            const key = getPromoterKey(lower);
+            const entry = document.createElement('div');
+            entry.className = 'cal-entry prom-' + (key || 'none');
+            entry.dataset.promoter = key || 'none';
 
             const processoMatch = line.match(/\d{5,7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}/);
             if (processoMatch) {
-              tag.classList.add('processo-tag');
-              tag.title = "Clique para exibir informações do processo";
-              tag.addEventListener('click', () => {
-                openProcessoInfo(processoMatch[0]);
-              });
+              entry.classList.add('processo-tag');
+              entry.title = "Clique para exibir informações do processo";
+              entry.addEventListener('click', () => openProcessoInfo(processoMatch[0]));
             }
 
-            if (lower.includes('arroxelas')) tag.classList.add('promoter-red');
-            else if (lower.includes('marcelo')) tag.classList.add('promoter-blue');
-            else if (lower.includes('ângela') || lower.includes('angela')) tag.classList.add('promoter-yellow');
-            else if (lower.includes('dr.') || lower.includes('dra.')) tag.classList.add('promoter-general');
-
-            if (lower.includes('júri') || lower.includes('juri')) tag.classList.add('juri');
-            else if (lower.includes('audiência')) tag.classList.add('audiencia');
-            else if (lower.includes('carnaval')) { tag.style.background = 'var(--red-mppe-soft)'; tag.style.color = 'var(--red-mppe)'; tag.style.textAlign = 'center'; tag.style.fontWeight = 'bold'; }
-
-            tag.innerText = line; contentBox.appendChild(tag);
+            const dot = document.createElement('span'); dot.className = 'dot';
+            const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = line;
+            entry.appendChild(dot); entry.appendChild(txt);
+            contentBox.appendChild(entry);
           });
           card.appendChild(contentBox); grid.appendChild(card);
         });
-        container.appendChild(grid);
+        scrollWrap.appendChild(grid);
+        container.appendChild(scrollWrap);
+
+        applyPromoterFilter(pautaFilter);
       }
 
       async function updateRodizioAtual() {
@@ -1487,8 +1520,7 @@
         uploadBtn.addEventListener('click', async () => {
           const file = fileInput.files[0];
           if (!file) { statusEl.textContent = 'Selecione uma imagem.'; statusEl.className = 'autominuta-status error'; return; }
-          uploadBtn.disabled = true; uploadBtn.textContent = 'Enviando...';
-          statusEl.textContent = 'Carregando...'; statusEl.className = 'autominuta-status loading';
+          uploadBtn.disabled = true; uploadBtn.textContent = 'Enviando...'; statusEl.textContent = 'Carregando...'; statusEl.className = 'autominuta-status loading';
           if(progress) progress.classList.add('active');
           try {
             const toBase64 = file => new Promise((res, rej) => { const r = new FileReader(); r.readAsDataURL(file); r.onload = () => res(r.result); r.onerror = rej; });
@@ -1549,8 +1581,6 @@
             renderTable(data, c, [{key:'nome', title:'Nome'}, {key:'inicio', title:'Início'}, {key:'fim', title:'Fim'}])
           );
         });
-        const mobFerias = $('#mobileFeriasBtn');
-        if(mobFerias) mobFerias.addEventListener('click', (e) => { e.preventDefault(); openModalById('#feriasModal'); $('#feriasBtn').click(); });
 
         setupModal('#rodizioModal', '#rodizioBtn', '#closeRodizioBtn', () => {
           fetchAndRender('getRodizio', '#rodizioContainer', '#rodizioLoading', (data, c) => {
@@ -1565,10 +1595,8 @@
             c.innerHTML = tableHTML + '</tbody></table>';
           });
         });
-        const mobRodizio = $('#mobileRodizioBtn');
-        if(mobRodizio) mobRodizio.addEventListener('click', (e) => { e.preventDefault(); openModalById('#rodizioModal'); $('#rodizioBtn').click(); });
 
-        const openPautaHandler = () => { fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
+        const openPautaHandler = () => { pautaFilter = 'arroxelas'; fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
 
         const boxProximo = $('#boxProximoAto');
@@ -1582,9 +1610,6 @@
           boxPlantao.addEventListener('click', (e) => { e.preventDefault(); openModalById('#rodizioModal'); $('#rodizioBtn').click(); });
           boxPlantao.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); boxPlantao.click(); } });
         }
-
-        const mobPauta = $('#mobilePauta3VaraBtn');
-        if(mobPauta) { mobPauta.addEventListener('click', (e) => { e.preventDefault(); openModalById('#pautaModal'); openPautaHandler(); }); }
 
         setupModal('#processoModal', null, '#closeProcessoBtn', null);
 
