@@ -81,8 +81,16 @@
        RESET
        ========================================================== */
     * { box-sizing: border-box; }
-    html, body { height: 100%; overflow-x: hidden; }
-    html { scroll-behavior: smooth; }
+    /* `height:100%` + `overflow-x:hidden` no BODY faziam do próprio body o
+       container de rolagem: window.scrollY ficava sempre em 0 e o botão
+       "voltar ao topo" nunca aparecia. Quem rola agora é a janela. */
+    html { height: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+    /* Sem overflow no BODY de propósito: qualquer overflow diferente de
+       `visible` aqui transformaria o body no container de rolagem — o que
+       quebra o `position: sticky` do cabeçalho e zera o window.scrollY
+       (o botão "voltar ao topo" nunca aparecia). O corte horizontal fica
+       por conta do html. */
+    body { min-height: 100%; }
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
@@ -269,12 +277,60 @@
     .main-content { flex: 1; padding-block: 32px; }
     .main-column { display: flex; flex-direction: column; gap: 24px; }
 
-    .reveal { opacity: 0; transform: translateY(14px); animation: reveal-in .55s var(--ease) forwards; }
-    @keyframes reveal-in { to { opacity: 1; transform: translateY(0); } }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { animation: none; opacity: 1; transform: none; }
-      html { scroll-behavior: auto; }
+    /* ==========================================================
+       HERO — título do painel + silhueta da balança
+       ========================================================== */
+    .hero {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding-block: 4px 10px;
     }
+    .hero-scale {
+      position: absolute; top: -168px; left: 50%; transform: translateX(-50%);
+      width: 440px; height: 440px; max-width: 118vw;
+      color: var(--text-primary); opacity: .06;
+      pointer-events: none; z-index: 0;
+    }
+    [data-theme="dark"] .hero-scale { opacity: .09; }
+    .hero-title {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 16px;
+      width: 100%; max-width: 460px;
+    }
+    .hero-rule {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-accent));
+      opacity: .55;
+    }
+    .hero-rule:last-child { background: linear-gradient(90deg, var(--gold-accent), transparent); }
+    .hero-text {
+      font-family: var(--font-display);
+      font-size: 1.34rem; font-weight: 700; letter-spacing: .16em;
+      white-space: nowrap; color: var(--text-primary);
+    }
+    .hero-text .hero-45 { color: var(--gold-accent); }
+    [data-theme="dark"] .hero-text .hero-45 { color: var(--gold-on-dark); }
+    @media (max-width: 560px) {
+      .hero-scale { width: 340px; height: 340px; top: -132px; }
+      .hero-text { font-size: 1.02rem; letter-spacing: .12em; }
+      .hero-title { gap: 10px; }
+    }
+
+    /* ==========================================================
+       DESTAQUE AO ROLAR — os cards grandes "aproximam"
+       ========================================================== */
+    .zoomable {
+      transform: scale(.965) translateY(10px);
+      opacity: .72;
+      transition: transform .55s var(--ease), opacity .55s var(--ease), box-shadow .3s var(--ease);
+      will-change: transform, opacity;
+    }
+    .zoomable.in-view { transform: scale(1) translateY(0); opacity: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .zoomable { transform: none !important; opacity: 1 !important; transition: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     /* ==========================================================
        AGENDA CARD — vidro fosco em ardósia
@@ -296,6 +352,22 @@
       background-size: 20px 20px;
     }
     .agenda-header { position: relative; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .agenda-header-title { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .agenda-pauta-link {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.82); cursor: pointer;
+      padding: 7px 12px; border-radius: 999px;
+      font-family: inherit; font-size: .68rem; font-weight: 700;
+      letter-spacing: .07em; text-transform: uppercase; white-space: nowrap;
+      transition: background-color .2s, color .2s, border-color .2s;
+    }
+    .agenda-pauta-link:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
+    .agenda-pauta-link svg { width: 14px; height: 14px; flex: none; }
+    @media (max-width: 560px) {
+      .agenda-pauta-link span { display: none; }
+      .agenda-pauta-link { padding: 8px; border-radius: 50%; }
+    }
     .agenda-header .icon-wrap {
       width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
       background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.10);
@@ -312,13 +384,32 @@
     }
     .agenda-cal-col { border-left: 1px solid rgba(255,255,255,.16); padding-left: 22px; }
 
+    .agenda-proximo { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .agenda-next {
       display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
-      padding: 4px 2px; border-radius: 12px; cursor: pointer;
-      background: transparent; border: none; text-align: left; font: inherit; color: inherit;
-      transition: transform .15s var(--ease);
+      padding: 4px 2px; text-align: left;
     }
-    .agenda-next:hover { transform: translateY(-1px); }
+    .agenda-material { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-width: 0; }
+    .material-lista { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .material-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .78rem; font-weight: 500; color: rgba(255,255,255,.55);
+      min-width: 0;
+    }
+    .material-item svg { width: 13px; height: 13px; flex: none; color: var(--gold-on-dark); }
+    .material-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 22ch; }
+    .material-vazio { font-size: .76rem; color: rgba(255,255,255,.38); font-style: italic; }
+    .btn-material {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 15px; border-radius: 999px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-family: inherit; font-size: .78rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: background-color .2s, border-color .2s, transform .15s var(--ease);
+    }
+    .btn-material:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.34); color: #fff; transform: translateY(-1px); }
+    .btn-material svg { width: 15px; height: 15px; flex: none; }
+    .btn-material[hidden] { display: none; }
     .next-tipo {
       font-size: 1.42rem; font-weight: 800; letter-spacing: .04em; line-height: 1;
       color: var(--gold-on-dark); text-transform: uppercase;
@@ -444,19 +535,35 @@
     /* ==========================================================
        PRÓXIMOS ATOS
        ========================================================== */
-    .acts-grid { display:grid; grid-template-columns: 1fr; gap: 20px; }
-    @media (min-width: 640px) { .acts-grid { grid-template-columns: 1fr 1fr; } }
-    .act-card { background: var(--bg-tertiary); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-color); }
-    .act-card h3 { font-size: .92rem; margin: 0 0 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--text-secondary); }
-    .vlist { display:flex; flex-direction:column; gap:8px; }
-    .vitem {
-      display:flex; align-items:center; justify-content:space-between; padding: 11px 12px;
-      border-radius: 10px; background: var(--bg-secondary); border: 1px solid var(--border-color);
-      font-size: .9rem; transition: all .2s var(--ease); overflow-wrap: break-word;
+    .acts-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .act-card { background: var(--bg-tertiary); padding: 14px 6px 6px 14px; border-radius: var(--radius); border: 1px solid var(--border-color); }
+    .act-card h3 {
+      font-size: .92rem; margin: 0 0 6px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .4px; color: var(--gold-accent);
     }
-    .vitem:hover { border-color: var(--red-mppe); transform: translateY(-2px) translateX(1px); box-shadow: var(--shadow); }
-    .vname { font-weight: 600; }
-    .vopen { display:inline-flex; align-items:center; gap:4px; font-size:.78rem; color: var(--text-secondary); flex-shrink: 0; margin-left: 8px; }
+    [data-theme="dark"] .act-card h3 { color: var(--gold-on-dark); }
+    .vlist { display:flex; flex-direction:column; }
+    .vitem {
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      padding: 13px 12px 13px 0; background: transparent; border: none;
+      border-bottom: 1px solid var(--border-color);
+      font-size: .95rem; color: var(--text-primary);
+      transition: color .2s var(--ease); overflow-wrap: break-word;
+    }
+    [data-theme="dark"] .vitem { color: #e4e8f0; }
+    .vlist .vitem:last-child { border-bottom: none; }
+    .vitem:hover { color: var(--red-mppe); }
+    [data-theme="dark"] .vitem:hover { color: var(--gold-on-dark); }
+    .vname { font-weight: 500; font-variant-numeric: tabular-nums; }
+    .vopen { display:inline-flex; align-items:center; color: var(--text-tertiary); flex-shrink: 0; transition: transform .2s var(--ease), color .2s; }
+    .vitem:hover .vopen { transform: translateX(3px); color: inherit; }
+    .vopen svg { width: 18px; height: 18px; }
+    @media (max-width: 560px) {
+      .acts-grid { gap: 8px; }
+      .act-card { padding: 12px 4px 4px 10px; }
+      .vitem { font-size: .86rem; padding: 11px 8px 11px 0; }
+      .act-card h3 { font-size: .82rem; }
+    }
     .empty { padding: 16px; border: 1.5px dashed var(--border-color); border-radius: 10px; color: var(--text-secondary); text-align:center; font-size: .88rem; }
     .empty.error { border-color: rgba(220,38,38,.4); color: #dc2626; background: rgba(220,38,38,.05); }
 
@@ -776,28 +883,54 @@
       <div class="wrap">
         <div class="main-column">
 
-          <section class="agenda-card reveal" style="animation-delay:.05s" id="agendaCard">
+          <section class="hero">
+            <svg class="hero-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v18M4 7l-3.2 6.8a4.2 4.2 0 0 0 8.4 0zM20 7l-3.2 6.8a4.2 4.2 0 0 0 8.4 0zM2 21h20M4 7h16M9 3h6"/>
+            </svg>
+            <h2 class="hero-title">
+              <span class="hero-rule" aria-hidden="true"></span>
+              <span class="hero-text"><span class="hero-45">45ª</span> PJC CAP</span>
+              <span class="hero-rule" aria-hidden="true"></span>
+            </h2>
+          </section>
+
+          <section class="agenda-card zoomable" id="agendaCard">
             <div class="agenda-dot-texture" aria-hidden="true"></div>
             <div class="agenda-header">
-              <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-              <div>
-                <div class="agenda-eyebrow">Dr. Arroxelas · <span id="prodMonthLabel">—</span></div>
-                <h2>Agenda</h2>
+              <div class="agenda-header-title">
+                <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+                <div>
+                  <div class="agenda-eyebrow">Dr. Arroxelas · <span id="prodMonthLabel">—</span></div>
+                  <h2>Agenda</h2>
+                </div>
               </div>
+              <button class="agenda-pauta-link" id="verPautaBtn" type="button" title="Exibir a pauta completa da 3ª Vara">
+                <span>Exibir pauta completa</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+              </button>
             </div>
             <div class="agenda-body">
-              <button class="agenda-next" id="agendaNext" type="button" title="Abrir a pauta da 3ª Vara">
-                <span class="next-tipo" id="nextTipo">—</span>
-                <span class="next-dia" id="nextDia">—</span>
-                <span class="next-semana" id="nextSemana"></span>
-              </button>
+              <div class="agenda-proximo">
+                <div class="agenda-next">
+                  <span class="next-tipo" id="nextTipo">—</span>
+                  <span class="next-dia" id="nextDia">—</span>
+                  <span class="next-semana" id="nextSemana"></span>
+                </div>
+                <div class="agenda-material">
+                  <div class="material-lista" id="materialLista"></div>
+                  <a class="btn-material" id="btnMaterial" href="#" target="_blank" rel="noopener" hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"></path></svg>
+                    Exibir material
+                  </a>
+                </div>
+              </div>
               <div class="agenda-cal-col">
                 <div id="agendaCal"></div>
               </div>
             </div>
           </section>
 
-          <div class="widget reveal" style="animation-delay:.08s">
+          <div class="widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
                 <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
@@ -826,7 +959,7 @@
             </div>
           </div>
 
-          <div class="widget search-widget reveal" style="animation-delay:.11s">
+          <div class="widget search-widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
                 <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
@@ -855,7 +988,7 @@
             </div>
           </div>
 
-          <div class="widget autominuta-widget reveal" style="animation-delay:.14s">
+          <div class="widget autominuta-widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
                 <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg></span>
@@ -875,7 +1008,7 @@
             </div>
           </div>
 
-          <div class="widget reveal" style="animation-delay:.17s">
+          <div class="widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
                 <span class="icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
@@ -1107,6 +1240,25 @@
       }
 
       /* ============================================================
+         DESTAQUE AO ROLAR — cresce quando o card entra na área central
+         ============================================================ */
+      function initZoomOnScroll(){
+        var alvos = $$('.zoomable');
+        if(!alvos.length) return;
+        if (!('IntersectionObserver' in window) ||
+            (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+          alvos.forEach(function(el){ el.classList.add('in-view'); });
+          return;
+        }
+        var obs = new IntersectionObserver(function(entradas){
+          entradas.forEach(function(e){
+            e.target.classList.toggle('in-view', e.isIntersecting);
+          });
+        }, { threshold: 0.12, rootMargin: '-6% 0px -12% 0px' });
+        alvos.forEach(function(el){ obs.observe(el); });
+      }
+
+      /* ============================================================
          BOTÃO VOLTAR AO TOPO
          ============================================================ */
       function initBackToTop(){
@@ -1168,7 +1320,9 @@
         if(emp) emp.style.display='none';
         items.forEach(function(f){
           var a=document.createElement('a'); a.href=f.webViewLink; a.target='_blank'; a.rel='noopener'; a.className='vitem';
-          a.innerHTML = `<span class="vname">${f.name}</span><span class="vopen">Abrir <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>`;
+          a.title = 'Abrir a pasta de ' + f.name;
+          a.innerHTML = `<span class="vname"></span><span class="vopen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>`;
+          a.querySelector('.vname').textContent = f.name;
           cont.appendChild(a);
         });
       }
@@ -1641,6 +1795,64 @@
         }
       }
 
+      /* O nome da pasta do dia começa pelo número do dia ("25-09", "25 de
+         setembro", "25"). Se houver um segundo número que caiba num mês, ele
+         precisa bater com o mês corrente — assim "25-09" não casa em outubro. */
+      function pastaEhDoDia(nome, dia, mes){
+        var nums = (String(nome).match(/\d{1,4}/g) || []).map(Number);
+        if (!nums.length) return false;
+        if (nums[0] !== dia) return false;
+        if (nums.length > 1 && nums[1] >= 1 && nums[1] <= 12 && nums[1] !== mes) return false;
+        return true;
+      }
+
+      var SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+      async function loadMaterialDoAto(tipo, dia){
+        var lista = $('#materialLista'), btn = $('#btnMaterial');
+        if(!lista || !btn) return;
+        lista.innerHTML = ''; btn.hidden = true;
+        var ehJuri = /j[uú]ri/i.test(String(tipo || ''));
+        var root = ehJuri ? JURI_ROOT : AUD_ROOT;
+        var mes = new Date().getMonth() + 1;
+        try {
+          await Drive.initGapiWithRetry(3);
+          var pastas = await Drive.listFolders(root);
+          var pasta = pastas.find(function(f){ return pastaEhDoDia(f.name, dia, mes); });
+          if (!pasta) {
+            lista.innerHTML = '<span class="material-vazio">Pasta do dia ainda não criada</span>';
+            return;
+          }
+          btn.href = pasta.webViewLink;
+          btn.hidden = false;
+
+          var sub = await Drive.listFolders(pasta.id);
+          if (!sub.length) {
+            lista.innerHTML = '<span class="material-vazio">Nenhum material preparado ainda</span>';
+            return;
+          }
+          sub.forEach(function(f){
+            var row = document.createElement('div');
+            row.className = 'material-item';
+            row.innerHTML = SVG_CHECK + '<span></span>';
+            row.querySelector('span').textContent = f.name;
+            row.title = f.name;
+            lista.appendChild(row);
+          });
+        } catch (e) {
+          console.error('Erro ao localizar o material do próximo ato:', e);
+          lista.innerHTML = '<span class="material-vazio">Não foi possível ler o Drive</span>';
+        }
+      }
+
+      /* "Sessão do Júri", "Júri - 09h" e afins viram só "JÚRI". */
+      function rotuloCurtoDoAto(tipo){
+        var t = String(tipo || '').toLowerCase();
+        if (/j[uú]ri/.test(t)) return 'JÚRI';
+        if (/audi[eê]ncia/.test(t)) return 'AUDIÊNCIA';
+        return String(tipo || 'Ato').toUpperCase();
+      }
+
       async function updateNextAct() {
         const elTipo = $('#nextTipo'), elDia = $('#nextDia'), elSemana = $('#nextSemana');
         if(!elTipo || !elDia || !elSemana) return;
@@ -1649,6 +1861,9 @@
           elTipo.classList.add('next-vazio');
           elDia.textContent = '';
           elSemana.textContent = '';
+          var lista = $('#materialLista'), btn = $('#btnMaterial');
+          if(lista) lista.innerHTML = '';
+          if(btn) btn.hidden = true;
         }
         try {
           const response = await fetch(`${APPS_SCRIPT_URL}?action=getNextAct&fileType=csv`);
@@ -1657,7 +1872,7 @@
           if (!data.found) { vazio('Nada consta'); return; }
 
           elTipo.classList.remove('next-vazio');
-          elTipo.textContent = String(data.tipo || 'Ato').toUpperCase();
+          elTipo.textContent = rotuloCurtoDoAto(data.tipo);
 
           var diaNum = parseInt(String(data.dia).replace(/\D/g, ''), 10);
           if (isNaN(diaNum)) { elDia.textContent = String(data.dia || '—'); elSemana.textContent = ''; return; }
@@ -1666,6 +1881,8 @@
           var now = new Date();
           var dataAto = new Date(now.getFullYear(), now.getMonth(), diaNum);
           elSemana.textContent = dataAto.toLocaleDateString('pt-BR', { weekday: 'long' }).toUpperCase();
+
+          loadMaterialDoAto(data.tipo, diaNum);
         } catch (e) {
           console.error(e);
           vazio('Erro ao carregar');
@@ -1786,6 +2003,7 @@
         y();
         startClock();
         initBackToTop();
+        initZoomOnScroll();
 
         renderAtos(false);
         loadMonthLabel();
@@ -1841,9 +2059,9 @@
         const openPautaHandler = () => { pautaFilter = 'arroxelas'; fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
 
-        const agendaNext = $('#agendaNext');
-        if(agendaNext) {
-          agendaNext.addEventListener('click', (e) => {
+        const verPautaBtn = $('#verPautaBtn');
+        if(verPautaBtn) {
+          verPautaBtn.addEventListener('click', (e) => {
             e.preventDefault();
             Menu.close();
             openModalById('#pautaModal');
