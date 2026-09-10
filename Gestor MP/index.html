@@ -645,6 +645,16 @@
     .data-table th { font-size: .74rem; text-transform: uppercase; letter-spacing:.5px; color: var(--text-secondary); background: var(--bg-tertiary); position: sticky; top: 0; }
     .data-table tbody tr { transition: background-color .15s; }
     .data-table tbody tr:hover { background-color: var(--bg-tertiary); }
+    .rodizio-table th[scope="row"] {
+      font-size: .78rem; text-transform: uppercase; letter-spacing: .4px;
+      color: var(--text-secondary); background: var(--bg-tertiary);
+      position: static; white-space: nowrap;
+    }
+    .rodizio-table td { font-weight: 600; }
+    @media (max-width: 480px) {
+      .rodizio-table th, .rodizio-table td { padding: 10px 8px; font-size: .86rem; }
+      .rodizio-table th[scope="row"] { font-size: .7rem; }
+    }
 
     /* ==========================================================
        CALENDAR — redesenhado por promotor
@@ -1738,48 +1748,85 @@
           dayNum.innerHTML = `<span>Dia ${day.dia}</span>${isToday ? '<span class="today-tag">Hoje</span>' : ''}`; card.appendChild(dayNum);
           const contentBox = document.createElement('div'); contentBox.className = 'day-events';
 
-          let currentPromoter = null;
+          /* A planilha traz cabeçalhos fixos ("Júri - 09h", "Audiências")
+             mesmo nos dias em que nenhum processo foi marcado embaixo deles.
+             Por isso as linhas são primeiro agrupadas em blocos por promotor e
+             seções, e só vão para a tela as seções que têm ao menos uma
+             entrada — um bloco inteiro sem entradas nem chega a ser desenhado. */
+          const notas = [];
+          const blocos = [];
+          let bloco = null, secao = null;
+
+          function novoBloco(promoter, rotulo){
+            bloco = { promoter: promoter, rotulo: rotulo, secoes: [] };
+            secao = null;
+            blocos.push(bloco);
+            return bloco;
+          }
+          function blocoCorrente(){ return bloco || novoBloco('none', null); }
+          function abrirSecao(titulo){
+            const bl = blocoCorrente();   // pode criar um bloco novo e zerar `secao`
+            secao = { titulo: titulo || null, entradas: [] };
+            bl.secoes.push(secao);
+            return secao;
+          }
+          function secaoCorrente(){ return secao || abrirSecao(null); }
+
           day.conteudo.forEach(line => {
             if(line.trim() === '') return;
             const lower = line.toLowerCase();
 
-            if (lower.includes('carnaval') || lower.includes('feriado')) {
-              const note = document.createElement('div'); note.className = 'cal-note'; note.innerText = line;
-              contentBox.appendChild(note);
-              return;
-            }
+            if (lower.includes('carnaval') || lower.includes('feriado')) { notas.push(line); return; }
 
             const nameKey = getPromoterNameLineKey(line);
             if (nameKey) {
-              currentPromoter = nameKey;
-              const label = document.createElement('div');
-              label.className = 'cal-promoter-label prom-' + nameKey;
-              label.dataset.promoter = nameKey;
-              const dispLabel = PROMOTER_META[nameKey] ? PROMOTER_META[nameKey].label : line.trim();
-              label.innerHTML = `<span class="dot"></span><span class="txt">${dispLabel}</span>`;
-              contentBox.appendChild(label);
+              novoBloco(nameKey, PROMOTER_META[nameKey] ? PROMOTER_META[nameKey].label : line.trim());
               return;
             }
 
-            if (isSectionHeaderLine(lower, line)) {
-              const headerTag = document.createElement('div');
-              headerTag.className = 'cal-heading';
-              headerTag.dataset.promoter = currentPromoter || 'none';
-              headerTag.innerText = line;
-              contentBox.appendChild(headerTag);
-              return;
-            }
+            if (isSectionHeaderLine(lower, line)) { abrirSecao(line); return; }
 
-            const key = currentPromoter || 'none';
-            const entry = document.createElement('div');
-            entry.className = 'cal-entry prom-' + key;
-            entry.dataset.promoter = key;
-
-            const dot = document.createElement('span'); dot.className = 'dot';
-            const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = line;
-            entry.appendChild(dot); entry.appendChild(txt);
-            contentBox.appendChild(entry);
+            secaoCorrente().entradas.push(line);
           });
+
+          notas.forEach(function(n){
+            const note = document.createElement('div'); note.className = 'cal-note'; note.innerText = n;
+            contentBox.appendChild(note);
+          });
+
+          blocos.forEach(function(bl){
+            const secoes = bl.secoes.filter(function(sc){ return sc && sc.entradas.length > 0; });
+            if (!secoes.length) return;                    // nada marcado: bloco não aparece
+
+            if (bl.rotulo) {
+              const label = document.createElement('div');
+              label.className = 'cal-promoter-label prom-' + bl.promoter;
+              label.dataset.promoter = bl.promoter;
+              label.innerHTML = '<span class="dot"></span><span class="txt"></span>';
+              label.querySelector('.txt').textContent = bl.rotulo;
+              contentBox.appendChild(label);
+            }
+
+            secoes.forEach(function(sc){
+              if (sc.titulo) {
+                const headerTag = document.createElement('div');
+                headerTag.className = 'cal-heading';
+                headerTag.dataset.promoter = bl.promoter;
+                headerTag.innerText = sc.titulo;
+                contentBox.appendChild(headerTag);
+              }
+              sc.entradas.forEach(function(txtLinha){
+                const entry = document.createElement('div');
+                entry.className = 'cal-entry prom-' + bl.promoter;
+                entry.dataset.promoter = bl.promoter;
+                const dot = document.createElement('span'); dot.className = 'dot';
+                const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = txtLinha;
+                entry.appendChild(dot); entry.appendChild(txt);
+                contentBox.appendChild(entry);
+              });
+            });
+          });
+
           card.appendChild(contentBox);
           return card;
         }
@@ -2182,15 +2229,37 @@
 
         setupModal('#rodizioModal', '#rodizioBtn', '#closeRodizioBtn', () => {
           fetchAndRender('getRodizio', '#rodizioContainer', '#rodizioLoading', (data, c) => {
-            let tableHTML = '<table class="data-table"><thead><tr><th>Turno</th>';
-            data.headers.forEach(header => tableHTML += `<th>${header}</th>`);
-            tableHTML += '</tr></thead><tbody>';
-            data.shifts.forEach(shift => {
-              tableHTML += `<tr><td>${shift.turn}</td>`;
-              shift.names.forEach(name => tableHTML += `<td>${name}</td>`);
-              tableHTML += `</tr>`;
+            /* Transposta: os dias da semana viram linhas e os turnos, colunas —
+               três colunas cabem no celular; sete, não. */
+            const dias = data.headers || [];
+            const turnos = data.shifts || [];
+            const tabela = document.createElement('table');
+            tabela.className = 'data-table rodizio-table';
+
+            const thead = document.createElement('thead');
+            const trh = document.createElement('tr');
+            [''].concat(turnos.map(function(t){ return t.turn; })).forEach(function(titulo){
+              const th = document.createElement('th'); th.textContent = titulo; trh.appendChild(th);
             });
-            c.innerHTML = tableHTML + '</tbody></table>';
+            thead.appendChild(trh); tabela.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            dias.forEach(function(dia, i){
+              const tr = document.createElement('tr');
+              const th = document.createElement('th');
+              th.scope = 'row'; th.className = 'rodizio-dia'; th.textContent = dia;
+              tr.appendChild(th);
+              turnos.forEach(function(t){
+                const td = document.createElement('td');
+                td.textContent = (t.names && t.names[i]) ? t.names[i] : '—';
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
+            });
+            tabela.appendChild(tbody);
+
+            c.innerHTML = '';
+            c.appendChild(tabela);
           });
         });
 
