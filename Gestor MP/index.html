@@ -25,6 +25,8 @@
       --red-mppe-soft: #fdecee;
       --gold-accent: #b6934a;
       --gold-accent-soft: #f4e9d2;
+      /* dourado legível sobre fundo escuro — o mesmo da faixa do cabeçalho */
+      --gold-on-dark: #e3c98c;
       --blue-accent: #1d5fd6;
       --blue-accent-soft: #eaf1fd;
       --green-accent: #178a4c;
@@ -50,6 +52,7 @@
       --radius: 14px;
       --radius-lg: 20px;
       --header-height: 92px;
+      --subbar-height: 44px;
       --stripe-height: 6px;
       --font-display: 'Lora', 'Inter', serif;
       --ease: cubic-bezier(.22,1,.36,1);
@@ -103,6 +106,11 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-color-strong); border-radius: 20px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
 
     /* ==========================================================
        LAYOUT
@@ -186,17 +194,77 @@
     [data-theme="dark"] .icon-btn .icon-sun { display: none; }
     [data-theme="dark"] .icon-btn .icon-moon { display: block; }
 
-    .status-pill {
-      display: none;
-      align-items: center; gap: 6px;
-      font-size: .72rem; font-weight: 600; color: #eafff0;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.18);
-      padding: 6px 10px; border-radius: 999px;
+    /* ==========================================================
+       SUBBAR — menu + secretaria de plantão
+       ========================================================== */
+    .subbar {
+      position: sticky;
+      top: var(--header-height);
+      z-index: 49;
+      background: #2b313d;
+      color: #e7eaf0;
+      box-shadow: 0 4px 14px -10px rgb(0 0 0 / .6);
     }
-    @media (min-width: 900px) { .status-pill { display: inline-flex; } }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,0.25); animation: dotpulse 2.2s infinite; }
-    @keyframes dotpulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.35);} 50% { box-shadow: 0 0 0 5px rgba(74,222,128,0);} }
+    [data-theme="dark"] .subbar { background: #1b2029; }
+    .subbar-inner {
+      min-height: var(--subbar-height);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding-block: 6px;
+    }
+
+    .menu-anchor { position: relative; }
+    .menu-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      color: #fff; cursor: pointer;
+      padding: 7px 13px; border-radius: 999px;
+      font-family: inherit; font-size: .78rem; font-weight: 600;
+      transition: background-color .2s, border-color .2s;
+    }
+    .menu-btn:hover { background: rgba(255,255,255,.16); }
+    .menu-btn[aria-expanded="true"] { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.3); }
+    .menu-btn svg { width: 18px; height: 18px; }
+
+    .menu-dropdown {
+      position: absolute; top: calc(100% + 9px); left: 0; z-index: 120;
+      min-width: 244px; padding: 7px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column; gap: 2px;
+      animation: menu-in .16s var(--ease);
+    }
+    @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .menu-dropdown { animation: none; } }
+    .menu-dropdown[hidden] { display: none; }
+
+    .menu-item {
+      display: flex; align-items: center; gap: 12px;
+      width: 100%; padding: 10px 12px;
+      background: transparent; border: none; border-radius: 9px;
+      color: var(--text-primary); font-family: inherit; font-size: .88rem; font-weight: 600;
+      text-align: left; cursor: pointer; transition: background-color .15s, color .15s;
+    }
+    .menu-item:hover { background: var(--bg-tertiary); color: var(--red-mppe); }
+    [data-theme="dark"] .menu-item:hover { color: #f0a3ab; }
+    .menu-item .mi-icon {
+      width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--red-mppe-soft); color: var(--red-mppe);
+      transition: background-color .15s, color .15s;
+    }
+    [data-theme="dark"] .menu-item .mi-icon { color: #f0a3ab; }
+    .menu-item:hover .mi-icon { background: var(--red-mppe); color: #fff; }
+    .menu-item svg { width: 17px; height: 17px; }
+
+    .secretaria-info { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
+    .secretaria-label { font-size: .76rem; font-weight: 700; color: var(--gold-on-dark); letter-spacing: .2px; }
+    .secretaria-nome {
+      font-size: .76rem; font-weight: 500; color: rgba(255,255,255,.66);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 52vw;
+    }
 
     .main-content { flex: 1; padding-block: 32px; }
     .main-column { display: flex; flex-direction: column; gap: 24px; }
@@ -209,84 +277,85 @@
     }
 
     /* ==========================================================
-       QUICK ACTIONS GRID
+       AGENDA CARD — vidro fosco em ardósia
        ========================================================== */
-    .quick-actions-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-    .quick-action-card {
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 10px;
-      background: transparent; border: none; box-shadow: none;
-      cursor: pointer; transition: transform .2s var(--ease); padding: 4px 2px; text-align: center;
-      color: inherit; font: inherit;
-    }
-    .quick-action-card:hover { transform: translateY(-3px); }
-    .quick-action-card:hover .qa-icon-wrap { background: var(--red-mppe); color: #fff; box-shadow: var(--shadow-red); }
-    .quick-action-card:active { transform: translateY(-1px); }
-    .quick-action-card .qa-icon-wrap {
-      width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      background: var(--red-mppe-soft); color: var(--red-mppe); flex-shrink: 0; transition: all .2s var(--ease);
-    }
-    [data-theme="dark"] .quick-action-card .qa-icon-wrap { color: #f0a3ab; }
-    [data-theme="dark"] .quick-action-card:hover .qa-icon-wrap { background: var(--red-mppe); color: #fff; }
-    .quick-action-card svg { width: 27px; height: 27px; }
-    .quick-action-card span.qa-label { font-size: .78rem; font-weight: 700; color: var(--text-primary); line-height: 1.25; }
-    @media (max-width: 640px) {
-      .quick-actions-grid { grid-template-columns: repeat(3, 1fr); gap: 20px 10px; }
-      .quick-action-card .qa-icon-wrap { width: 50px; height: 50px; }
-      .quick-action-card svg { width: 22px; height: 22px; }
-      .quick-action-card span.qa-label { font-size: .7rem; }
-    }
-    @media (max-width: 420px) {
-      .quick-actions-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 10px; }
-    }
-
-    /* ==========================================================
-       PRODUCTIVITY CARD
-       ========================================================== */
-    .productivity-card {
+    .agenda-card {
       position: relative; overflow: hidden; border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, rgba(122,14,24,.94), rgba(74,10,20,.92));
-      color: #fff; padding: 22px 24px; box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,0) 58%),
+        linear-gradient(135deg, rgba(62,69,84,.90), rgba(34,39,50,.93));
+      -webkit-backdrop-filter: blur(14px) saturate(130%);
+      backdrop-filter: blur(14px) saturate(130%);
+      color: #fff; padding: 22px 24px;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,.16);
     }
-    [data-theme="dark"] .productivity-card {
-      background: linear-gradient(135deg, rgba(58,10,16,.95), rgba(26,6,10,.94));
-      border-color: rgba(255,255,255,.06);
-    }
-    .productivity-card .prod-dot-texture {
-      position: absolute; inset: 0; opacity: .14; pointer-events: none;
+    .agenda-card .agenda-dot-texture {
+      position: absolute; inset: 0; opacity: .11; pointer-events: none;
       background-image: radial-gradient(circle at 1.5px 1.5px, #fff 1.4px, transparent 1.4px);
       background-size: 20px 20px;
     }
-    .productivity-card .prod-icon-bg {
-      position: absolute; top: -22px; right: -18px; width: 168px; height: 168px;
-      opacity: .1; color: #fff; pointer-events: none; transform: rotate(-6deg);
-    }
-    .productivity-header { position: relative; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-    .productivity-header .icon-wrap {
+    .agenda-header { position: relative; display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .agenda-header .icon-wrap {
       width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-      background: rgba(255,255,255,.14); display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.10);
+      display: flex; align-items: center; justify-content: center;
     }
-    .productivity-header .icon-wrap svg { width: 22px; height: 22px; color: #fff; }
-    .productivity-eyebrow { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.75); }
-    .productivity-header h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 2px 0 0; color: #fff; }
-    .productivity-stats { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .prod-stat {
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
-      padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;
+    .agenda-header .icon-wrap svg { width: 22px; height: 22px; color: #fff; }
+    .agenda-eyebrow { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.75); }
+    .agenda-header h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 2px 0 0; color: #fff; font-weight: 700; }
+
+    .agenda-body {
+      position: relative;
+      display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 22px;
+      align-items: center;
     }
-    .prod-stat-icon {
-      width: 32px; height: 32px; border-radius: 9px; background: rgba(255,255,255,.14);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 4px; color: #fff;
+    .agenda-cal-col { border-left: 1px solid rgba(255,255,255,.16); padding-left: 22px; }
+
+    .agenda-next {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+      padding: 4px 2px; border-radius: 12px; cursor: pointer;
+      background: transparent; border: none; text-align: left; font: inherit; color: inherit;
+      transition: transform .15s var(--ease);
     }
-    .prod-stat-icon svg { width: 17px; height: 17px; }
-    .prod-stat-value { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1; color: #fff; }
-    .prod-stat-label { font-size: .72rem; color: rgba(255,255,255,.8); font-weight: 600; line-height: 1.3; }
+    .agenda-next:hover { transform: translateY(-1px); }
+    .next-tipo {
+      font-size: 1.42rem; font-weight: 800; letter-spacing: .04em; line-height: 1;
+      color: var(--gold-on-dark); text-transform: uppercase;
+    }
+    .next-dia {
+      font-size: 4.6rem; font-weight: 800; line-height: .95; letter-spacing: -.03em;
+      color: rgba(255,255,255,.82); font-variant-numeric: tabular-nums; margin-top: 4px;
+    }
+    .next-semana {
+      font-size: .92rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(255,255,255,.42); margin-top: 2px;
+    }
+    .next-vazio { font-size: 1.02rem; font-weight: 600; color: rgba(255,255,255,.6); }
+
+    .cal-mini-week, .cal-mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; max-width: 300px; margin-inline: auto; }
+    .cal-mini-week span {
+      text-align: center; font-size: .58rem; font-weight: 700; letter-spacing: .05em;
+      color: rgba(255,255,255,.4); text-transform: uppercase; padding-bottom: 6px;
+    }
+    .cal-d {
+      aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center;
+      font-size: .78rem; font-weight: 500; font-variant-numeric: tabular-nums;
+      color: rgba(255,255,255,.55); border-radius: 7px;
+      border: 1.5px solid transparent; max-width: 100%;
+    }
+    .cal-d.tem-ato { color: var(--gold-on-dark); font-weight: 800; }
+    .cal-d.hoje { border-color: rgba(255,255,255,.6); color: #fff; }
+    .cal-d.vazio { visibility: hidden; }
+
     @media (max-width: 640px) {
-      .productivity-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-      .prod-stat { padding: 10px 6px; }
-      .prod-stat-value { font-size: 1.3rem; }
-      .prod-stat-label { font-size: .62rem; }
-      .productivity-card { padding: 16px 16px; }
+      .agenda-card { padding: 16px; }
+      .agenda-body { grid-template-columns: 1fr; gap: 16px; }
+      .cal-mini-week, .cal-mini-grid { max-width: 340px; }
+      .agenda-cal-col { border-left: none; border-top: 1px solid rgba(255,255,255,.16); padding-left: 0; padding-top: 16px; }
+      .next-dia { font-size: 3.4rem; }
+      .next-tipo { font-size: 1.2rem; }
+      .next-semana { font-size: .8rem; }
     }
 
     /* ==========================================================
@@ -332,56 +401,10 @@
     .widget-updated { font-size: .68rem; color: var(--text-tertiary); text-align: right; margin-top: 10px; }
     .widget:hover { box-shadow: var(--shadow-lg); }
 
-    /* ==========================================================
-       UNIFIED INFO CARD
-       ========================================================== */
-    .unified-info-card {
-      background: var(--bg-secondary);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-      display: flex; flex-direction: row;
-      overflow: hidden; position: relative; min-height: 92px;
-    }
-    .unified-info-card::before { content:''; position:absolute; top:0; left:0; bottom:0; width:4px; background: linear-gradient(var(--red-mppe), var(--red-mppe-deep)); z-index:2; }
-    .unified-info-card::after { content:''; position:absolute; top:0; right:0; bottom:0; width:4px; background: linear-gradient(var(--blue-accent), #123d92); z-index:2; }
-
-    .info-segment { flex:1; padding: 14px 18px; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:1; }
-    #boxProximoAto, #boxPlantao { cursor: pointer; transition: background-color .2s, transform .15s; }
-    #boxProximoAto:hover, #boxPlantao:hover { background-color: var(--bg-tertiary); }
-    #boxProximoAto:active, #boxPlantao:active { transform: scale(0.99); }
-    .info-segment:first-child { border-right: 1px solid var(--border-color); }
-
-    .bg-icon { position:absolute; right:6px; bottom:-6px; width:64px; height:64px; opacity:.06; pointer-events:none; color:currentColor; }
-    .info-segment.proximo { color: var(--red-mppe); }
-    [data-theme="dark"] .info-segment.proximo { color: #f0a3ab; }
-    .info-segment.rodizio { color: var(--blue-accent); }
-    [data-theme="dark"] .info-segment.rodizio { color: #7fa8f2; }
-
-    .info-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .9px; font-weight: 700; margin-bottom: 5px; display:flex; align-items:center; gap:6px; opacity:.85; color:inherit; }
-    .info-content { font-size: .98rem; font-weight: 700; line-height: 1.28; color: var(--text-primary); z-index:2; }
-    .info-sub { font-size: .76rem; color: var(--text-secondary); margin-top: 3px; }
-
-    @media (max-width: 400px) {
-      .info-content { font-size: .85rem; }
-      .unified-info-card { min-height: 78px; }
-      .info-segment { padding: 10px 12px; }
-    }
-
-    .skeleton { position: relative; overflow: hidden; background: var(--border-color); border-radius: 6px; color: transparent !important; }
-    .skeleton::after {
-      content: ''; position: absolute; inset: 0; transform: translateX(-100%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
-      animation: shimmer 1.4s infinite;
-    }
-    [data-theme="dark"] .skeleton::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent); }
-    @keyframes shimmer { 100% { transform: translateX(100%); } }
-    .loading-pulse { animation: pulse 1.5s infinite ease-in-out; opacity: .6; }
-    @keyframes pulse { 0% { opacity:.4;} 50%{opacity:.85;} 100%{opacity:.4;} }
-
     .skeleton-line { height: 14px; border-radius: 6px; background: var(--border-color); position: relative; overflow: hidden; margin-bottom: 8px; }
     .skeleton-line::after { content:''; position:absolute; inset:0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent); animation: shimmer 1.4s infinite; }
     [data-theme="dark"] .skeleton-line::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); }
+    @keyframes shimmer { 100% { transform: translateX(100%); } }
     .skeleton-line.w60 { width: 60%; } .skeleton-line.w80 { width: 80%; } .skeleton-line.w40 { width: 40%; }
 
     /* ==========================================================
@@ -665,6 +688,7 @@
       .main-column { gap:16px; }
       .title h1 { font-size: 1.08rem; max-width: 46vw; }
       .title p { display: none; }
+      .menu-dropdown { min-width: 220px; }
     }
     @media (max-width: 600px) {
       .processo-input-group { gap:2px; flex-wrap:nowrap; }
@@ -690,7 +714,6 @@
             </div>
           </div>
           <div class="header-right">
-            <span class="status-pill" id="statusPill"><span class="status-dot"></span>Sistema online</span>
             <div class="header-clock" aria-live="off">
               <span class="clock-time" id="clockTime">--:--</span>
               <span class="clock-date" id="clockDate">-- --- ----</span>
@@ -704,79 +727,75 @@
       </div>
     </header>
 
+    <div class="subbar">
+      <div class="wrap">
+        <div class="subbar-inner">
+          <div class="menu-anchor">
+            <button class="menu-btn" id="mainMenuBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mainMenu" title="Abrir menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              <span>Menu</span>
+            </button>
+
+            <div class="menu-dropdown" id="mainMenu" role="menu" aria-labelledby="mainMenuBtn" hidden>
+              <a class="menu-item" role="menuitem" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="5" rx="1"></rect><path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"></path><path d="M10 13h4"></path></svg></span>
+                <span>Acervo da 45ª</span>
+              </a>
+              <a class="menu-item" role="menuitem" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
+                <span>Modelos de Peças</span>
+              </a>
+              <button class="menu-item" role="menuitem" id="pauta3VaraBtn" type="button">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+                <span>Pauta da 3ª Vara</span>
+              </button>
+              <button class="menu-item" role="menuitem" id="feriasBtn" type="button">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg></span>
+                <span>Escala de Férias</span>
+              </button>
+              <button class="menu-item" role="menuitem" id="rodizioBtn" type="button">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+                <span>Rodízio Secretaria</span>
+              </button>
+              <a class="menu-item" role="menuitem" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <span>Telefones Úteis</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="secretaria-info">
+            <span class="secretaria-label">Secretaria:</span>
+            <span class="secretaria-nome" id="secretariaNome">carregando…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <main class="main-content">
       <div class="wrap">
         <div class="main-column">
 
-          <div class="unified-info-card reveal" style="animation-delay:.03s">
-            <div class="info-segment proximo" id="boxProximoAto" title="Clique para abrir a Pauta" role="button" tabindex="0">
-              <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <div class="info-label">Próximo Ato · Dr. Arroxelas</div>
-              <div class="info-content skeleton">Analisando informações do próximo compromisso</div>
-            </div>
-            <div class="info-segment rodizio" id="boxPlantao" title="Clique para ver a Escala de Rodízio" role="button" tabindex="0">
-              <svg class="bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              <div class="info-label">Secretaria de Plantão</div>
-              <div class="info-content skeleton">Verificando escala atual da secretaria</div>
-              <div class="info-sub" id="rodizioSub"></div>
-            </div>
-          </div>
-
-          <div class="quick-actions-grid reveal" style="animation-delay:.05s">
-            <a class="quick-action-card" href="https://drive.google.com/drive/u/0/folders/1teMajkSmr9q5xYtdAAI8dKd17fI-KzTw" target="_blank" rel="noopener">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="5" rx="1"></rect><path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"></path><path d="M10 13h4"></path></svg></span>
-              <span class="qa-label">Acervo da 45ª</span>
-            </a>
-            <a class="quick-action-card" href="https://drive.google.com/drive/u/1/folders/1_xVzM8wDnXHhc4up-o2AkIj2_D99GYsl" target="_blank" rel="noopener">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg></span>
-              <span class="qa-label">Modelos de Peças</span>
-            </a>
-            <button class="quick-action-card" id="pauta3VaraBtn" type="button">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14.5" x2="8.01" y2="14.5"></line><line x1="12" y1="14.5" x2="12.01" y2="14.5"></line><line x1="16" y1="14.5" x2="16.01" y2="14.5"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
-              <span class="qa-label">Pauta da 3ª Vara</span>
-            </button>
-            <button class="quick-action-card" id="feriasBtn" type="button">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg></span>
-              <span class="qa-label">Escala de Férias</span>
-            </button>
-            <button class="quick-action-card" id="rodizioBtn" type="button">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
-              <span class="qa-label">Rodízio Secretaria</span>
-            </button>
-            <a class="quick-action-card" href="https://drive.google.com/file/d/1RYvyk46dpVA2WLLI2xJVthRBgoePTSVS/view?usp=drive_link" target="_blank" rel="noopener">
-              <span class="qa-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81 .7A2 2 0 0 1 22 16.92z"/></svg></span>
-              <span class="qa-label">Telefones Úteis</span>
-            </a>
-          </div>
-
-          <div class="productivity-card reveal" style="animation-delay:.08s" id="productivityCard">
-            <div class="prod-dot-texture" aria-hidden="true"></div>
-            <svg class="prod-icon-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3v18M4 7l-3.2 6.8a4.2 4.2 0 0 0 8.4 0zM20 7l-3.2 6.8a4.2 4.2 0 0 0 8.4 0zM2 21h20M4 7h16M9 3h6"/></svg>
-            <div class="productivity-header">
-              <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></span>
+          <section class="agenda-card reveal" style="animation-delay:.05s" id="agendaCard">
+            <div class="agenda-dot-texture" aria-hidden="true"></div>
+            <div class="agenda-header">
+              <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
               <div>
-                <div class="productivity-eyebrow">Produtividade · <span id="prodMonthLabel">—</span></div>
-                <h2>Painel de Dr. Arroxelas</h2>
+                <div class="agenda-eyebrow">Dr. Arroxelas · <span id="prodMonthLabel">—</span></div>
+                <h2>Agenda</h2>
               </div>
             </div>
-            <div class="productivity-stats">
-              <div class="prod-stat">
-                <span class="prod-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
-                <div class="prod-stat-value" id="statAudiencias">—</div>
-                <div class="prod-stat-label">Audiências no mês</div>
-              </div>
-              <div class="prod-stat">
-                <span class="prod-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6"/><path d="m3.5 20.5 5-5"/><path d="m10 6 4 4-8.5 8.5-4-4z"/><path d="m17.5 3.5 3 3-3.5 3.5-3-3z"/></svg></span>
-                <div class="prod-stat-value" id="statJuris">—</div>
-                <div class="prod-stat-label">Sessões de Júri no mês</div>
-              </div>
-              <div class="prod-stat">
-                <span class="prod-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></span>
-                <div class="prod-stat-value" id="statManifestacoes">—</div>
-                <div class="prod-stat-label">Manifestações elaboradas</div>
+            <div class="agenda-body">
+              <button class="agenda-next" id="agendaNext" type="button" title="Abrir a pauta da 3ª Vara">
+                <span class="next-tipo" id="nextTipo">—</span>
+                <span class="next-dia" id="nextDia">—</span>
+                <span class="next-semana" id="nextSemana"></span>
+              </button>
+              <div class="agenda-cal-col">
+                <div id="agendaCal"></div>
               </div>
             </div>
-          </div>
+          </section>
 
           <div class="widget reveal" style="animation-delay:.08s">
             <div class="widget-header">
@@ -976,7 +995,6 @@
       var GAPI_URL  = 'https://apis.google.com/js/api.js';
       var AUD_ROOT = '1vJCG69eYpY-eBUFMfMLF6QM-YIPFgKpQ';
       var JURI_ROOT = '12dbDJQNFNAeyZhftKQaCvsluTVU2PGxG';
-      var MANIFESTACOES_ROOT = '1TMPRowcQ8k-700aCGs4sHkQzxLk_zZK3';
       var MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
       function y(){ var yEl=$('#y'); if(yEl) yEl.textContent=new Date().getFullYear(); }
@@ -1007,6 +1025,46 @@
       })();
 
       /* ============================================================
+         MENU PRINCIPAL (faixa cinza)
+         ============================================================ */
+      var Menu = (function(){
+        var btn, panel;
+        function isOpen(){ return panel && !panel.hidden; }
+        function open(){
+          if(!panel) return;
+          panel.hidden = false;
+          btn.setAttribute('aria-expanded', 'true');
+        }
+        function close(){
+          if(!panel) return;
+          panel.hidden = true;
+          btn.setAttribute('aria-expanded', 'false');
+        }
+        function init(){
+          btn = $('#mainMenuBtn'); panel = $('#mainMenu');
+          if(!btn || !panel) return;
+          btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            isOpen() ? close() : open();
+          });
+          /* Um clique num item do menu já dispara a ação (link ou modal);
+             fechamos logo em seguida para o menu não ficar por cima. */
+          panel.addEventListener('click', function(e){
+            if(e.target.closest('.menu-item')) setTimeout(close, 0);
+          });
+          document.addEventListener('click', function(e){
+            if(!isOpen()) return;
+            if(e.target.closest('#mainMenu') || e.target.closest('#mainMenuBtn')) return;
+            close();
+          });
+          document.addEventListener('keydown', function(e){
+            if(e.key === 'Escape' && isOpen()) close();
+          });
+        }
+        return { init: init, close: close };
+      })();
+
+      /* ============================================================
          TOASTS
          ============================================================ */
       var Toast = (function(){
@@ -1028,7 +1086,7 @@
             setTimeout(function(){ el.remove(); }, 260);
           }
           el.querySelector('.toast-close').addEventListener('click', remove);
-          var t = setTimeout(remove, duration);
+          setTimeout(remove, duration);
         }
         return { show: show };
       })();
@@ -1086,33 +1144,6 @@
           });
           return (r.result && r.result.files) ? r.result.files : [];
         }
-        async function listFiles(parentId, mimeType) {
-          if (!gapiReady) await initGapiWithRetry(3);
-          const mimeQuery = mimeType ? ` AND mimeType='${mimeType}'` : '';
-          const r = await gapi.client.drive.files.list({
-            fields: 'files(id,name,webViewLink,mimeType)',
-            orderBy: 'name',
-            pageSize: 1,
-            q: `'${parentId}' in parents AND trashed=false${mimeQuery}`,
-            supportsAllDrives: true, includeItemsFromAllDrives: true
-          });
-          return (r.result && r.result.files) ? r.result.files : [];
-        }
-        async function countFiles(parentId){
-          if (!gapiReady) await initGapiWithRetry(3);
-          var total = 0, pageToken = undefined;
-          do {
-            const r = await gapi.client.drive.files.list({
-              fields: 'nextPageToken, files(id)', pageSize: 1000,
-              q: `'${parentId}' in parents AND trashed=false`,
-              pageToken: pageToken,
-              supportsAllDrives: true, includeItemsFromAllDrives: true
-            });
-            total += (r.result && r.result.files) ? r.result.files.length : 0;
-            pageToken = r.result && r.result.nextPageToken;
-          } while (pageToken);
-          return total;
-        }
         function loadGapiScript(timeoutMs){
           if (window.gapi && gapi.load) return Promise.resolve();
           return new Promise(function(resolve, reject){
@@ -1123,7 +1154,7 @@
           });
         }
         function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
-        return { initGapiWithRetry, listFolders, listFiles, countFiles };
+        return { initGapiWithRetry, listFolders };
       })();
 
       function renderVListSkeleton(containerSel){
@@ -1395,30 +1426,27 @@
         return count;
       }
 
-      /* Counts Audiências vs Sessões de Júri for one promoter across the whole
-         month returned by getPauta — feeds the productivity card. */
-      function computeMonthlyStats(data, promoterFilter){
-        var audiencias = 0, juris = 0;
+      /* Dias do mês em que Dr. Arroxelas tem ao menos um compromisso — usa a
+         mesma máquina de estados do calendário grande (atribuição por posição). */
+      function extractPromoterDays(data, promoterFilter){
+        var dias = {};
         (data.events || []).forEach(day => {
-          var currentPromoter = null, currentCategory = null;
+          var currentPromoter = null, tem = false;
           (day.conteudo || []).forEach(line => {
             if (line.trim() === '') return;
             var lower = line.toLowerCase();
             if (lower.includes('carnaval') || lower.includes('feriado')) return;
             var nameKey = getPromoterNameLineKey(line);
-            if (nameKey) { currentPromoter = nameKey; currentCategory = null; return; }
-            if (isSectionHeaderLine(lower, line)) {
-              currentCategory = (lower.includes('júri') || lower.includes('juri')) ? 'juri' : 'audiencias';
-              return;
-            }
-            if (currentPromoter !== promoterFilter) return;
-            var cat = currentCategory;
-            if (lower.includes('júri') || lower.includes('juri')) cat = 'juri';
-            else if (!cat) cat = 'audiencias';
-            if (cat === 'juri') juris++; else audiencias++;
+            if (nameKey) { currentPromoter = nameKey; return; }
+            if (isSectionHeaderLine(lower, line)) return;
+            if (currentPromoter === promoterFilter) tem = true;
           });
+          if (tem) {
+            var n = parseInt(String(day.dia).replace(/\D/g, ''), 10);
+            if (!isNaN(n)) dias[n] = true;
+          }
         });
-        return { audiencias: audiencias, juris: juris };
+        return dias;
       }
 
       function applyPromoterFilter(filter){
@@ -1537,124 +1565,116 @@
         applyPromoterFilter(pautaFilter);
       }
 
-      async function updateRodizioAtual() {
-        const box = $('#boxPlantao .info-content');
-        const sub = $('#rodizioSub');
+      /* ============================================================
+         SECRETARIA DE PLANTÃO — faixa cinza
+         ============================================================ */
+      async function updateSecretariaPlantao() {
+        const el = $('#secretariaNome');
+        if(!el) return;
+        function set(nome, turno){
+          el.textContent = nome;
+          el.title = turno ? (nome + ' · ' + turno) : nome;
+        }
         try {
           const response = await fetch(`${APPS_SCRIPT_URL}?action=getRodizio`);
           const data = await response.json();
 
-          if(data.error || !data.shifts) {
-            box.textContent = 'Indisponível';
-            box.classList.remove('loading-pulse', 'skeleton');
-            return;
-          }
+          if(data.error || !data.shifts) { set('indisponível', ''); return; }
 
           const now = new Date();
           const day = now.getDay();
           const hour = now.getHours();
 
-          if(day === 0 || day === 6) {
-            box.textContent = 'Fim de Semana';
-            sub.textContent = '';
-            box.classList.remove('loading-pulse', 'skeleton');
-            return;
-          }
+          if(day === 0 || day === 6) { set('fim de semana', ''); return; }
 
           const idx = day - 1;
-          let name = 'Fora do Horário';
-          let turnoTexto = '';
 
           if (hour >= 7 && hour < 12) {
-            name = data.shifts[0].names[idx] || 'N/A';
-            turnoTexto = 'Expediente: Manhã';
+            set(data.shifts[0].names[idx] || 'N/A', 'Expediente: Manhã');
+          } else if (hour >= 12 && hour < 18) {
+            set(data.shifts[1].names[idx] || 'N/A', 'Expediente: Tarde');
+          } else {
+            set('fechado', '');
           }
-          else if (hour >= 12 && hour < 18) {
-            name = data.shifts[1].names[idx] || 'N/A';
-            turnoTexto = 'Expediente: Tarde';
-          }
-          else {
-            name = 'Fechado';
-            turnoTexto = '';
-          }
-
-          box.textContent = name;
-          sub.textContent = turnoTexto;
-          box.classList.remove('loading-pulse', 'skeleton');
-        } catch (e) { console.error(e); box.textContent = 'Erro de Conexão'; box.classList.remove('loading-pulse', 'skeleton'); }
-      }
-
-      async function updateNextAct() {
-        const box = $('#boxProximoAto .info-content');
-        try {
-          const response = await fetch(`${APPS_SCRIPT_URL}?action=getNextAct&fileType=csv`);
-          const data = await response.json();
-          box.classList.remove('loading-pulse', 'skeleton');
-          if (data.error) { box.textContent = 'Erro'; return; }
-          if (!data.found) { box.textContent = 'Nada consta'; return; }
-          const now = new Date();
-          const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-          const dateStr = `${data.dia} de ${months[now.getMonth()]}`;
-          box.textContent = `${data.tipo} — ${dateStr}`;
-        } catch (e) { console.error(e); box.textContent = 'Erro'; box.classList.remove('loading-pulse', 'skeleton'); }
+        } catch (e) {
+          console.error(e);
+          set('erro de conexão', '');
+        }
       }
 
       /* ============================================================
-         CARD DE PRODUTIVIDADE — audiências/júris (getPauta) + manifestações (Drive)
+         AGENDA — próximo ato + calendário minimalista do mês
          ============================================================ */
-      function normalizeStr(s){
-        return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      function renderMiniCalendar(diasComAto){
+        var host = $('#agendaCal'); if(!host) return;
+        var now = new Date();
+        var ano = now.getFullYear(), mes = now.getMonth(), hoje = now.getDate();
+        var primeiroDiaSemana = new Date(ano, mes, 1).getDay();     // 0 = domingo
+        var totalDias = new Date(ano, mes + 1, 0).getDate();
+
+        var html = '<div class="cal-mini-week">';
+        ['D','S','T','Q','Q','S','S'].forEach(function(d){ html += '<span>' + d + '</span>'; });
+        html += '</div><div class="cal-mini-grid">';
+
+        for (var i = 0; i < primeiroDiaSemana; i++) html += '<span class="cal-d vazio"></span>';
+        for (var d = 1; d <= totalDias; d++) {
+          var cls = 'cal-d';
+          if (diasComAto && diasComAto[d]) cls += ' tem-ato';
+          if (d === hoje) cls += ' hoje';
+          html += '<span class="' + cls + '">' + d + '</span>';
+        }
+        html += '</div>';
+        host.innerHTML = html;
       }
 
-      async function loadProductivityMonthLabel(){
-        var el = $('#prodMonthLabel');
-        if (el) el.textContent = MONTH_NAMES_PT[new Date().getMonth()];
-      }
-
-      async function loadProductivityPautaStats(){
-        var elAud = $('#statAudiencias'), elJuri = $('#statJuris');
+      async function loadAgendaCalendar(){
+        // desenha já, sem marcações, para o card nunca aparecer vazio
+        renderMiniCalendar(null);
         try {
           const response = await fetch(`${APPS_SCRIPT_URL}?action=getPauta&fileType=csv`);
           const data = await response.json();
-          if (data.error || !data.events) { if(elAud) elAud.textContent = '—'; if(elJuri) elJuri.textContent = '—'; return; }
-          const stats = computeMonthlyStats(data, 'arroxelas');
-          if (elAud) elAud.textContent = stats.audiencias;
-          if (elJuri) elJuri.textContent = stats.juris;
+          if (data.error || !data.events) return;
+          window.__lastPautaData = data;
+          renderMiniCalendar(extractPromoterDays(data, 'arroxelas'));
         } catch (e) {
-          console.error('Erro ao calcular estatísticas da pauta:', e);
-          if (elAud) elAud.textContent = '—';
-          if (elJuri) elJuri.textContent = '—';
+          console.error('Erro ao montar o calendário da agenda:', e);
         }
       }
 
-      async function loadProductivityManifestacoes(){
-        var el = $('#statManifestacoes');
-        var targetMonth = MONTH_NAMES_PT[new Date().getMonth()];
+      async function updateNextAct() {
+        const elTipo = $('#nextTipo'), elDia = $('#nextDia'), elSemana = $('#nextSemana');
+        if(!elTipo || !elDia || !elSemana) return;
+        function vazio(msg){
+          elTipo.textContent = msg;
+          elTipo.classList.add('next-vazio');
+          elDia.textContent = '';
+          elSemana.textContent = '';
+        }
         try {
-          await Drive.initGapiWithRetry(3);
-          var subfolders = await Drive.listFolders(MANIFESTACOES_ROOT);
-          console.log('[Produtividade] Subpastas encontradas em MANIFESTACOES_ROOT:', subfolders.map(f => f.name));
-          var normTarget = normalizeStr(targetMonth);
-          var monthFolder = subfolders.find(f => normalizeStr(f.name).indexOf(normTarget) !== -1);
-          if (!monthFolder) {
-            console.warn('[Produtividade] Nenhuma subpasta corresponde ao mês "' + targetMonth + '". Confira o nome exato da subpasta no Drive e se ela está compartilhada como "Qualquer pessoa com o link".');
-            if (el) el.textContent = '—';
-            return;
-          }
-          console.log('[Produtividade] Usando subpasta "' + monthFolder.name + '" (id ' + monthFolder.id + ')');
-          var count = await Drive.countFiles(monthFolder.id);
-          console.log('[Produtividade] Arquivos contados:', count);
-          if (el) el.textContent = count;
+          const response = await fetch(`${APPS_SCRIPT_URL}?action=getNextAct&fileType=csv`);
+          const data = await response.json();
+          if (data.error) { vazio('Erro ao carregar'); return; }
+          if (!data.found) { vazio('Nada consta'); return; }
+
+          elTipo.classList.remove('next-vazio');
+          elTipo.textContent = String(data.tipo || 'Ato').toUpperCase();
+
+          var diaNum = parseInt(String(data.dia).replace(/\D/g, ''), 10);
+          if (isNaN(diaNum)) { elDia.textContent = String(data.dia || '—'); elSemana.textContent = ''; return; }
+
+          elDia.textContent = diaNum;
+          var now = new Date();
+          var dataAto = new Date(now.getFullYear(), now.getMonth(), diaNum);
+          elSemana.textContent = dataAto.toLocaleDateString('pt-BR', { weekday: 'long' }).toUpperCase();
         } catch (e) {
-          console.error('[Produtividade] Erro ao contar manifestações do mês:', e);
-          if (el) el.textContent = '—';
+          console.error(e);
+          vazio('Erro ao carregar');
         }
       }
 
-      function loadProductivityStats(){
-        loadProductivityMonthLabel();
-        loadProductivityPautaStats();
-        loadProductivityManifestacoes();
+      function loadMonthLabel(){
+        var el = $('#prodMonthLabel');
+        if (el) el.textContent = MONTH_NAMES_PT[new Date().getMonth()];
       }
 
       /* ============================================================
@@ -1762,13 +1782,15 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         Theme.init();
+        Menu.init();
         y();
         startClock();
         initBackToTop();
 
         renderAtos(false);
-        loadProductivityStats();
-        updateRodizioAtual();
+        loadMonthLabel();
+        loadAgendaCalendar();
+        updateSecretariaPlantao();
         updateNextAct();
 
         var refreshAtos = $('#refreshAtosBtn');
@@ -1819,16 +1841,14 @@
         const openPautaHandler = () => { pautaFilter = 'arroxelas'; fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
 
-        const boxProximo = $('#boxProximoAto');
-        if(boxProximo) {
-          boxProximo.addEventListener('click', (e) => { e.preventDefault(); openModalById('#pautaModal'); openPautaHandler(); });
-          boxProximo.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); boxProximo.click(); } });
-        }
-
-        const boxPlantao = $('#boxPlantao');
-        if(boxPlantao) {
-          boxPlantao.addEventListener('click', (e) => { e.preventDefault(); openModalById('#rodizioModal'); $('#rodizioBtn').click(); });
-          boxPlantao.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); boxPlantao.click(); } });
+        const agendaNext = $('#agendaNext');
+        if(agendaNext) {
+          agendaNext.addEventListener('click', (e) => {
+            e.preventDefault();
+            Menu.close();
+            openModalById('#pautaModal');
+            openPautaHandler();
+          });
         }
 
         setupModal('#processoModal', null, '#closeProcessoBtn', null);
