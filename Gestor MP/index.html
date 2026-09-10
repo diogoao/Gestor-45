@@ -378,7 +378,12 @@
       display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 22px;
       align-items: center;
     }
-    .agenda-cal-col { border-left: 1px solid rgba(255,255,255,.16); padding-left: 22px; }
+    .agenda-cal-col {
+      border-left: 1px solid rgba(255,255,255,.16); padding-left: 22px;
+      cursor: pointer; border-radius: 12px;
+      transition: background-color .2s var(--ease);
+    }
+    .agenda-cal-col:hover { background: rgba(255,255,255,.05); }
 
     .agenda-proximo { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .agenda-next {
@@ -432,6 +437,10 @@
       border: 1.5px solid transparent; max-width: 100%;
     }
     .cal-d.tem-ato { color: var(--gold-on-dark); font-weight: 800; }
+    .cal-d.feriado {
+      text-decoration: line-through; text-decoration-thickness: 1.5px;
+      text-decoration-color: currentColor; opacity: .7;
+    }
     .cal-d.hoje { border-color: rgba(255,255,255,.6); color: #fff; }
     .cal-d.vazio { visibility: hidden; }
 
@@ -669,6 +678,9 @@
     .calendar-day-card { background: var(--bg-tertiary); border:1px solid var(--border-color); border-radius:10px; min-height:120px; display:flex; flex-direction:column; overflow:hidden; transition: box-shadow .2s, border-color .2s; }
     .calendar-day-card:hover { box-shadow: var(--shadow-sm); }
     .calendar-day-card.is-today { border-color: var(--gold-accent); box-shadow: 0 0 0 2px rgba(182,147,74,0.35); }
+    /* célula usada só para empurrar o primeiro dia até a coluna certa */
+    .calendar-day-card.vazia { background: transparent; border-color: transparent; min-height: 0; }
+    .calendar-grid.list-view .calendar-day-card.vazia { display: none; }
     .calendar-grid.list-view .calendar-day-card { min-height:auto; }
 
     .day-number { background: var(--bg-secondary); padding:7px 10px; font-weight:700; font-size:.9rem; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; }
@@ -1576,6 +1588,37 @@
         return 'outro';
       }
 
+      var MESES_PT_IDX = { 'JANEIRO':0,'FEVEREIRO':1,'MARÇO':2,'MARCO':2,'ABRIL':3,'MAIO':4,'JUNHO':5,
+                           'JULHO':6,'AGOSTO':7,'SETEMBRO':8,'OUTUBRO':9,'NOVEMBRO':10,'DEZEMBRO':11 };
+
+      /* O título da pauta ("TABELA SETEMBRO - 3ª vara - 2026") diz o mês e o
+         ano — é o que permite pôr cada dia na coluna do seu dia da semana de
+         verdade. Sem isso, devolve null e o calendário cai no modo antigo. */
+      function mesAnoDaPauta(title){
+        var upper = String(title || '').toUpperCase();
+        var mes = null;
+        for (var nome in MESES_PT_IDX) {
+          if (upper.indexOf(nome) !== -1) { mes = MESES_PT_IDX[nome]; break; }
+        }
+        if (mes === null) return null;
+        var m = upper.match(/(20\d{2})/);
+        return { mes: mes, ano: m ? parseInt(m[1], 10) : new Date().getFullYear() };
+      }
+
+      function extractFeriados(data){
+        var dias = {};
+        (data.events || []).forEach(function(day){
+          var ehFeriado = (day.conteudo || []).some(function(l){
+            var lo = String(l).toLowerCase();
+            return lo.indexOf('feriado') !== -1 || lo.indexOf('carnaval') !== -1;
+          });
+          if (!ehFeriado) return;
+          var n = parseInt(String(day.dia).replace(/\D/g, ''), 10);
+          if (!isNaN(n)) dias[n] = true;
+        });
+        return dias;
+      }
+
       function extractCalendarMonth(title){
         if (!title) return 'Pauta Mensal';
         var months = ['JANEIRO','FEVEREIRO','MARÇO','MARCO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
@@ -1685,7 +1728,8 @@
           const h = document.createElement('div'); h.className = 'calendar-header-day'; h.textContent = d; grid.appendChild(h);
         });
         const todayNum = new Date().getDate();
-        data.events.forEach(day => {
+
+        function criarCardDoDia(day){
           const card = document.createElement('div'); card.className = 'calendar-day-card';
           const isHoliday = day.conteudo.some(t => t.toUpperCase().includes('CARNAVAL') || t.toUpperCase().includes('FERIADO'));
           const isToday = String(day.dia).trim() === String(todayNum);
@@ -1736,8 +1780,44 @@
             entry.appendChild(dot); entry.appendChild(txt);
             contentBox.appendChild(entry);
           });
-          card.appendChild(contentBox); grid.appendChild(card);
-        });
+          card.appendChild(contentBox);
+          return card;
+        }
+
+        function celulaVazia(){
+          const v = document.createElement('div');
+          v.className = 'calendar-day-card vazia';
+          return v;
+        }
+
+        /* A pauta é uma grade de 5 colunas (segunda a sexta). Empilhar os dias
+           na ordem em que chegam só funciona quando o dia 1º cai numa segunda;
+           em setembro/2026 ele cai numa terça, e tudo saía deslocado. Aqui cada
+           dia vai para a coluna do seu dia da semana real, e as folgas do
+           começo da grade viram células vazias. */
+        const infoMes = mesAnoDaPauta(data.title);
+        if (infoMes) {
+          const itens = data.events
+            .map(function(day){
+              var dia = parseInt(String(day.dia).replace(/\D/g, ''), 10);
+              return isNaN(dia) ? null : { day: day, dia: dia };
+            })
+            .filter(Boolean)
+            .sort(function(a, b){ return a.dia - b.dia; });
+
+          let coluna = 0;
+          itens.forEach(function(it){
+            const dow = new Date(infoMes.ano, infoMes.mes, it.dia).getDay(); // 0 = domingo
+            if (dow === 0 || dow === 6) return;          // a grade só tem dias úteis
+            const alvo = dow - 1;
+            while (coluna !== alvo) { grid.appendChild(celulaVazia()); coluna = (coluna + 1) % 5; }
+            grid.appendChild(criarCardDoDia(it.day));
+            coluna = (coluna + 1) % 5;
+          });
+        } else {
+          data.events.forEach(function(day){ grid.appendChild(criarCardDoDia(day)); });
+        }
+
         scrollWrap.appendChild(grid);
         container.appendChild(scrollWrap);
 
@@ -1784,7 +1864,7 @@
       /* ============================================================
          AGENDA — próximo ato + calendário minimalista do mês
          ============================================================ */
-      function renderMiniCalendar(diasComAto){
+      function renderMiniCalendar(diasComAto, feriados){
         var host = $('#agendaCal'); if(!host) return;
         var now = new Date();
         var ano = now.getFullYear(), mes = now.getMonth(), hoje = now.getDate();
@@ -1799,6 +1879,7 @@
         for (var d = 1; d <= totalDias; d++) {
           var cls = 'cal-d';
           if (diasComAto && diasComAto[d]) cls += ' tem-ato';
+          if (feriados && feriados[d]) cls += ' feriado';
           if (d === hoje) cls += ' hoje';
           html += '<span class="' + cls + '">' + d + '</span>';
         }
@@ -1856,10 +1937,10 @@
 
       async function loadAgendaCalendar(){
         // desenha já, sem marcações, para o card nunca aparecer vazio
-        renderMiniCalendar(null);
+        renderMiniCalendar(null, null);
         try {
           const data = await getPautaData();
-          renderMiniCalendar(extractPromoterDays(data, 'arroxelas'));
+          renderMiniCalendar(extractPromoterDays(data, 'arroxelas'), extractFeriados(data));
         } catch (e) {
           console.error('Erro ao montar o calendário da agenda:', e);
         }
@@ -2116,13 +2197,24 @@
         const openPautaHandler = () => { pautaFilter = 'arroxelas'; fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
 
+        function abrirPautaCompleta(e){
+          if (e) e.preventDefault();
+          Menu.close();
+          openModalById('#pautaModal');
+          openPautaHandler();
+        }
+
         const verPautaBtn = $('#verPautaBtn');
-        if(verPautaBtn) {
-          verPautaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            Menu.close();
-            openModalById('#pautaModal');
-            openPautaHandler();
+        if(verPautaBtn) verPautaBtn.addEventListener('click', abrirPautaCompleta);
+
+        const colunaCal = document.querySelector('.agenda-cal-col');
+        if(colunaCal) {
+          colunaCal.setAttribute('role', 'button');
+          colunaCal.setAttribute('tabindex', '0');
+          colunaCal.title = 'Exibir a pauta completa da 3ª Vara';
+          colunaCal.addEventListener('click', abrirPautaCompleta);
+          colunaCal.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') abrirPautaCompleta(e);
           });
         }
 
