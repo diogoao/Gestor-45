@@ -13,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
-
   <style>
     /* ==========================================================
        DESIGN TOKENS
@@ -33,7 +32,6 @@
       --angela-color: #8a6d2e;
       --angela-dot: #b8860b;
       --angela-soft: #fff3c4;
-
       --bg-primary: #eef1f6;
       --bg-secondary: #ffffff;
       --bg-tertiary: #f6f8fb;
@@ -42,12 +40,10 @@
       --text-tertiary: #98a2b3;
       --border-color: #e6e9ef;
       --border-color-strong: #d7dce4;
-
       --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.06);
       --shadow: 0 4px 10px -2px rgb(16 24 40 / 0.08), 0 2px 4px -2px rgb(16 24 40 / 0.06);
       --shadow-lg: 0 12px 28px -6px rgb(16 24 40 / 0.14), 0 4px 10px -4px rgb(16 24 40 / 0.08);
       --shadow-red: 0 8px 20px -6px rgb(122 14 24 / 0.35);
-
       --radius-sm: 8px;
       --radius: 14px;
       --radius-lg: 20px;
@@ -57,7 +53,6 @@
       --font-display: 'Lora', 'Inter', serif;
       --ease: cubic-bezier(.22,1,.36,1);
     }
-
     [data-theme="dark"] {
       --bg-primary: #11141a;
       --bg-secondary: #1a1e26;
@@ -76,7 +71,6 @@
       --shadow: 0 6px 16px -4px rgb(0 0 0 / 0.45), 0 2px 6px -2px rgb(0 0 0 / 0.35);
       --shadow-lg: 0 18px 34px -8px rgb(0 0 0 / 0.55), 0 6px 14px -6px rgb(0 0 0 / 0.4);
     }
-
     /* ==========================================================
        RESET
        ========================================================== */
@@ -103,28 +97,23 @@
     a { color: var(--red-mppe); text-decoration: none; transition: color .2s; }
     a:hover { color: var(--red-mppe-hover); }
     ::selection { background: var(--gold-accent); color: #26170a; }
-
     :focus-visible {
       outline: 2px solid var(--blue-accent);
       outline-offset: 2px;
       border-radius: 4px;
     }
-
     ::-webkit-scrollbar { width: 9px; height: 9px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-color-strong); border-radius: 20px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
-
     .sr-only {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
-
     /* ==========================================================
        LAYOUT
        ========================================================== */
     .site-wrapper { min-height: 100%; display: flex; flex-direction: column; }
-
     .header {
       position: sticky;
       top: 0;
@@ -149,7 +138,6 @@
       gap: 16px;
     }
     .brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
-
     .seal-emblem {
       width: 52px; height: 52px; border-radius: 50%;
       flex-shrink: 0;
@@ -158,7 +146,6 @@
       overflow: hidden;
     }
     .seal-emblem img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
     .title { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
     .title .eyebrow {
       font-size: .68rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700;
@@ -171,7 +158,6 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .title p { font-size: 0.82rem; margin: 3px 0 0; color: #f3d9dc; }
-
     .header-right { display: flex; align-items: center; gap: 10px; }
     .header-clock {
       display: none;
@@ -185,7 +171,6 @@
     .header-clock .clock-time { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1rem; color: #fff; }
     .header-clock .clock-date { font-size: .72rem; color: #f3d9dc; text-transform: capitalize; }
     @media (min-width: 640px) { .header-clock { display: flex; } }
-
     .icon-btn {
       width: 40px; height: 40px; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center;
@@ -201,7 +186,6 @@
     .icon-btn .icon-moon { display: none; }
     [data-theme="dark"] .icon-btn .icon-sun { display: none; }
     [data-theme="dark"] .icon-btn .icon-moon { display: block; }
-
     /* ==========================================================
        SUBBAR — menu + secretaria de plantão
        ========================================================== */
@@ -219,7 +203,6 @@
       display: flex; align-items: center; justify-content: space-between;
       gap: 12px; padding-block: 6px;
     }
-
     .menu-anchor { position: relative; }
     .menu-btn {
       display: inline-flex; align-items: center; gap: 9px;
@@ -233,7 +216,6 @@
     .menu-btn:hover { background: rgba(255,255,255,.16); }
     .menu-btn[aria-expanded="true"] { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.3); }
     .menu-btn svg { width: 18px; height: 18px; }
-
     .menu-dropdown {
       position: absolute; top: calc(100% + 9px); left: 0; z-index: 120;
       min-width: 244px; padding: 7px;
@@ -247,7 +229,6 @@
     @keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion: reduce) { .menu-dropdown { animation: none; } }
     .menu-dropdown[hidden] { display: none; }
-
     .menu-item {
       display: flex; align-items: center; gap: 12px;
       width: 100%; padding: 10px 12px;
@@ -266,17 +247,14 @@
     [data-theme="dark"] .menu-item .mi-icon { color: #f0a3ab; }
     .menu-item:hover .mi-icon { background: var(--red-mppe); color: #fff; }
     .menu-item svg { width: 17px; height: 17px; }
-
     .secretaria-info { display: flex; align-items: baseline; gap: 7px; min-width: 0; }
     .secretaria-label { font-size: .76rem; font-weight: 700; color: var(--gold-on-dark); letter-spacing: .2px; }
     .secretaria-nome {
       font-size: .76rem; font-weight: 500; color: rgba(255,255,255,.66);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 52vw;
     }
-
     .main-content { flex: 1; padding-block: 32px; }
     .main-column { display: flex; flex-direction: column; gap: 24px; }
-
     /* ==========================================================
        HERO — título do painel + silhueta da balança
        ========================================================== */
@@ -307,7 +285,6 @@
       .hero-title { gap: 10px; }
       .hero-text { letter-spacing: .06em; }
     }
-
     /* ==========================================================
        DESTAQUE AO ROLAR — os cards grandes "aproximam"
        ========================================================== */
@@ -325,9 +302,7 @@
     @media (prefers-reduced-motion: reduce) {
       .zoomable { transform: none !important; opacity: 1 !important; }
     }
-
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-
     /* ==========================================================
        AGENDA CARD — vidro fosco em ardósia
        ========================================================== */
@@ -372,7 +347,6 @@
     .agenda-header .icon-wrap svg { width: 22px; height: 22px; color: #fff; }
     .agenda-eyebrow { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.75); }
     .agenda-header h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 2px 0 0; color: #fff; font-weight: 700; }
-
     .agenda-body {
       position: relative;
       display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 22px;
@@ -384,7 +358,6 @@
       transition: background-color .2s var(--ease);
     }
     .agenda-cal-col:hover { background: rgba(255,255,255,.05); }
-
     .agenda-proximo { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .agenda-next {
       display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
@@ -424,7 +397,6 @@
       color: rgba(255,255,255,.42); margin-top: 2px;
     }
     .next-vazio { font-size: 1.02rem; font-weight: 600; color: rgba(255,255,255,.6); }
-
     .cal-mini-week, .cal-mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; max-width: 300px; margin-inline: auto; }
     .cal-mini-week span {
       text-align: center; font-size: .58rem; font-weight: 700; letter-spacing: .05em;
@@ -443,7 +415,6 @@
     }
     .cal-d.hoje { border-color: rgba(255,255,255,.6); color: #fff; }
     .cal-d.vazio { visibility: hidden; }
-
     @media (max-width: 640px) {
       .agenda-card { padding: 16px; }
       .agenda-body { grid-template-columns: 1fr; gap: 16px; }
@@ -453,7 +424,6 @@
       .next-tipo { font-size: 1.2rem; }
       .next-semana { font-size: .8rem; }
     }
-
     /* ==========================================================
        WIDGETS
        ========================================================== */
@@ -492,17 +462,14 @@
     .widget-config-link svg, .refresh-btn svg { width: 17px; height: 17px; }
     .refresh-btn.spinning svg { animation: spin .7s linear; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .widget-body { padding: 20px; }
     .widget-updated { font-size: .68rem; color: var(--text-tertiary); text-align: right; margin-top: 10px; }
     .widget:hover { box-shadow: var(--shadow-lg); }
-
     .skeleton-line { height: 14px; border-radius: 6px; background: var(--border-color); position: relative; overflow: hidden; margin-bottom: 8px; }
     .skeleton-line::after { content:''; position:absolute; inset:0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent); animation: shimmer 1.4s infinite; }
     [data-theme="dark"] .skeleton-line::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); }
     @keyframes shimmer { 100% { transform: translateX(100%); } }
     .skeleton-line.w60 { width: 60%; } .skeleton-line.w80 { width: 80%; } .skeleton-line.w40 { width: 40%; }
-
     /* ==========================================================
        BUSCA DE PROCESSOS
        ========================================================== */
@@ -522,7 +489,6 @@
     @keyframes shake { 25% { transform: translateX(-4px);} 75% { transform: translateX(4px);} }
     .processo-input-group .sep { font-size: 1.15rem; color: var(--text-tertiary); padding: 0 2px; }
     #p-1 { width: 92px; } #p-2, #p-5 { width: 46px; } #p-3, #p-6 { width: 66px; } #p-4 { width: 36px; }
-
     .btn-primary {
       padding: 12px 22px; border-radius: 10px; border: none;
       background: linear-gradient(135deg, var(--red-mppe), var(--red-mppe-hover));
@@ -536,7 +502,6 @@
     .btn-primary:disabled { background: var(--text-tertiary); cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
     .btn-primary svg { width: 18px; height: 18px; }
     .search-button { width: 100%; }
-
     /* ==========================================================
        PRÓXIMOS ATOS
        ========================================================== */
@@ -571,21 +536,18 @@
     }
     .empty { padding: 16px; border: 1.5px dashed var(--border-color); border-radius: 10px; color: var(--text-secondary); text-align:center; font-size: .88rem; }
     .empty.error { border-color: rgba(220,38,38,.4); color: #dc2626; background: rgba(220,38,38,.05); }
-
     .avisos-list { display:flex; flex-direction:column; gap:12px; max-height:420px; overflow-y:auto; padding-right:6px; }
     .aviso-item { background: var(--bg-tertiary); border-left: 3px solid var(--red-mppe); border-radius: 0 10px 10px 0; padding: 13px 16px; transition: transform .2s; }
     .aviso-item:hover { transform: translateX(2px); }
     .aviso-author { font-size:.78rem; font-weight:700; color: var(--text-secondary); margin-bottom:5px; display:flex; align-items:center; gap:6px; }
     .aviso-author::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--gold-accent); }
     .aviso-text { line-height:1.55; white-space:pre-wrap; font-size:.92rem; overflow-wrap:break-word; }
-
     /* ==========================================================
        FOOTER
        ========================================================== */
     .footer { border-top: 1px solid var(--border-color); background: var(--bg-secondary); text-align:center; padding: 22px; }
     .footer .small { font-size:.85rem; color: var(--text-secondary); }
     .footer .small strong { color: var(--text-primary); }
-
     /* ==========================================================
        MODALS
        ========================================================== */
@@ -603,13 +565,11 @@
     }
     @keyframes modal-in { from { opacity:0; transform: translateY(10px) scale(.98); } to { opacity:1; transform: translateY(0) scale(1); } }
     @media (prefers-reduced-motion: reduce) { .modal-overlay.active, .modal-content { animation: none; } }
-
     .modal-content.large { max-width:1200px; width:95%; height:auto; max-height:95vh; display:block; padding:20px; overflow-y:auto; }
     .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-shrink:0; gap: 10px; }
     .modal-header-left { display:flex; align-items:center; gap:15px; }
     .modal-header h3 { margin:0; color: var(--text-primary); font-family: var(--font-display); }
     .modal-controls { display:flex; align-items:center; gap:10px; }
-
     .close-modal-x {
       background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary);
       cursor:pointer; padding:6px; border-radius:50%; transition: background .2s, color .2s, transform .2s;
@@ -617,20 +577,17 @@
     }
     .close-modal-x:hover { background: var(--red-mppe-soft); color: var(--red-mppe); transform: rotate(90deg); }
     .close-modal-x svg { width:20px; height:20px; }
-
     .view-toggles { display:flex; background-color: var(--bg-tertiary); padding:4px; border-radius:9px; gap:4px; border: 1px solid var(--border-color); }
     .view-btn { background:transparent; border:none; padding:7px; border-radius:7px; cursor:pointer; color: var(--text-secondary); display:flex; align-items:center; justify-content:center; transition: all .2s; }
     .view-btn:hover { background-color: rgba(0,0,0,0.05); }
     .view-btn.active { background-color: var(--bg-secondary); color: var(--red-mppe); box-shadow: var(--shadow-sm); }
     .view-btn svg { width:18px; height:18px; }
-
     .modal-buttons { display:flex; justify-content:flex-end; gap: 10px; margin-top: 18px; }
     .btn-secondary {
       padding: 10px 18px; border-radius: 9px; border: 1px solid var(--border-color); background: var(--bg-tertiary);
       color: var(--text-primary); font-weight: 600; cursor: pointer; transition: background .2s, border-color .2s;
     }
     .btn-secondary:hover { background: var(--bg-primary); border-color: var(--border-color-strong); }
-
     @media (max-width: 768px) {
       .modal-content.large { width:100%; height:100%; max-height:100%; border-radius:0; padding:0; display:flex; flex-direction:column; }
       .modal-header { padding:12px 16px; border-bottom:1px solid var(--border-color); background: var(--bg-secondary); margin-bottom:0; }
@@ -639,7 +596,6 @@
       .modal-header-left { gap:10px; }
       .modal-header h3 { font-size:1.1rem; }
     }
-
     .data-table { width:100%; border-collapse:collapse; }
     .data-table th, .data-table td { text-align:left; padding:12px 10px; border-bottom:1px solid var(--border-color); }
     .data-table th { font-size: .74rem; text-transform: uppercase; letter-spacing:.5px; color: var(--text-secondary); background: var(--bg-tertiary); position: sticky; top: 0; }
@@ -655,14 +611,12 @@
       .rodizio-table th, .rodizio-table td { padding: 10px 8px; font-size: .86rem; }
       .rodizio-table th[scope="row"] { font-size: .7rem; }
     }
-
     /* ==========================================================
        CALENDAR — redesenhado por promotor
        ========================================================== */
     .calendar-wrapper { overflow: visible; font-family: 'Inter', sans-serif; }
     .calendar-title { text-align:center; color: var(--red-mppe); font-weight:700; margin-bottom:6px; font-size:2.4rem; font-family: var(--font-display); }
     [data-theme="dark"] .calendar-title { color: #f0a3ab; }
-
     .promoter-filter-row { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin: 14px 0 6px; }
     .promoter-chip {
       display:flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px;
@@ -678,13 +632,11 @@
     .promoter-chip.active[data-filter="todos"] { border-color: var(--text-primary); background: var(--bg-tertiary); color: var(--text-primary); }
     .promoter-counter { text-align:center; font-size:.8rem; color: var(--text-secondary); margin: 0 0 16px; }
     .promoter-counter strong { color: var(--text-primary); }
-
     .calendar-grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:12px; min-width:1450px; }
     .calendar-scroll-container { overflow-x:auto; }
     .calendar-grid.list-view { grid-template-columns: 1fr; min-width:auto; }
     .calendar-header-day { text-align:center; font-weight:700; color: var(--text-secondary); font-size:.85rem; padding-bottom:8px; border-bottom:3px solid var(--gold-accent); text-transform: uppercase; letter-spacing: .4px; }
     .calendar-grid.list-view .calendar-header-day { display:none; }
-
     .calendar-day-card { background: var(--bg-tertiary); border:1px solid var(--border-color); border-radius:10px; min-height:120px; display:flex; flex-direction:column; overflow:hidden; transition: box-shadow .2s, border-color .2s; }
     .calendar-day-card:hover { box-shadow: var(--shadow-sm); }
     .calendar-day-card.is-today { border-color: var(--gold-accent); box-shadow: 0 0 0 2px rgba(182,147,74,0.35); }
@@ -692,21 +644,16 @@
     .calendar-day-card.vazia { background: transparent; border-color: transparent; min-height: 0; }
     .calendar-grid.list-view .calendar-day-card.vazia { display: none; }
     .calendar-grid.list-view .calendar-day-card { min-height:auto; }
-
     .day-number { background: var(--bg-secondary); padding:7px 10px; font-weight:700; font-size:.9rem; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; }
     .day-number.is-holiday { color: var(--red-mppe); background-color: var(--red-mppe-soft); }
     .day-number .today-tag { font-size: .62rem; background: var(--gold-accent); color: #2b2110; padding: 2px 6px; border-radius: 999px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
     .day-events { padding:8px 10px; display:flex; flex-direction:column; gap:3px; font-size:.75rem; flex:1; }
-
     .cal-heading { font-weight:700; color: var(--text-secondary); font-size:.66rem; text-transform:uppercase; letter-spacing:.5px; margin-top:8px; }
     .cal-heading:first-child { margin-top:2px; }
-
     .cal-entry { display:flex; align-items:flex-start; gap:6px; padding:4px 2px; border-radius:5px; font-size:.79rem; line-height:1.35; color: var(--text-tertiary); font-weight:500; transition: opacity .2s; }
     .cal-entry .dot { width:5px; height:5px; border-radius:50%; margin-top:6px; flex-shrink:0; background: var(--border-color-strong); }
     .cal-entry .txt { overflow-wrap: anywhere; }
-
     .cal-entry.filtered-out, .cal-heading.filtered-out, .cal-promoter-label.filtered-out { display: none !important; }
-
     .cal-promoter-label { display:flex; align-items:center; gap:6px; font-size:.82rem; font-weight:800; margin-top:10px; padding-top:8px; border-top:1px dashed var(--border-color); }
     .cal-promoter-label:first-child { margin-top:0; padding-top:0; border-top:none; }
     .cal-promoter-label .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
@@ -720,9 +667,7 @@
     [data-theme="dark"] .cal-promoter-label.prom-marcelo { color: #7fa8f2; }
     .cal-promoter-label.prom-outro { color: var(--text-secondary); }
     .cal-promoter-label.prom-outro .dot { background: var(--text-tertiary); }
-
     .cal-note { text-align:center; font-weight:700; color: var(--red-mppe); background: var(--red-mppe-soft); border-radius:6px; padding:4px 6px; margin-top:4px; font-size:.78rem; }
-
     /* ==========================================================
        PROCESSO MODAL
        ========================================================== */
@@ -736,7 +681,6 @@
     [data-theme="dark"] .proc-badge.red { background:#3a1414; border-color:#5c2020; color:#f87171; }
     [data-theme="dark"] .proc-badge.blue { background:#122238; border-color:#1d3a5c; color:#7fa8f2; }
     [data-theme="dark"] .proc-badge.green { background:#12321f; border-color:#1e4d30; color:#4ade80; }
-
     .proc-card-body { padding:24px 20px; display:flex; flex-direction:column; gap:20px; }
     .proc-info-block { display:flex; flex-direction:column; gap:8px; }
     .proc-info-block h4 { margin:0; font-size:.82rem; text-transform:uppercase; letter-spacing:.5px; color: var(--text-secondary); display:flex; align-items:center; gap:6px; }
@@ -748,7 +692,6 @@
     .proc-copy-btn { background: none; border: 1px solid var(--border-color); border-radius: 7px; width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center; cursor: pointer; color: var(--text-secondary); transition: all .2s; }
     .proc-copy-btn:hover { color: var(--red-mppe); border-color: var(--red-mppe); }
     .proc-copy-btn svg { width: 14px; height: 14px; }
-
     /* ==========================================================
        AUTOMINUTA
        ========================================================== */
@@ -766,12 +709,10 @@
     .autominuta-status.error { color: var(--red-mppe); }
     .status-link-btn { display:inline-block; padding:10px 16px; border-radius: var(--radius); background-color: var(--bg-tertiary); border:1px solid var(--border-color); color: var(--text-primary); font-weight:500; font-size:.9rem; text-decoration:none; transition: all .2s; }
     .status-link-btn:hover { background-color: var(--bg-secondary); border-color: var(--red-mppe); color: var(--red-mppe); box-shadow: var(--shadow); transform: translateY(-2px); }
-
     .upload-progress { width: 100%; height: 6px; border-radius: 999px; background: var(--bg-tertiary); overflow: hidden; display: none; }
     .upload-progress.active { display: block; }
     .upload-progress-bar { height: 100%; width: 30%; background: linear-gradient(90deg, var(--gold-accent), var(--red-mppe)); border-radius: 999px; animation: indeterminate 1.1s infinite ease-in-out; }
     @keyframes indeterminate { 0% { margin-left: -30%; } 100% { margin-left: 100%; } }
-
     /* ==========================================================
        TOASTS
        ========================================================== */
@@ -791,7 +732,6 @@
     .toast.error svg { color: var(--red-mppe); }
     .toast.info svg { color: var(--blue-accent); }
     .toast-close { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--text-tertiary); padding: 0; line-height: 0; }
-
     .back-to-top {
       position: fixed; bottom: 20px; left: 20px; z-index: 900;
       width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-color);
@@ -802,7 +742,6 @@
     }
     .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
     .back-to-top svg { width: 20px; height: 20px; }
-
     /* ==========================================================
        RESPONSIVE
        ========================================================== */
@@ -821,7 +760,6 @@
       .processo-input-group .sep { padding:0; font-size:1rem; }
       #p-1 { width:70px; } #p-2, #p-5 { width:32px; } #p-3, #p-6 { width:50px; } #p-4 { width:28px; }
     }
-
     /* Agenda: mesma identidade visual, nova organização do card. */
     #agendaCard .agenda-header { padding-bottom:20px; margin-bottom:22px; border-bottom:1px solid rgba(255,255,255,.14); }
     #agendaCard .agenda-header h2 { font-size:1.7rem; margin:0 0 3px; }
@@ -850,7 +788,6 @@
       #agendaCard .next-month { font-size:1.1rem; }
       #agendaCard .agenda-date { gap:18px; }
     }
-
   </style>
 <style>
 /* Header and navigation shared by Início, Preparar materiais and Expedientes. */
@@ -996,7 +933,6 @@
       font-size: .76rem; font-weight: 500; color: rgba(255,255,255,.66);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 52vw;
     }
-
 .p45-dashboard-modals .modal-overlay{
       display:none; position:fixed; inset:0; background: rgba(15,17,22,0.55);
       backdrop-filter: blur(2px);
@@ -1206,15 +1142,16 @@
  .p45-shell .p45-hero .p45-nav a,.p45-shell .p45-hero .p45-nav button{font-size:10px}
  .p45-dashboard-modals .modal-content.large{max-height:100dvh}
 }
-
 .zoomable{opacity:1!important;transform:none!important}.public-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.public-link{display:flex;flex-direction:column;gap:5px;padding:18px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);color:var(--text-primary)}.public-link small{color:var(--text-secondary)}.public-link:hover{border-color:var(--gold-accent)}.public-browser{width:min(720px,94vw);max-height:85vh;border:1px solid var(--border-color);border-radius:16px;padding:24px;background:var(--bg-secondary);color:var(--text-primary)}.public-browser::backdrop{background:#0009}.public-browser header{display:flex;align-items:center;justify-content:space-between;gap:12px}.public-browser button,.public-browser input{font:inherit;color:inherit;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:8px;padding:10px}.public-browser input{width:100%;margin:16px 0}.public-files{display:grid;gap:8px;margin:16px 0}.public-files a{padding:12px;border:1px solid var(--border-color);border-radius:8px;color:var(--text-primary);overflow-wrap:anywhere}.public-browser a:focus-visible{outline:2px solid var(--gold-accent)}@media(max-width:600px){.public-links{grid-template-columns:1fr}.public-browser{padding:16px}}
+.zoomable{opacity:1!important;transform:none!important}.public-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.public-link{display:flex;flex-direction:column;gap:5px;padding:18px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);color:var(--text-primary)}.public-link small{color:var(--text-secondary)}.public-link:hover{border-color:var(--gold-accent)}.public-browser{width:min(720px,94vw);max-height:85vh;border:1px solid var(--border-color);border-radius:16px;padding:24px;background:var(--bg-secondary);color:var(--text-primary)}.public-browser::backdrop{background:#0009}.public-browser header{display:flex;align-items:center;justify-content:space-between;gap:12px}.public-browser button{font:inherit;color:inherit;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:8px;padding:10px}.public-files{display:grid;gap:8px;margin:16px 0}.public-files a{padding:12px;border:1px solid var(--border-color);border-radius:8px;color:var(--text-primary);overflow-wrap:anywhere}.public-browser a:focus-visible{outline:2px solid var(--gold-accent)}@media(max-width:600px){.public-links{grid-template-columns:1fr}.public-browser{padding:16px}}
+.public-browser header{align-items:flex-start}.public-browser h2,.public-browser .public-process-number{font-size:24px;font-weight:400;line-height:1.35;margin:0}.public-browser .public-process-number{color:var(--gold-on-dark,#e3c98c);margin-top:5px;overflow-wrap:anywhere}[data-theme="light"] .public-browser .public-process-number{color:#8a6d2e}.public-folder-section{font-size:14px;color:var(--text-secondary);margin:12px 0 0}.public-browser .public-files{margin-top:24px}
+.public-browser header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px}.public-browser header>div{display:contents}.public-browser h2{grid-column:1;grid-row:1}.public-browser header>button{grid-column:2;grid-row:1}.public-browser .public-process-number,.public-browser .public-folder-section{grid-column:1 / -1;min-width:0}@media(max-width:600px){.public-browser h2,.public-browser .public-process-number{font-size:20px}}
 </style></head>
 <body class="p45-home">
   <div class="site-wrapper">
     <main class="main-content">
       <div class="wrap">
         <div class="main-column">
-
           <section class="hero">
             <h2 class="hero-title">
               <span class="hero-rule" aria-hidden="true"></span>
@@ -1222,7 +1159,6 @@
               <span class="hero-rule" aria-hidden="true"></span>
             </h2>
           </section>
-
 <section class="agenda-card zoomable" id="agendaCard">
             <div class="agenda-dot-texture" aria-hidden="true"></div>
             <div class="agenda-header">
@@ -1257,7 +1193,6 @@
               </div>
             </div>
           </section>
-
           <div class="widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
@@ -1286,7 +1221,6 @@
               <div class="widget-updated" id="atosUpdated"></div>
             </div>
           </div>
-
           <div class="widget search-widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
@@ -1315,7 +1249,6 @@
               </button>
             </div>
           </div>
-
           <div class="widget zoomable">
             <div class="widget-header">
               <div class="widget-header-title">
@@ -1337,22 +1270,15 @@
               <div class="widget-updated" id="avisosUpdated"></div>
             </div>
           </div>
-
         </div>
       </div>
     </main>
-
     <footer class="footer"><div class="wrap"><span class="small">© <span id="y"></span> <strong>45ª Promotoria de Justiça</strong> · Painel desenvolvido por Diogo Assis de Oliveira</span></div></footer>
   </div>
-
   <button class="back-to-top" id="backToTopBtn" aria-label="Voltar ao topo" title="Voltar ao topo">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
   </button>
-
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
-
-
-
 <script>
 /* Shared header and its dashboard dialogs. No task submission or page navigation is performed on load. */
 (() => {
@@ -1363,21 +1289,16 @@
  document.body.insertAdjacentHTML('beforeend','<div class="p45-dashboard-modals">'+"  <div class=\"modal-overlay\" id=\"feriasModal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"feriasModalTitle\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h3 id=\"feriasModalTitle\">Escala de Férias</h3>\n        <a href=\"https://docs.google.com/spreadsheets/d/1ohPXG2tec6GWdxl9RGKasw2wyJpCBs-2DZju9LN0kGI/edit\" target=\"_blank\" rel=\"noopener\" class=\"widget-config-link\" aria-label=\"Editar Escala de Férias\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"3\"></circle><path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z\"></path></svg>\n        </a>\n      </div>\n      <div id=\"feriasContainer\"><div class=\"empty\" id=\"feriasLoading\">Carregando dados...</div></div>\n      <div class=\"modal-buttons\">\n        <button class=\"btn-secondary cancel\" id=\"closeFeriasBtn\">Fechar</button>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"modal-overlay\" id=\"rodizioModal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"rodizioModalTitle\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\"><h3 id=\"rodizioModalTitle\">Rodízio da Secretaria</h3></div>\n      <div id=\"rodizioContainer\"><div class=\"empty\" id=\"rodizioLoading\">Carregando dados...</div></div>\n      <div class=\"modal-buttons\">\n        <button class=\"btn-secondary cancel\" id=\"closeRodizioBtn\">Fechar</button>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"modal-overlay\" id=\"pautaModal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"pautaModalTitle\">\n    <div class=\"modal-content large\">\n      <div class=\"modal-header\">\n        <div class=\"modal-header-left\">\n          <h3 id=\"pautaModalTitle\">Pauta da 3ª Vara</h3>\n          <div class=\"view-toggles\">\n            <button class=\"view-btn active\" id=\"btnViewTable\" aria-label=\"Visualização em Grade\">\n              <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" ry=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"9\" y1=\"21\" x2=\"9\" y2=\"9\"/></svg>\n            </button>\n            <button class=\"view-btn\" id=\"btnViewList\" aria-label=\"Visualização em Lista\">\n              <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"8\" y1=\"6\" x2=\"21\" y2=\"6\"/><line x1=\"8\" y1=\"12\" x2=\"21\" y2=\"12\"/><line x1=\"8\" y1=\"18\" x2=\"21\" y2=\"18\"/><line x1=\"3\" y1=\"6\" x2=\"3.01\" y2=\"6\"/><line x1=\"3\" y1=\"12\" x2=\"3.01\" y2=\"12\"/><line x1=\"3\" y1=\"18\" x2=\"3.01\" y2=\"18\"/></svg>\n            </button>\n          </div>\n        </div>\n        <div class=\"modal-controls\">\n          <a href=\"https://drive.google.com/drive/folders/1bwhXAvW-jsVn4sfHTTfpgg_lgDMB6PwP\" target=\"_blank\" rel=\"noopener\" class=\"widget-config-link\" aria-label=\"Ver Pasta Original\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\"></path><polyline points=\"15 3 21 3 21 9\"></polyline><line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\"></line></svg>\n          </a>\n          <button class=\"close-modal-x\" id=\"closePautaBtn\" aria-label=\"Fechar\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line></svg>\n          </button>\n        </div>\n      </div>\n\n      <div class=\"calendar-scroll-container\">\n        <div id=\"pautaContainer\" class=\"calendar-wrapper\">\n          <div class=\"empty\" id=\"pautaLoading\">Sincronizando pauta (CSV)...</div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"modal-overlay\" id=\"processoModal\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"procModalTitle\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h3 id=\"procModalTitle\"></h3>\n        <button class=\"close-modal-x\" id=\"closeProcessoBtn\" aria-label=\"Fechar\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"18\" y1=\"6\" x2=\"6\" y2=\"18\"></line><line x1=\"6\" y1=\"6\" x2=\"18\" y2=\"18\"></line></svg>\n        </button>\n      </div>\n      <div id=\"processoContainer\">\n        <div class=\"empty\" id=\"processoLoading\">Carregando informações do processo...</div>\n        <div id=\"processoInfo\" style=\"display:none;\"></div>\n      </div>\n    </div>\n  </div>\n\n"+'</div>');
  if(!document.getElementById('toastContainer'))document.body.insertAdjacentHTML('beforeend','<div class="toast-container" id="toastContainer" aria-live="polite"></div>');
 })();
-
 (function(){
       'use strict';
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
-
       const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_auNY5QkAHmXb6vCAsiZ3Z2qNQE8o4T9JKWvBUmmMWpgT1Mip5enF3bMHNMdMwzWxRg/exec";
       const API_KEY = "AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y";
-
       var AUD_ROOT = '1vJCG69eYpY-eBUFMfMLF6QM-YIPFgKpQ';
       var JURI_ROOT = '12dbDJQNFNAeyZhftKQaCvsluTVU2PGxG';
       var MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-
       function y(){ var yEl=$('#y'); if(yEl) yEl.textContent=new Date().getFullYear(); }
-
       /* ============================================================
          TEMA (claro/escuro)
          ============================================================ */
@@ -1402,7 +1323,6 @@
         }
         return { init: init };
       })();
-
       /* ============================================================
          MENU PRINCIPAL (faixa cinza)
          ============================================================ */
@@ -1442,7 +1362,6 @@
         }
         return { init: init, close: close };
       })();
-
       /* ============================================================
          TOASTS
          ============================================================ */
@@ -1469,7 +1388,6 @@
         }
         return { show: show };
       })();
-
       /* ============================================================
          RELÓGIO DO CABEÇALHO
          ============================================================ */
@@ -1484,7 +1402,6 @@
         tick();
         setInterval(tick, 20000);
       }
-
       /* ============================================================
          DESTAQUE AO ROLAR — cresce quando o card entra na área central
          ============================================================ */
@@ -1495,10 +1412,8 @@
           alvos.forEach(function(el){ el.classList.add('sem-animacao'); });
           return;
         }
-
         var ESCALA_MIN = 0.86, ESCALA_MAX = 1, OPAC_MIN = 0.5;
         var agendado = false;
-
         // t sobe de 0 a 1 conforme o card fica visível; chega a 1 quando ele
         // já ocupa 70% da altura da janela (ou toda a sua própria altura, se
         // for menor) — assim o último card da página também abre por completo.
@@ -1510,7 +1425,6 @@
           return Math.max(0, Math.min(1, visivel / alvo));
         }
         function suavizar(t){ return t * t * (3 - 2 * t); }   // smoothstep
-
         function pintar(){
           agendado = false;
           var vh = window.innerHeight || document.documentElement.clientHeight;
@@ -1527,7 +1441,6 @@
           agendado = true;
           window.requestAnimationFrame(pintar);
         }
-
         window.addEventListener('scroll', agendar, { passive: true });
         window.addEventListener('resize', agendar);
         window.addEventListener('load', agendar);
@@ -1535,7 +1448,6 @@
         // os cards mudam de altura conforme as listas carregam
         setTimeout(agendar, 700); setTimeout(agendar, 2200);
       }
-
       /* ============================================================
          BOTÃO VOLTAR AO TOPO
          ============================================================ */
@@ -1546,7 +1458,6 @@
         }, { passive: true });
         btn.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
       }
-
       var Drive = {
         initGapiWithRetry: async function(){},
         listFiles: async function(parentId, foldersOnly){
@@ -1564,12 +1475,10 @@
         },
         listFolders: function(parentId){return this.listFiles(parentId,true);}
       };
-
       function renderVListSkeleton(containerSel){
         var cont = $(containerSel); if(!cont) return;
         cont.innerHTML = '<div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div>';
       }
-
       function renderVList(containerSel, emptySel, items){
         var cont=$(containerSel), emp=$(emptySel); if(!cont) return; cont.innerHTML='';
         if(!items || !items.length){ if(emp) emp.style.display='block'; return; }
@@ -1582,7 +1491,6 @@
           cont.appendChild(a);
         });
       }
-
       async function renderAtos(isManualRefresh){
         var btn = $('#refreshAtosBtn');
         if(isManualRefresh && btn) btn.classList.add('spinning');
@@ -1605,7 +1513,6 @@
           if(btn) setTimeout(function(){ btn.classList.remove('spinning'); }, 400);
         }
       }
-
       function setupModal(modalId, openBtnId, closeBtnId, openCallback) {
         const modal = $(modalId), openBtn = openBtnId ? $(openBtnId) : null, closeBtn = $(closeBtnId);
         if(!modal || !closeBtn) return;
@@ -1621,14 +1528,11 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
         modal.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
       }
-
       function openModalById(id) { const m = $(id); if(m) m.classList.add('active'); }
-
       document.addEventListener('keydown', function(e){
         if(e.key !== 'Escape') return;
         $$('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
       });
-
       async function fetchAndRender(action, containerId, loadingId, renderFn) {
         const container = $(containerId), loadingEl = $(loadingId);
         if(loadingEl) loadingEl.style.display = 'block';
@@ -1648,7 +1552,6 @@
           container.innerHTML = `<div class="empty error">Não foi possível carregar os dados. Verifique sua conexão.</div>`;
         }
       }
-
       function renderTable(data, container, headers) {
         let tableHTML = '<table class="data-table"><thead><tr>';
         headers.forEach(h => tableHTML += `<th>${h.title}</th>`);
@@ -1661,19 +1564,15 @@
         tableHTML += '</tbody></table>';
         container.innerHTML = tableHTML;
       }
-
       // === FUNÇÃO PARA ABRIR O MODAL DE INFORMAÇÕES DO PROCESSO ===
       function openProcessoInfo(procNum) {
         const modal = $('#processoModal');
         const loading = $('#processoLoading');
         const infoGrid = $('#processoInfo');
-
         $('#procModalTitle').innerText = procNum;
-
         modal.classList.add('active');
         loading.style.display = 'block';
         infoGrid.style.display = 'none';
-
         fetch(`${APPS_SCRIPT_URL}?action=getProcessoDetails&procNum=${encodeURIComponent(procNum)}`)
           .then(r => r.json())
           .then(data => {
@@ -1685,11 +1584,9 @@
               infoGrid.innerHTML = `<div class="empty">${data.message || 'Informações não encontradas para este processo.'}</div>`;
               infoGrid.style.display = 'block';
             } else {
-
               let situacaoClass = 'proc-badge';
               let situacaoIcon = '';
               const lowerSit = data.situacao ? data.situacao.toLowerCase() : '';
-
               if (lowerSit.includes('preso')) {
                 situacaoClass += ' red';
                 situacaoIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
@@ -1700,7 +1597,6 @@
                 situacaoClass += ' blue';
                 situacaoIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
               }
-
               infoGrid.className = 'processo-detalhe-card';
               infoGrid.innerHTML = `
                           <div class="proc-card-header">
@@ -1748,9 +1644,7 @@
                               </div>
                           </div>
                       `;
-
               infoGrid.style.display = 'block';
-
               var copyBtn = $('#procCopyBtn');
               if(copyBtn){
                 copyBtn.addEventListener('click', function(){
@@ -1769,7 +1663,6 @@
             infoGrid.style.display = 'block';
           });
       }
-
       /* ============================================================
          PAUTA — calendário reorganizado por promotor
          ============================================================ */
@@ -1780,7 +1673,6 @@
         todos: { label: 'Todos', dot: 'var(--text-tertiary)' }
       };
       var pautaFilter = 'arroxelas';
-
       /* A promoter's name occupies its own line/célula in the sheet; every subsequent
          line (category headers like "Audiências"/"Júri - 09h" and the process/time
          entries beneath them) belongs to that promoter until the next name line
@@ -1806,10 +1698,8 @@
         if (lower.includes('ângela') || lower.includes('angela')) return 'angela';
         return 'outro';
       }
-
       var MESES_PT_IDX = { 'JANEIRO':0,'FEVEREIRO':1,'MARÇO':2,'MARCO':2,'ABRIL':3,'MAIO':4,'JUNHO':5,
                            'JULHO':6,'AGOSTO':7,'SETEMBRO':8,'OUTUBRO':9,'NOVEMBRO':10,'DEZEMBRO':11 };
-
       /* O título da pauta ("TABELA SETEMBRO - 3ª vara - 2026") diz o mês e o
          ano — é o que permite pôr cada dia na coluna do seu dia da semana de
          verdade. Sem isso, devolve null e o calendário cai no modo antigo. */
@@ -1823,7 +1713,6 @@
         var m = upper.match(/(20\d{2})/);
         return { mes: mes, ano: m ? parseInt(m[1], 10) : new Date().getFullYear() };
       }
-
       function extractFeriados(data){
         var dias = {};
         (data.events || []).forEach(function(day){
@@ -1837,7 +1726,6 @@
         });
         return dias;
       }
-
       function extractCalendarMonth(title){
         if (!title) return 'Pauta Mensal';
         var months = ['JANEIRO','FEVEREIRO','MARÇO','MARCO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
@@ -1847,7 +1735,6 @@
         }
         return title;
       }
-
       function computePromoterCounter(data, filter){
         var count = 0;
         (data.events || []).forEach(day => {
@@ -1866,7 +1753,6 @@
         });
         return count;
       }
-
       /* Dias do mês em que Dr. Arroxelas tem ao menos um compromisso — usa a
          mesma máquina de estados do calendário grande (atribuição por posição). */
       function extractPromoterDays(data, promoterFilter){
@@ -1889,7 +1775,6 @@
         });
         return dias;
       }
-
       function applyPromoterFilter(filter){
         pautaFilter = filter;
         $$('.promoter-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.filter === filter));
@@ -1912,17 +1797,14 @@
           }
         }
       }
-
       function renderCalendar(data, container) {
         if(!data.events || data.events.length === 0) {
           container.innerHTML = '<div class="empty">Calendário vazio ou formato irreconhecível.</div>'; return;
         }
         window.__lastPautaData = data;
         container.innerHTML = '';
-
         const titleDiv = document.createElement('div'); titleDiv.className = 'calendar-title';
         titleDiv.textContent = extractCalendarMonth(data.title); container.appendChild(titleDiv);
-
         const filterRow = document.createElement('div'); filterRow.className = 'promoter-filter-row';
         filterRow.innerHTML = `
           <button class="promoter-chip" data-filter="todos"><span class="dot" style="background:${PROMOTER_META.todos.dot}"></span>Todos</button>
@@ -1934,20 +1816,16 @@
         Array.from(filterRow.querySelectorAll('.promoter-chip')).forEach(chip => {
           chip.addEventListener('click', () => applyPromoterFilter(chip.dataset.filter));
         });
-
         const counterP = document.createElement('p'); counterP.className = 'promoter-counter'; counterP.id = 'promoterCounter';
         container.appendChild(counterP);
-
         const scrollWrap = document.createElement('div');
         const grid = document.createElement('div');
         grid.className = 'calendar-grid';
         grid.id = 'pautaGrid';
-
         ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'].forEach(d => {
           const h = document.createElement('div'); h.className = 'calendar-header-day'; h.textContent = d; grid.appendChild(h);
         });
         const todayNum = new Date().getDate();
-
         function criarCardDoDia(day){
           const card = document.createElement('div'); card.className = 'calendar-day-card';
           const isHoliday = day.conteudo.some(t => t.toUpperCase().includes('CARNAVAL') || t.toUpperCase().includes('FERIADO'));
@@ -1956,7 +1834,6 @@
           const dayNum = document.createElement('div'); dayNum.className = `day-number ${isHoliday ? 'is-holiday' : ''}`;
           dayNum.innerHTML = `<span>Dia ${day.dia}</span>${isToday ? '<span class="today-tag">Hoje</span>' : ''}`; card.appendChild(dayNum);
           const contentBox = document.createElement('div'); contentBox.className = 'day-events';
-
           /* A planilha traz cabeçalhos fixos ("Júri - 09h", "Audiências")
              mesmo nos dias em que nenhum processo foi marcado embaixo deles.
              Por isso as linhas são primeiro agrupadas em blocos por promotor e
@@ -1965,7 +1842,6 @@
           const notas = [];
           const blocos = [];
           let bloco = null, secao = null;
-
           function novoBloco(promoter, rotulo){
             bloco = { promoter: promoter, rotulo: rotulo, secoes: [] };
             secao = null;
@@ -1980,33 +1856,25 @@
             return secao;
           }
           function secaoCorrente(){ return secao || abrirSecao(null); }
-
           day.conteudo.forEach(line => {
             if(line.trim() === '') return;
             const lower = line.toLowerCase();
-
             if (lower.includes('carnaval') || lower.includes('feriado')) { notas.push(line); return; }
-
             const nameKey = getPromoterNameLineKey(line);
             if (nameKey) {
               novoBloco(nameKey, PROMOTER_META[nameKey] ? PROMOTER_META[nameKey].label : line.trim());
               return;
             }
-
             if (isSectionHeaderLine(lower, line)) { abrirSecao(line); return; }
-
             secaoCorrente().entradas.push(line);
           });
-
           notas.forEach(function(n){
             const note = document.createElement('div'); note.className = 'cal-note'; note.innerText = n;
             contentBox.appendChild(note);
           });
-
           blocos.forEach(function(bl){
             const secoes = bl.secoes.filter(function(sc){ return sc && sc.entradas.length > 0; });
             if (!secoes.length) return;                    // nada marcado: bloco não aparece
-
             if (bl.rotulo) {
               const label = document.createElement('div');
               label.className = 'cal-promoter-label prom-' + bl.promoter;
@@ -2015,7 +1883,6 @@
               label.querySelector('.txt').textContent = bl.rotulo;
               contentBox.appendChild(label);
             }
-
             secoes.forEach(function(sc){
               if (sc.titulo) {
                 const headerTag = document.createElement('div');
@@ -2035,17 +1902,14 @@
               });
             });
           });
-
           card.appendChild(contentBox);
           return card;
         }
-
         function celulaVazia(){
           const v = document.createElement('div');
           v.className = 'calendar-day-card vazia';
           return v;
         }
-
         /* A pauta é uma grade de 5 colunas (segunda a sexta). Empilhar os dias
            na ordem em que chegam só funciona quando o dia 1º cai numa segunda;
            em setembro/2026 ele cai numa terça, e tudo saía deslocado. Aqui cada
@@ -2060,7 +1924,6 @@
             })
             .filter(Boolean)
             .sort(function(a, b){ return a.dia - b.dia; });
-
           let coluna = 0;
           itens.forEach(function(it){
             const dow = new Date(infoMes.ano, infoMes.mes, it.dia).getDay(); // 0 = domingo
@@ -2073,13 +1936,10 @@
         } else {
           data.events.forEach(function(day){ grid.appendChild(criarCardDoDia(day)); });
         }
-
         scrollWrap.appendChild(grid);
         container.appendChild(scrollWrap);
-
         applyPromoterFilter(pautaFilter);
       }
-
       /* ============================================================
          SECRETARIA DE PLANTÃO — faixa cinza
          ============================================================ */
@@ -2093,18 +1953,13 @@
         try {
           const response = await fetch(`${APPS_SCRIPT_URL}?action=getRodizio`);
           const data = await response.json();
-
           if(data.error || !data.shifts) { set('indisponível', ''); return; }
-
           const now = new Date();
           const parts = new Intl.DateTimeFormat('en-US', {timeZone:'America/Fortaleza', weekday:'short', hour:'2-digit', hourCycle:'h23'}).formatToParts(now);
           const day = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(parts.find(p=>p.type==='weekday').value);
           const hour = Number(parts.find(p=>p.type==='hour').value);
-
           if(day === 0 || day === 6) { set('fim de semana', ''); return; }
-
           const idx = day - 1;
-
           if (hour >= 7 && hour < 12) {
             set(data.shifts[0].names[idx] || 'N/A', 'Expediente: Manhã');
           } else if (hour >= 12 && hour < 18) {
@@ -2117,7 +1972,6 @@
           set('erro de conexão', '');
         }
       }
-
       /* ============================================================
          AGENDA — próximo ato + calendário minimalista do mês
          ============================================================ */
@@ -2128,11 +1982,9 @@
         var hoje = ano === now.getFullYear() && mes === now.getMonth() ? now.getDate() : 0;
         var primeiroDiaSemana = new Date(ano, mes, 1).getDay();     // 0 = domingo
         var totalDias = new Date(ano, mes + 1, 0).getDate();
-
         var html = '<div class="cal-mini-week">';
         ['D','S','T','Q','Q','S','S'].forEach(function(d){ html += '<span>' + d + '</span>'; });
         html += '</div><div class="cal-mini-grid">';
-
         for (var i = 0; i < primeiroDiaSemana; i++) html += '<span class="cal-d vazio"></span>';
         for (var d = 1; d <= totalDias; d++) {
           var cls = 'cal-d';
@@ -2145,7 +1997,6 @@
         html += '</div>';
         host.innerHTML = html;
       }
-
       /* Uma única leitura da pauta alimenta o calendário e o próximo ato. */
       var pautaPromise = null;
       function getPautaData(){
@@ -2159,7 +2010,6 @@
           });
         return pautaPromise;
       }
-
       /* Percorre a pauta com a MESMA máquina de estados do calendário grande e
          devolve o primeiro compromisso do promotor de hoje em diante, já com a
          categoria certa (a seção "Audiências" ou "Júri" sob o nome dele).
@@ -2195,7 +2045,6 @@
         });
         return melhor;
       }
-
       async function loadAgendaCalendar(){
         // desenha já, sem marcações, para o card nunca aparecer vazio
         renderMiniCalendar(null, null);
@@ -2208,7 +2057,6 @@
           console.error('Erro ao montar o calendário da agenda:', e);
         }
       }
-
       /* O nome da pasta do dia começa pelo número do dia ("25-09", "25 de
          setembro", "25"). Se houver um segundo número que caiba num mês, ele
          precisa bater com o mês corrente — assim "25-09" não casa em outubro. */
@@ -2221,9 +2069,7 @@
         if (nums.length > 1 && nums[1] >= 1 && nums[1] <= 12 && nums[1] !== mes) return false;
         return true;
       }
-
       var SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-
       async function loadMaterialDoAto(categoria, dia, ref){
         var lista = $('#materialLista'), btn = $('#btnMaterial');
         if(!lista || !btn) return;
@@ -2240,7 +2086,6 @@
           }
           btn.href = pasta.webViewLink;
           btn.hidden = false;
-
           var sub = await Drive.listFolders(pasta.id);
           if (!sub.length) {
             lista.innerHTML = '<span class="material-vazio">Nenhum material preparado ainda</span>';
@@ -2259,7 +2104,6 @@
           lista.innerHTML = '<span class="material-vazio">Não foi possível ler o Drive</span>';
         }
       }
-
       async function updateNextAct() {
         const elTipo = $('#nextTipo'), elDia = $('#nextDia'), elSemana = $('#nextSemana');
         if(!elTipo || !elDia || !elSemana) return;
@@ -2294,19 +2138,16 @@
           vazio('Erro ao carregar');
         }
       }
-
       function loadMonthLabel(){
         var el = $('#prodMonthLabel');
         if (el) el.textContent = MONTH_NAMES_PT[new Date().getMonth()];
       }
-
       /* ============================================================
          BUSCA DE PROCESSOS — máscara, colagem e validação
          ============================================================ */
       function initProcessoSearch(){
         const inputs = Array.from($$('.processo-input-group input'));
         const lens = inputs.map(i => i.maxLength);
-
         function distribute(digits){
           let cursor = 0;
           inputs.forEach((input, idx) => {
@@ -2317,7 +2158,6 @@
           const firstEmpty = inputs.find(i => i.value.length < i.maxLength);
           (firstEmpty || inputs[inputs.length - 1]).focus();
         }
-
         inputs.forEach((input, index) => {
           input.addEventListener('input', () => {
             input.classList.remove('invalid');
@@ -2337,7 +2177,6 @@
             }
           });
         });
-
         const searchBtn = $('#processoSearchBtn');
         if (searchBtn) {
           searchBtn.addEventListener('click', () => {
@@ -2354,7 +2193,6 @@
           });
         }
       }
-
       /* ============================================================
          AUTOMINUTA — upload com drag & drop e barra de progresso
          ============================================================ */
@@ -2365,17 +2203,14 @@
         startClock();
         initBackToTop();
         // Conteúdo sempre visível, inclusive fora da área inicial da tela.
-
         updateSecretariaPlantao();
         if (document.querySelector('#agendaCard')) {
         renderAtos(false);
         loadMonthLabel();
         loadAgendaCalendar();
         updateNextAct();
-
         var refreshAtos = $('#refreshAtosBtn');
         if(refreshAtos) refreshAtos.addEventListener('click', () => renderAtos(true));
-
         function loadAvisos(isManualRefresh){
           fetchAndRender('getAvisos', '#avisosContainer', '#avisosLoading', (data, c) => {
             data.forEach(item => {
@@ -2397,15 +2232,12 @@
           loadAvisos(true);
           setTimeout(() => refreshAvisos.classList.remove('spinning'), 400);
         });
-
         }
-
         setupModal('#feriasModal', '#feriasBtn', '#closeFeriasBtn', () => {
           fetchAndRender('getFerias', '#feriasContainer', '#feriasLoading', (data, c) =>
             renderTable(data, c, [{key:'nome', title:'Nome'}, {key:'inicio', title:'Início'}, {key:'fim', title:'Fim'}])
           );
         });
-
         setupModal('#rodizioModal', '#rodizioBtn', '#closeRodizioBtn', () => {
           fetchAndRender('getRodizio', '#rodizioContainer', '#rodizioLoading', (data, c) => {
             /* Transposta: os dias da semana viram linhas e os turnos, colunas —
@@ -2414,14 +2246,12 @@
             const turnos = data.shifts || [];
             const tabela = document.createElement('table');
             tabela.className = 'data-table rodizio-table';
-
             const thead = document.createElement('thead');
             const trh = document.createElement('tr');
             [''].concat(turnos.map(function(t){ return t.turn; })).forEach(function(titulo){
               const th = document.createElement('th'); th.textContent = titulo; trh.appendChild(th);
             });
             thead.appendChild(trh); tabela.appendChild(thead);
-
             const tbody = document.createElement('tbody');
             dias.forEach(function(dia, i){
               const tr = document.createElement('tr');
@@ -2436,25 +2266,20 @@
               tbody.appendChild(tr);
             });
             tabela.appendChild(tbody);
-
             c.innerHTML = '';
             c.appendChild(tabela);
           });
         });
-
         const openPautaHandler = () => { pautaFilter = 'arroxelas'; fetchAndRender('getPauta', '#pautaContainer', '#pautaLoading', renderCalendar); };
         setupModal('#pautaModal', '#pauta3VaraBtn', '#closePautaBtn', openPautaHandler);
-
         function abrirPautaCompleta(e){
           if (e) e.preventDefault();
           Menu.close();
           openModalById('#pautaModal');
           openPautaHandler();
         }
-
         const verPautaBtn = $('#verPautaBtn');
         if(verPautaBtn) verPautaBtn.addEventListener('click', abrirPautaCompleta);
-
         const colunaCal = document.querySelector('.agenda-cal-col');
         if(colunaCal) {
           colunaCal.setAttribute('role', 'button');
@@ -2465,12 +2290,9 @@
             if (e.key === 'Enter' || e.key === ' ') abrirPautaCompleta(e);
           });
         }
-
         setupModal('#processoModal', null, '#closeProcessoBtn', null);
-
         const btnTable = $('#btnViewTable');
         const btnList = $('#btnViewList');
-
         if(btnTable && btnList) {
           btnTable.addEventListener('click', () => {
             btnTable.classList.add('active');
@@ -2478,7 +2300,6 @@
             const grid = $('#pautaGrid');
             if(grid) grid.classList.remove('list-view');
           });
-
           btnList.addEventListener('click', () => {
             btnList.classList.add('active');
             btnTable.classList.remove('active');
@@ -2486,23 +2307,56 @@
             if(grid) grid.classList.add('list-view');
           });
         }
-
         initProcessoSearch();
-
       });
     })();
-
 // Navegação de consulta, sem as operações do painel local.
 (() => {
  const modal=document.createElement('dialog');modal.className='public-browser';
  modal.setAttribute('aria-labelledby','publicFolderTitle');
  modal.innerHTML='<header><h2 id="publicFolderTitle">Materiais</h2><button type="button" aria-label="Fechar materiais">Fechar</button></header><input type="search" aria-label="Filtrar arquivos desta pasta" placeholder="Buscar nesta pasta"><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">Abrir pasta no Google Drive ↗</a>';
+ modal.innerHTML='<header><div><h2 id="publicFolderTitle">Materiais</h2><p class="public-process-number" hidden></p><p class="public-folder-section" hidden></p></div><button type="button" aria-label="Fechar materiais">Fechar</button></header><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">Abrir pasta no Google Drive ↗</a>';
  document.body.append(modal);let revision=0;
+ const processPattern=/\b\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b/g;
+ const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const withoutExtension=name=>name.replace(/\.[^.]+$/,'');
+ const cleanEdges=name=>name.replace(/^[\s\-_·:]+|[\s\-_·:]+$/g,'').replace(/\s+/g,' ').trim();
+ function numbers(name){return [...new Set((name.match(processPattern)||[]))];}
+ function stripNumber(name){return cleanEdges(name.replace(processPattern,'').replace(/\b\d{20}\b/g,''));}
+ function label(file,section){
+   const folder=file.mimeType==='application/vnd.google-apps.folder';
+   const stem=folder?file.name:withoutExtension(file.name);
+   if(folder)return stem;
+   // Os vídeos mantêm o nome original, retirando apenas a extensão.
+   if(file.mimeType?.startsWith('video/')||/\.(mp4|mov|webm|mkv|avi|m4v)$/i.test(file.name))return stem;
+   let name=stripNumber(stem);
+   if(norm(section).includes('transcri')||/transcri[cç][aã]o|depoimento/i.test(name)){
+     name=name.replace(/\b(?:transcri[cç][aã]o|depoimento|resumido)\b/gi,'');
+     return cleanEdges(name)||'Transcrição';
+   }
+   if(/resumo\s+inteligente/i.test(name))return 'Resumo Inteligente';
+   if(/resumo\s+para\s+audi[eê]ncia/i.test(name))return 'Resumo Para Audiência';
+   if(/resumo\s+para\s+j[uú]ri/i.test(name))return 'Resumo Para Júri';
+   if(/^autos(?:\b|[-_])/i.test(name)||(!name&&/\.pdf$/i.test(file.name)))return 'Autos';
+   return name||stem;
+ }
+ function header(title,context,files){
+   let text=cleanEdges(title.replace(/^\s*▸\s*/,''));
+   const time=text.match(/\b\d{1,2}(?:h\d{2}m?|:\d{2})\b/);
+   const processList=[...new Set([...numbers(text),...files.flatMap(f=>numbers(f.name)),...(context.processes||[])])];
+   const heading=time?time[0]:(context.time||stripNumber(text)||'Materiais');
+   modal.querySelector('h2').textContent=heading;
+   const number=modal.querySelector('.public-process-number');number.textContent=processList.join(' · ');number.hidden=!processList.length;
+   const section=modal.querySelector('.public-folder-section');section.textContent=(!time&&context.time&&!numbers(text).length)?text:'';section.hidden=!section.textContent;
+   return {time:time?time[0]:context.time||'',processes:processList,section:(!time?text:context.section||'')};
+ }
  modal.querySelector('button').onclick=()=>modal.close();
  modal.addEventListener('click',e=>{if(e.target===modal){const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close();}});
  modal.querySelector('input').oninput=e=>{for(const link of modal.querySelectorAll('.public-files a'))link.hidden=!link.textContent.toLocaleLowerCase('pt-BR').includes(e.target.value.toLocaleLowerCase('pt-BR'));};
  async function open(id,title){
    const current=++revision;modal.querySelector('h2').textContent=title;modal.querySelector('input').value='';
+ async function open(id,title,context={}){
+   const current=++revision;header(title,context,[]);
    modal.querySelector('.original').href='https://drive.google.com/drive/folders/'+id;
    const body=modal.querySelector('.public-files');body.textContent='Carregando materiais…';if(!modal.open)modal.showModal();
    try{
@@ -2510,11 +2364,26 @@
      let files=[],token='';do{if(token)params.set('pageToken',token);const r=await fetch('https://www.googleapis.com/drive/v3/files?'+params,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw new Error();const d=await r.json();files.push(...(d.files||[]));token=d.nextPageToken||'';}while(token);
      if(current!==revision)return;body.replaceChildren();
      for(const f of files){const a=document.createElement('a'),folder=f.mimeType==='application/vnd.google-apps.folder';a.textContent=(folder?'▸ ':'')+f.name;a.href=f.webViewLink||(folder?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id;a.target='_blank';a.rel='noopener';if(folder)a.dataset.folder=f.id;body.append(a);}
+     if(current!==revision)return;
+     files=files.filter(f=>norm(f.name)!=='.ds_store');
+     const nextContext=header(title,context,files);body.replaceChildren();
+     for(const f of files){
+       const a=document.createElement('a'),folder=f.mimeType==='application/vnd.google-apps.folder';
+       a.textContent=(folder?'▸ ':'')+label(f,nextContext.section);
+       a.href=f.webViewLink||(folder?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id;a.target='_blank';a.rel='noopener';
+       if(folder){a.dataset.folder=f.id;a.dataset.folderName=f.name;a.dataset.folderContext=JSON.stringify(nextContext);}
+       body.append(a);
+     }
      if(!files.length)body.textContent='Nenhum material disponível nesta pasta.';
    }catch(e){if(current===revision)body.textContent='Não foi possível listar esta pasta. Abra-a no Google Drive abaixo e entre com sua conta.';}
  }
  document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;const id=a.dataset.folder||(a.classList.contains('public-link')&&a.href.match(/\/folders\/([\w-]+)/)?.[1]);if(id){e.preventDefault();open(id,a.textContent.trim());}});
+ document.addEventListener('click',e=>{
+   const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+   const id=a.dataset.folder;if(!id)return;e.preventDefault();
+   let context={};try{context=JSON.parse(a.dataset.folderContext||'{}');}catch(e){}
+   open(id,a.dataset.folderName||a.textContent.trim(),context);
+ });
 })();
-
 </script></body>
 </html>
