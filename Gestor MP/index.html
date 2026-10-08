@@ -2314,7 +2314,6 @@
 (() => {
  const modal=document.createElement('dialog');modal.className='public-browser';
  modal.setAttribute('aria-labelledby','publicFolderTitle');
- modal.innerHTML='<header><h2 id="publicFolderTitle">Materiais</h2><button type="button" aria-label="Fechar materiais">Fechar</button></header><input type="search" aria-label="Filtrar arquivos desta pasta" placeholder="Buscar nesta pasta"><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">Abrir pasta no Google Drive ↗</a>';
  modal.innerHTML='<header><div><h2 id="publicFolderTitle">Materiais</h2><p class="public-process-number" hidden></p><p class="public-folder-section" hidden></p></div><button type="button" aria-label="Fechar materiais">Fechar</button></header><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">Abrir pasta no Google Drive ↗</a>';
  document.body.append(modal);let revision=0;
  const processPattern=/\b\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b/g;
@@ -2352,9 +2351,6 @@
  }
  modal.querySelector('button').onclick=()=>modal.close();
  modal.addEventListener('click',e=>{if(e.target===modal){const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close();}});
- modal.querySelector('input').oninput=e=>{for(const link of modal.querySelectorAll('.public-files a'))link.hidden=!link.textContent.toLocaleLowerCase('pt-BR').includes(e.target.value.toLocaleLowerCase('pt-BR'));};
- async function open(id,title){
-   const current=++revision;modal.querySelector('h2').textContent=title;modal.querySelector('input').value='';
  async function open(id,title,context={}){
    const current=++revision;header(title,context,[]);
    modal.querySelector('.original').href='https://drive.google.com/drive/folders/'+id;
@@ -2362,8 +2358,6 @@
    try{
      const params=new URLSearchParams({key:"AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y",q:"'"+id+"' in parents AND trashed=false",fields:'nextPageToken,files(id,name,mimeType,webViewLink)',orderBy:'name',pageSize:'1000'});
      let files=[],token='';do{if(token)params.set('pageToken',token);const r=await fetch('https://www.googleapis.com/drive/v3/files?'+params,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw new Error();const d=await r.json();files.push(...(d.files||[]));token=d.nextPageToken||'';}while(token);
-     if(current!==revision)return;body.replaceChildren();
-     for(const f of files){const a=document.createElement('a'),folder=f.mimeType==='application/vnd.google-apps.folder';a.textContent=(folder?'▸ ':'')+f.name;a.href=f.webViewLink||(folder?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id;a.target='_blank';a.rel='noopener';if(folder)a.dataset.folder=f.id;body.append(a);}
      if(current!==revision)return;
      files=files.filter(f=>norm(f.name)!=='.ds_store');
      const nextContext=header(title,context,files);body.replaceChildren();
@@ -2377,7 +2371,6 @@
      if(!files.length)body.textContent='Nenhum material disponível nesta pasta.';
    }catch(e){if(current===revision)body.textContent='Não foi possível listar esta pasta. Abra-a no Google Drive abaixo e entre com sua conta.';}
  }
- document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;const id=a.dataset.folder||(a.classList.contains('public-link')&&a.href.match(/\/folders\/([\w-]+)/)?.[1]);if(id){e.preventDefault();open(id,a.textContent.trim());}});
  document.addEventListener('click',e=>{
    const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
    const id=a.dataset.folder;if(!id)return;e.preventDefault();
