@@ -1146,6 +1146,33 @@
 .zoomable{opacity:1!important;transform:none!important}.public-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.public-link{display:flex;flex-direction:column;gap:5px;padding:18px;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-secondary);color:var(--text-primary)}.public-link small{color:var(--text-secondary)}.public-link:hover{border-color:var(--gold-accent)}.public-browser{width:min(720px,94vw);max-height:85vh;border:1px solid var(--border-color);border-radius:16px;padding:24px;background:var(--bg-secondary);color:var(--text-primary)}.public-browser::backdrop{background:#0009}.public-browser header{display:flex;align-items:center;justify-content:space-between;gap:12px}.public-browser button{font:inherit;color:inherit;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:8px;padding:10px}.public-files{display:grid;gap:8px;margin:16px 0}.public-files a{padding:12px;border:1px solid var(--border-color);border-radius:8px;color:var(--text-primary);overflow-wrap:anywhere}.public-browser a:focus-visible{outline:2px solid var(--gold-accent)}@media(max-width:600px){.public-links{grid-template-columns:1fr}.public-browser{padding:16px}}
 .public-browser header{align-items:flex-start}.public-browser h2,.public-browser .public-process-number{font-size:24px;font-weight:400;line-height:1.35;margin:0}.public-browser .public-process-number{color:var(--gold-on-dark,#e3c98c);margin-top:5px;overflow-wrap:anywhere}[data-theme="light"] .public-browser .public-process-number{color:#8a6d2e}.public-folder-section{font-size:14px;color:var(--text-secondary);margin:12px 0 0}.public-browser .public-files{margin-top:24px}
 .public-browser header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px}.public-browser header>div{display:contents}.public-browser h2{grid-column:1;grid-row:1}.public-browser header>button{grid-column:2;grid-row:1}.public-browser .public-process-number,.public-browser .public-folder-section{grid-column:1 / -1;min-width:0}@media(max-width:600px){.public-browser h2,.public-browser .public-process-number{font-size:20px}}
+
+/* Apresentação dos arquivos de um processo. */
+.public-browser{padding:28px;border-radius:18px;box-shadow:0 24px 80px #0005}
+.public-browser header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 14px;align-items:center}
+.public-browser header>div.public-title-row{display:flex;align-items:center;gap:12px;grid-column:1;grid-row:1;min-width:0}
+.public-clock{display:grid;place-items:center;width:40px;height:40px;flex-shrink:0;border:1px solid var(--border-color-strong);border-radius:11px;background:var(--bg-tertiary);color:var(--text-secondary)}
+.public-clock svg{width:22px;height:22px}
+.public-browser h2{font-size:24px;font-weight:400;line-height:1.35;margin:0}
+.public-browser header>div.public-card-controls{display:flex;align-items:center;gap:7px;grid-column:2;grid-row:1}
+.public-browser .public-card-controls button{display:grid;place-items:center;width:36px;height:36px;padding:7px;background:transparent;border:1px solid transparent;border-radius:9px;color:var(--text-secondary);cursor:pointer}
+.public-card-controls svg{width:20px;height:20px}
+.public-browser .public-card-controls button:hover:not(:disabled){background:var(--bg-tertiary);border-color:var(--border-color-strong);color:var(--text-primary)}
+.public-browser .public-card-controls button:disabled{opacity:.3;cursor:default}
+.public-browser .public-process-number{grid-column:1/-1;font-size:24px;font-weight:400;line-height:1.35;margin:0;color:var(--gold-on-dark);overflow-wrap:anywhere}
+.public-browser .public-folder-section{grid-column:1/-1;margin:0;font-size:13px;color:var(--text-secondary)}
+.public-files-heading{border-top:1px solid var(--border-color-strong);padding-top:18px;margin-top:22px;color:var(--text-secondary);font-size:12px;letter-spacing:.2px}
+.public-browser .public-files{gap:8px;margin:11px 0 22px}
+.public-browser .public-files a{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:50px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;transition:background .15s,border-color .15s}
+.public-browser .public-files a:hover{border-color:var(--border-color-strong);background:var(--bg-secondary)}
+.public-file-icon{display:grid;place-items:center;width:25px;height:28px;flex-shrink:0;color:var(--text-secondary)}
+.public-file-icon svg{width:22px;height:24px}
+.public-file-name{min-width:0;overflow-wrap:anywhere;font-size:14px;line-height:1.5}
+.public-file-pdf .public-file-icon{color:#b48085}.public-file-smart .public-file-icon,.public-file-folder .public-file-icon{color:var(--gold-accent)}.public-file-video .public-file-icon{color:#9d93bd}.public-file-audio .public-file-icon{color:#80a3b5}
+.public-browser .original{display:inline-flex;align-items:center;gap:9px;color:var(--text-secondary);font-size:12px;line-height:1.5;padding:4px 0}
+.public-browser .original svg{width:20px;height:20px;flex-shrink:0}.public-browser .original:hover{color:var(--text-primary)}
+@media(max-width:600px){.public-browser{padding:20px}.public-browser h2,.public-browser .public-process-number{font-size:20px}.public-browser header{gap:14px 8px}.public-browser header>div.public-title-row{gap:8px}.public-clock{width:34px;height:34px}.public-browser .public-card-controls button{width:32px;height:34px}.public-browser .public-card-controls{gap:2px}.public-browser .public-files a{padding:11px 12px}.public-files-heading{margin-top:18px}}
+
 </style></head>
 <body class="p45-home">
   <div class="site-wrapper">
@@ -1485,7 +1512,7 @@
         if(emp) emp.style.display='none';
         items.forEach(function(f){
           var a=document.createElement('a'); a.href=f.webViewLink; a.className='vitem'; a.setAttribute('aria-haspopup','dialog');
-          a.title = 'Abrir a pasta de ' + f.name; a.dataset.folder = f.id;
+          a.title = 'Abrir a pasta de ' + f.name; a.dataset.folder = f.id; a.dataset.parentFolder=containerSel==='#audContainer'?AUD_ROOT:JURI_ROOT; a.dataset.parentName=containerSel==='#audContainer'?'Audiências':'Sessões do Júri';
           a.innerHTML = `<span class="vname"></span><span class="vopen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>`;
           a.querySelector('.vname').textContent = f.name;
           cont.appendChild(a);
@@ -2092,7 +2119,7 @@
             return;
           }
           sub.forEach(function(f){
-            var row = document.createElement('a'); row.href=f.webViewLink; row.dataset.folder=f.id; row.target='_blank'; row.rel='noopener';
+            var row = document.createElement('a'); row.href=f.webViewLink; row.dataset.folder=f.id; row.dataset.parentFolder=pasta.id; row.dataset.parentName=pasta.name; row.target='_blank'; row.rel='noopener';
             row.className = 'material-item';
             row.innerHTML = SVG_CHECK + '<span></span>';
             row.querySelector('span').textContent = f.name;
@@ -2312,10 +2339,16 @@
     })();
 // Navegação de consulta, sem as operações do painel local.
 (() => {
+
+ const icon=(kind)=>{
+   const paths={clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/>',back:'<path d="m10 5-7 7 7 7M3 12h18"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>',folder:'<path d="M3 7V5a2 2 0 0 1 2-2h5l3 4h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',pdf:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><text x="6.5" y="17" fill="currentColor" stroke="none" font-family="Arial,sans-serif" font-size="6" font-weight="700">PDF</text>',smart:'<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M13 2v6h4M8 13h5M8 17h8"/><path d="m19 2 1.1 3.1L23 6l-2.9 1L19 10l-1-3-3-1 3-.9Z"/>',video:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="m10 8 6 4-6 4Z"/>',audio:'<path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/>',image:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'};
+   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[kind]||paths.file)+'</svg>';
+ };
+ const driveIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M8 2h8l-8 14H0Z"/><path fill="#fbbc04" d="m16 2 8 14h-8L8 2Z"/><path fill="#4285f4" d="M0 16h24l-4 6H4Z"/></svg>';
  const modal=document.createElement('dialog');modal.className='public-browser';
  modal.setAttribute('aria-labelledby','publicFolderTitle');
- modal.innerHTML='<header><div><h2 id="publicFolderTitle">Materiais</h2><p class="public-process-number" hidden></p><p class="public-folder-section" hidden></p></div><button type="button" aria-label="Fechar materiais">Fechar</button></header><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">Abrir pasta no Google Drive ↗</a>';
- document.body.append(modal);let revision=0;
+ modal.innerHTML='<header><div class="public-title-row"><span class="public-clock">'+icon('clock')+'</span><h2 id="publicFolderTitle">Materiais</h2></div><div class="public-card-controls"><button class="public-back" type="button" aria-label="Voltar à pasta anterior" title="Voltar à pasta anterior">'+icon('back')+'</button><button class="public-close" type="button" aria-label="Fechar materiais" title="Fechar">'+icon('close')+'</button></div><p class="public-process-number" hidden></p><p class="public-folder-section" hidden></p></header><div class="public-files-heading">Arquivos</div><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">'+driveIcon+'<span>Abrir pasta no Google Drive</span></a>';
+ document.body.append(modal);let revision=0,history=[],currentFolder=null;
  const processPattern=/\b\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b/g;
  const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const withoutExtension=name=>name.replace(/\.[^.]+$/,'');
@@ -2349,10 +2382,12 @@
    const section=modal.querySelector('.public-folder-section');section.textContent=(!time&&context.time&&!numbers(text).length)?text:'';section.hidden=!section.textContent;
    return {time:time?time[0]:context.time||'',processes:processList,section:(!time?text:context.section||'')};
  }
- modal.querySelector('button').onclick=()=>modal.close();
+ modal.querySelector('.public-close').onclick=()=>modal.close();
+ modal.querySelector('.public-back').onclick=()=>{const previous=history.pop();if(previous)open(previous.id,previous.title,previous.context);};
+ modal.addEventListener('close',()=>{revision++;history=[];currentFolder=null;});
  modal.addEventListener('click',e=>{if(e.target===modal){const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close();}});
  async function open(id,title,context={}){
-   const current=++revision;header(title,context,[]);
+   const current=++revision;currentFolder={id,title,context};header(title,context,[]);modal.querySelector('.public-back').disabled=!history.length;
    modal.querySelector('.original').href='https://drive.google.com/drive/folders/'+id;
    const body=modal.querySelector('.public-files');body.textContent='Carregando materiais…';if(!modal.open)modal.showModal();
    try{
@@ -2360,10 +2395,14 @@
      let files=[],token='';do{if(token)params.set('pageToken',token);const r=await fetch('https://www.googleapis.com/drive/v3/files?'+params,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw new Error();const d=await r.json();files.push(...(d.files||[]));token=d.nextPageToken||'';}while(token);
      if(current!==revision)return;
      files=files.filter(f=>norm(f.name)!=='.ds_store');
-     const nextContext=header(title,context,files);body.replaceChildren();
+     const nextContext=header(title,context,files);currentFolder.context=nextContext;body.replaceChildren();
      for(const f of files){
        const a=document.createElement('a'),folder=f.mimeType==='application/vnd.google-apps.folder';
-       a.textContent=(folder?'▸ ':'')+label(f,nextContext.section);
+       const displayName=label(f,nextContext.section);
+       const kind=folder?'folder':/resumo inteligente/i.test(displayName)?'smart':f.mimeType?.startsWith('video/')||/\.(mp4|mov|webm|mkv|avi|m4v)$/i.test(f.name)?'video':f.mimeType?.startsWith('audio/')||/\.(mp3|wav|m4a|ogg|flac)$/i.test(f.name)?'audio':f.mimeType?.startsWith('image/')?'image':f.mimeType==='application/pdf'||/\.pdf$/i.test(f.name)?'pdf':'file';
+       a.className='public-file public-file-'+kind;
+       a.innerHTML='<span class="public-file-icon">'+icon(kind)+'</span><span class="public-file-name"></span>';
+       a.querySelector('.public-file-name').textContent=displayName;
        a.href=f.webViewLink||(folder?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id;a.target='_blank';a.rel='noopener';
        if(folder){a.dataset.folder=f.id;a.dataset.folderName=f.name;a.dataset.folderContext=JSON.stringify(nextContext);}
        body.append(a);
@@ -2375,6 +2414,8 @@
    const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
    const id=a.dataset.folder;if(!id)return;e.preventDefault();
    let context={};try{context=JSON.parse(a.dataset.folderContext||'{}');}catch(e){}
+   if(modal.open&&currentFolder)history.push({...currentFolder});
+   else{history=[];if(a.dataset.parentFolder)history.push({id:a.dataset.parentFolder,title:a.dataset.parentName||'Materiais',context:{}});}
    open(id,a.dataset.folderName||a.textContent.trim(),context);
  });
 })();
