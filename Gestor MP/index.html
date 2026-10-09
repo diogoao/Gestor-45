@@ -1163,7 +1163,7 @@
 .public-browser .public-folder-section{grid-column:1/-1;margin:0;font-size:13px;color:var(--text-secondary)}
 .public-files-heading{border-top:1px solid var(--border-color-strong);padding-top:18px;margin-top:22px;color:var(--text-secondary);font-size:12px;letter-spacing:.2px}
 .public-browser .public-files{gap:8px;margin:11px 0 22px}
-.public-browser .public-files a{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:50px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;transition:background .15s,border-color .15s}
+.public-browser .public-files .public-file{display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:50px;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:10px;transition:background .15s,border-color .15s}
 .public-browser .public-files a:hover{border-color:var(--border-color-strong);background:var(--bg-secondary)}
 .public-file-icon{display:grid;place-items:center;width:25px;height:28px;flex-shrink:0;color:var(--text-secondary)}
 .public-file-icon svg{width:22px;height:24px}
@@ -1173,7 +1173,11 @@
 .public-browser .original svg{width:20px;height:20px;flex-shrink:0}.public-browser .original:hover{color:var(--text-primary)}
 @media(max-width:600px){.public-browser{padding:20px}.public-browser h2,.public-browser .public-process-number{font-size:20px}.public-browser header{gap:14px 8px}.public-browser header>div.public-title-row{gap:8px}.public-clock{width:34px;height:34px}.public-browser .public-card-controls button{width:32px;height:34px}.public-browser .public-card-controls{gap:2px}.public-browser .public-files a{padding:11px 12px}.public-files-heading{margin-top:18px}}
 
-</style></head>
+</style>
+<style>
+.public-event-label{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}.public-event-process{font-size:13px;color:var(--gold-accent);overflow-wrap:anywhere}.public-event-open{width:16px;height:16px;color:#a3a9b2;flex-shrink:0}.public-event-open svg{width:100%;height:100%}.public-file-unavailable{opacity:.65;cursor:default}.public-link-missing{font-size:12px;color:#a3a9b2}.material-indisponivel{opacity:.55;cursor:default}.public-folder-section{color:var(--text-secondary)!important;font-size:13px!important}[data-theme="dark"] .public-event-process{color:var(--gold-on-dark)}
+</style>
+</head>
 <body class="p45-home">
   <div class="site-wrapper">
     <main class="main-content">
@@ -1306,6 +1310,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
   </button>
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+<script id="publicProcessIndex" type="application/json">{"version":1,"updatedAt":"2026-10-09T13:42:12+00:00","processos":[{"numero":"0000233-63.2020.8.17.0190","url":"https://drive.google.com/drive/folders/15lsDHGHwyRg9iWaP_Bk0uZf-QoiL3nKK"},{"numero":"0000258-86.2026.8.17.5001","url":"https://drive.google.com/drive/folders/1-SfbFtToTXdu6cZAcPF4WWPXxswxxnni"},{"numero":"0000731-18.2020.8.17.1110","url":"https://drive.google.com/drive/folders/1GtbBkd9PRpja_m8B2Y5CWPYtC_2o4DQv"},{"numero":"0000949-53.2015.8.17.0550","url":"https://drive.google.com/drive/folders/1P3xn_QY-6x7V2vTTT9W-AlSumrSGLPhG"},{"numero":"0001820-31.2023.8.17.4001","url":"https://drive.google.com/drive/folders/1LDKhG3LxZcM9z2iNhWOW31H5GmKEr_9S"},{"numero":"0001909-69.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1Jkeke-OCnDopU21xYP8uX8FPMhVlSlLu"},{"numero":"0002369-18.2020.8.17.0001","url":"https://drive.google.com/drive/folders/1MoNURaqzTo7VwvuvcSawpZ0L9Vd8vXTH"},{"numero":"0003348-73.2024.8.17.5001","url":"https://drive.google.com/drive/folders/1yOWyRb1jKl8FI5coqNH6hel4xYqsjXVp"},{"numero":"0004052-65.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1vhQrh1ut2-jkx2qmvGrzLajWWSRtxxxD"},{"numero":"0005183-62.2025.8.17.5001","url":"https://drive.google.com/drive/folders/1M8hpSJrFSTqiShqetKYTBl5X5EwLmvVg"},{"numero":"0006722-76.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1ihxkGsO4Mga8xTEbOi1U9Vu4L0YWoS7_"},{"numero":"0007465-19.2017.8.17.0001","url":"https://drive.google.com/drive/folders/1pDXvEqznlU2wWMjQ6u0MMbeR3O26yxWs"},{"numero":"0009046-35.2018.8.17.0001","url":"https://drive.google.com/drive/folders/1GueNsVh_-6KLP2Fp3Ole4gkiNDeaod43"},{"numero":"0009704-97.2023.8.17.2001","url":"https://drive.google.com/drive/folders/1ihGvnCOsJnZrOHyf1R0UJ1QAMV5d3mjC"},{"numero":"0009893-41.2024.8.17.2001","url":"https://drive.google.com/drive/folders/119cptqlH_Bfapyp9upo1gMWP9fq4zfp4"},{"numero":"0011053-97.2018.8.17.0001","url":"https://drive.google.com/drive/folders/1uRI1QpcdEDVNO3P66LMsVuPUWy-nbHLn"},{"numero":"0011730-06.2013.8.17.0001","url":"https://drive.google.com/drive/folders/14BQGEuWk3kMkeoUkywPSJoD1le8V3enk"},{"numero":"0014415-73.2019.8.17.0001","url":"https://drive.google.com/drive/folders/1bwKZQQqSbNu-AYEXCTPr8i1Iuo7HAXnz"},{"numero":"0016843-28.2019.8.17.0001","url":"https://drive.google.com/drive/folders/1es2zGZoeokZgeK58ONqEVYKxqGSeFZ5W"},{"numero":"0018070-53.2019.8.17.0001","url":"https://drive.google.com/drive/folders/1tVjn27_Ojzp5lqZuuLdofYt7XHluGR4D"},{"numero":"0020740-64.2019.8.17.0001","url":"https://drive.google.com/drive/folders/1Prq83CEBqziNlDi-pnrZHgsizjdoX_rm"},{"numero":"0020934-68.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1Nzr9SntB5skuxwd6h_UZmehGVNDEQFKQ"},{"numero":"0021583-67.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1o79H7q56iuhZ4pPAWWCDtYzxU6fZ36ZP"},{"numero":"0022013-48.2026.8.17.2001","url":"https://drive.google.com/drive/folders/1NV_MIouS9cWx4-JjOQdNaSLSPXQQ9OLX"},{"numero":"0022193-31.2018.8.17.0001","url":"https://drive.google.com/drive/folders/1uoAf2EpvI-TZiW_rJnANICiY48A21hvT"},{"numero":"0022723-39.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1KqQlGVy-UnyaZ6hou8SXvkIM9Zlg0cex"},{"numero":"0024064-32.2026.8.17.2001","url":"https://drive.google.com/drive/folders/1qyuxrljXODUbeeFi-6kuEIqfoU52vgjn"},{"numero":"0026946-65.2017.8.17.0001","url":"https://drive.google.com/drive/folders/1ERa5gSXdFgKKOROOSrlm94QEn66FOAM9"},{"numero":"0034537-14.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1w0Ez_vOgaRtI4rraCG-Xd_KTVh00X0M4"},{"numero":"0042366-85.2021.8.17.2001","url":"https://drive.google.com/drive/folders/10FnqRYOz1lAJe9o2vCpcCNJL0-oiJuYw"},{"numero":"0046954-96.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1Nw_KBPAEkFOo6rjX6uoFy_s1Tgd7i_M9"},{"numero":"0047660-79.2025.8.17.2001","url":"https://drive.google.com/drive/folders/17lDpibC7IxZHf6RPx-P0DAb1QPFeIW8C"},{"numero":"0050328-23.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1gcdW4q4Ih_b2jNamoKdpqhdlVB53jOSr"},{"numero":"0050331-75.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1gh2oSyMXIo1B3DD2DBEFkCDv1HF5M7p0"},{"numero":"0052384-29.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1GQSJJRgEu5270e6E7jKPu-L1c-cOgLy3"},{"numero":"0052827-14.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1Vw0YpElxLDUkTAvQv__m7hMuh7_mv0Ic"},{"numero":"0054293-43.2024.8.17.2001","url":"https://drive.google.com/drive/folders/10l_tCDKEsbHNHxVf550KMLzfgw2i1vUA"},{"numero":"0061964-20.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1RIE8kGZ47HtnCiduMK7gSGyaHaZ5IpdC"},{"numero":"0066567-05.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1PUF-XgkCjt5vQdSxAxchPhnwKA1xp6cx"},{"numero":"0072142-63.2014.8.17.0001","url":"https://drive.google.com/drive/folders/1jxNPRmpEw8XodvHCNzsFyLHVarKVmGah"},{"numero":"0075095-67.2021.8.17.2001","url":"https://drive.google.com/drive/folders/1916j_Z66djwYmYNshZjNecPVFkQiDWLm"},{"numero":"0086280-34.2023.8.17.2001","url":"https://drive.google.com/drive/folders/1Qb3Y4q5L4g_zqODuxZNoQv3SzYZNh1nM"},{"numero":"0090647-67.2024.8.17.2001","url":"https://drive.google.com/drive/folders/1jif6N9ZZGqin9mql18KPcwA9_J0jeov0"},{"numero":"0092674-86.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1UBJ8EIYaEz7FUFDJgJa7XwZqG4c36gzD"},{"numero":"0092949-06.2023.8.17.2001","url":"https://drive.google.com/drive/folders/1YKWHwpPJFP9vmPsqoYUSxmjgofPn1nij"},{"numero":"0104095-73.2025.8.17.2001","url":"https://drive.google.com/drive/folders/141a-pPQwSAnQS2TJQufjzakzwVUposp_"},{"numero":"0108559-77.2024.8.17.2001","url":"https://drive.google.com/drive/folders/10x3m2Bq_Fumksz5JLM8JxQSljgC0B0yU"},{"numero":"0109103-31.2025.8.17.2001","url":"https://drive.google.com/drive/folders/1cCXdq-dW6Gpy51Xa_z3wmTA5-nn56cBS"},{"numero":"0125688-95.2024.8.17.2001","url":"https://drive.google.com/drive/folders/11CgHq7H6tyvYY8bAdIVxBYuD-YIe9tS_"},{"numero":"0130153-21.2022.8.17.2001","url":"https://drive.google.com/drive/folders/1bUPZAksZK4HzzZ7Lc_B675cW-9xkli7_"},{"numero":"0169490-17.2022.8.17.2001","url":"https://drive.google.com/drive/folders/1-xzi3GHh160FKCP8SDyBTTYpfPmEBuj5"}]}</script>
 <script>
 /* Shared header and its dashboard dialogs. No task submission or page navigation is performed on load. */
 (() => {
@@ -1321,9 +1326,6 @@
       var $ = function(sel){ return document.querySelector(sel) };
       var $$ = function(sel){ return document.querySelectorAll(sel) };
       const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_auNY5QkAHmXb6vCAsiZ3Z2qNQE8o4T9JKWvBUmmMWpgT1Mip5enF3bMHNMdMwzWxRg/exec";
-      const API_KEY = "AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y";
-      var AUD_ROOT = '1vJCG69eYpY-eBUFMfMLF6QM-YIPFgKpQ';
-      var JURI_ROOT = '12dbDJQNFNAeyZhftKQaCvsluTVU2PGxG';
       var MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
       function y(){ var yEl=$('#y'); if(yEl) yEl.textContent=new Date().getFullYear(); }
       /* ============================================================
@@ -1485,60 +1487,96 @@
         }, { passive: true });
         btn.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
       }
-      var Drive = {
-        initGapiWithRetry: async function(){},
-        listFiles: async function(parentId, foldersOnly){
-          if(!/^[a-zA-Z0-9_-]+$/.test(parentId)) throw new Error('Pasta inválida');
-          var files=[], token='';
-          do {
-            var query = "'"+parentId+"' in parents AND trashed=false"+(foldersOnly ? " AND mimeType='application/vnd.google-apps.folder'" : '');
-            var params=new URLSearchParams({key:API_KEY,q:query,fields:'nextPageToken,files(id,name,webViewLink,mimeType)',orderBy:'name',pageSize:'1000',supportsAllDrives:'true',includeItemsFromAllDrives:'true'});
-            if(token)params.set('pageToken',token);
-            var response=await fetch('https://www.googleapis.com/drive/v3/files?'+params,{signal:AbortSignal.timeout(15000)});
-            if(!response.ok)throw new Error('Não foi possível listar os arquivos. Abra a pasta no Drive com sua conta.');
-            var data=await response.json();files.push(...(data.files||[]));token=data.nextPageToken||'';
-          }while(token);
-          return files.map(f=>({...f,webViewLink:f.webViewLink||(f.mimeType==='application/vnd.google-apps.folder'?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id}));
-        },
-        listFolders: function(parentId){return this.listFiles(parentId,true);}
-      };
-      function renderVListSkeleton(containerSel){
-        var cont = $(containerSel); if(!cont) return;
-        cont.innerHTML = '<div class="skeleton-line w80"></div><div class="skeleton-line w60"></div><div class="skeleton-line w40"></div>';
+      var publicIndexPromise = null;
+      function canonicalProcess(value){
+        var m=String(value||'').match(/(?<!\d)(\d{1,7})-(\d{2})\.(\d{4})\.(\d)\.(\d{2})\.(\d{4})(?!\d)/);
+        return m ? m[1].padStart(7,'0')+'-'+m.slice(2).join('.') : '';
       }
-      function renderVList(containerSel, emptySel, items){
-        var cont=$(containerSel), emp=$(emptySel); if(!cont) return; cont.innerHTML='';
-        if(!items || !items.length){ if(emp) emp.style.display='block'; return; }
-        if(emp) emp.style.display='none';
-        items.forEach(function(f){
-          var a=document.createElement('a'); a.href=f.webViewLink; a.className='vitem'; a.setAttribute('aria-haspopup','dialog');
-          a.title = 'Abrir a pasta de ' + f.name; a.dataset.folder = f.id; a.dataset.parentFolder=containerSel==='#audContainer'?AUD_ROOT:JURI_ROOT; a.dataset.parentName=containerSel==='#audContainer'?'Audiências':'Sessões do Júri';
-          a.innerHTML = `<span class="vname"></span><span class="vopen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>`;
-          a.querySelector('.vname').textContent = f.name;
-          cont.appendChild(a);
+      function pautaTime(value){
+        var m=String(value||'').match(/\b(\d{1,2})(?::(\d{2})|h(\d{2})?(?:m)?)\b/i);
+        if(!m || +m[1]>23 || +(m[2]||m[3]||0)>59)return '';
+        return m[1].padStart(2,'0')+':'+(m[2]||m[3]||'00');
+      }
+      function pautaEvents(data){
+        var ref=mesAnoDaPauta(data.title);
+        if(!ref)throw new Error('A pauta precisa informar mês e ano.');
+        var result=[], seen=new Set();
+        (data.events||[]).forEach(function(day){
+          var d=parseInt(String(day.dia).replace(/\D/g,''),10);
+          if(!d || d>new Date(ref.ano,ref.mes+1,0).getDate())return;
+          var owner=null,category='audiencias',sectionTime='';
+          var date=ref.ano+'-'+String(ref.mes+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+          (day.conteudo||[]).forEach(function(raw){
+            var line=String(raw).trim(),lower=line.toLowerCase();
+            if(!line)return;
+            var promoter=getPromoterNameLineKey(line);
+            if(promoter){owner=promoter;category='audiencias';sectionTime='';return;}
+            if(isSectionHeaderLine(lower,line)){
+              category=/j[uú]ri/i.test(line)?'juri':'audiencias';
+              sectionTime=pautaTime(line);return;
+            }
+            if(owner!=='arroxelas')return;
+            var number=canonicalProcess(line);if(!number)return;
+            var kind=/j[uú]ri/i.test(line)?'juri':category;
+            var time=pautaTime(line)||sectionTime,key=[number,date,time,kind].join('|');
+            if(seen.has(key))return;seen.add(key);
+            result.push({number:number,date:date,time:time,day:d,category:kind});
+          });
+        });
+        return result.sort(function(a,b){return a.date.localeCompare(b.date)||(a.time||'99:99').localeCompare(b.time||'99:99')||a.number.localeCompare(b.number);});
+      }
+      function validatePublicIndex(data){
+        if(!data || data.version!==1 || !Array.isArray(data.processos))throw new Error('Índice de links inválido.');
+        var links=new Map();
+        data.processos.forEach(function(item){
+          var number=canonicalProcess(item.numero);
+          if(!number || number!==item.numero || !/^https:\/\/drive\.google\.com\/drive\/folders\/[A-Za-z0-9_-]{10,200}$/.test(item.url||''))throw new Error('O índice contém um link inválido.');
+          if(links.has(number) && links.get(number)!==item.url)throw new Error('Há links diferentes para o mesmo processo.');
+          links.set(number,item.url);
+        });
+        return {links:links,updatedAt:data.updatedAt||''};
+      }
+      function getPublicIndex(){
+        if(publicIndexPromise)return publicIndexPromise;
+        publicIndexPromise=fetch('./indice-processos.json',{cache:'no-store'})
+          .then(function(r){if(!r.ok)throw new Error('Índice indisponível.');return r.json();})
+          .catch(function(error){
+            var embedded=document.getElementById('publicProcessIndex');
+            if(!embedded)throw error;return JSON.parse(embedded.textContent);
+          }).then(validatePublicIndex);
+        publicIndexPromise.catch(function(){publicIndexPromise=null;});
+        return publicIndexPromise;
+      }
+      window.PublicMaterialsData={events:pautaEvents,index:getPublicIndex,pauta:function(){return getPautaData();}};
+      function renderVListSkeleton(containerSel){
+        var cont=$(containerSel);if(cont)cont.innerHTML='<div class="skeleton-line w80"></div><div class="skeleton-line w60"></div>';
+      }
+      function renderPautaDays(containerSel,emptySel,events,category){
+        var cont=$(containerSel),empty=$(emptySel);if(!cont)return;cont.replaceChildren();
+        var dates=[...new Set(events.filter(function(e){return e.category===category;}).map(function(e){return e.date;}))];
+        if(empty)empty.style.display=dates.length?'none':'block';
+        dates.forEach(function(date){
+          var a=document.createElement('a');a.href='#materiais-'+date+'-'+category;a.className='vitem';
+          a.dataset.actDay=date;a.dataset.actCategory=category;a.setAttribute('aria-haspopup','dialog');
+          a.title='Exibir '+(category==='juri'?'os júris':'as audiências')+' de '+date.split('-').reverse().join('/');
+          a.innerHTML='<span class="vname"></span><span class="vopen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></span>';
+          a.querySelector('.vname').textContent=date.slice(8)+'-'+date.slice(5,7);cont.append(a);
         });
       }
       async function renderAtos(isManualRefresh){
-        var btn = $('#refreshAtosBtn');
-        if(isManualRefresh && btn) btn.classList.add('spinning');
-        renderVListSkeleton('#audContainer');
-        renderVListSkeleton('#juriContainer');
+        var btn=$('#refreshAtosBtn');if(isManualRefresh&&btn)btn.classList.add('spinning');
+        if(isManualRefresh){pautaPromise=null;publicIndexPromise=null;}
+        renderVListSkeleton('#audContainer');renderVListSkeleton('#juriContainer');
         try{
-          await Drive.initGapiWithRetry(3);
-          const [fa, fj] = await Promise.all([Drive.listFolders(AUD_ROOT), Drive.listFolders(JURI_ROOT)]);
-          renderVList('#audContainer', '#audEmpty', fa);
-          renderVList('#juriContainer', '#juriEmpty', fj);
-          var updated = $('#atosUpdated');
-          if(updated) updated.textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-          if(isManualRefresh) Toast.show('Próximos atos atualizados.', 'success');
+          var events=pautaEvents(await getPautaData());
+          renderPautaDays('#audContainer','#audEmpty',events,'audiencias');
+          renderPautaDays('#juriContainer','#juriEmpty',events,'juri');
+          var updated=$('#atosUpdated');if(updated)updated.textContent='Pauta atualizada às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+          if(isManualRefresh){loadAgendaCalendar();updateNextAct();Toast.show('Próximos atos atualizados.','success');}
         }catch(e){
-          console.error('Erro ao listar pastas de Atos:', e);
-          $('#audEmpty').style.display='none'; $('#audContainer').innerHTML = '<p class="empty">Listagem indisponível. Use o acesso Audiências acima para abrir o Drive.</p>';
-          $('#juriEmpty').style.display='none'; $('#juriContainer').innerHTML = '<p class="empty">Listagem indisponível. Use o acesso Sessões do Júri acima para abrir o Drive.</p>';
-          if(isManualRefresh) Toast.show('Não foi possível atualizar os atos agora.', 'error');
-        } finally {
-          if(btn) setTimeout(function(){ btn.classList.remove('spinning'); }, 400);
-        }
+          ['aud','juri'].forEach(function(id){$('#'+id+'Empty').style.display='none';$('#'+id+'Container').textContent='Não foi possível carregar a pauta. Tente atualizar.';});
+          if(isManualRefresh)Toast.show('Não foi possível atualizar a pauta agora.','error');
+        }finally{if(btn)btn.classList.remove('spinning');}
       }
       function setupModal(modalId, openBtnId, closeBtnId, openCallback) {
         const modal = $(modalId), openBtn = openBtnId ? $(openBtnId) : null, closeBtn = $(closeBtnId);
@@ -1706,7 +1744,7 @@
          appears. Lines are only ever attributed by POSITION (this state machine),
          never by scanning an entry's own text for a promoter's name. */
       function hasProcessNumber(line){
-        return /\d{4,7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}/.test(line);
+        return /(?<!\d)\d{1,7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}(?!\d)/.test(line);
       }
       function isSectionHeaderLine(lower, rawLine){
         if (hasProcessNumber(rawLine)) return false;
@@ -2042,35 +2080,12 @@
          categoria certa (a seção "Audiências" ou "Júri" sob o nome dele).
          É daqui que sai o tipo do ato — o endpoint getNextAct classificava
          errado e mandava a busca da pasta para a raiz do Júri. */
-      function computeProximoAto(data, promoterFilter){
-        var ref=mesAnoDaPauta(data.title),agora=new Date();
-        var delta=ref ? (ref.ano-agora.getFullYear())*12+ref.mes-agora.getMonth() : 0;
-        var hoje=delta>0?1:delta<0?32:agora.getDate();
-        var melhor = null;
-        (data.events || []).forEach(function(day){
-          var dia = parseInt(String(day.dia).replace(/\D/g, ''), 10);
-          if (isNaN(dia) || dia < hoje) return;
-          var currentPromoter = null, currentCategory = null, achou = null;
-          (day.conteudo || []).forEach(function(line){
-            if (line.trim() === '') return;
-            var lower = line.toLowerCase();
-            if (lower.includes('carnaval') || lower.includes('feriado')) return;
-            var nameKey = getPromoterNameLineKey(line);
-            if (nameKey) { currentPromoter = nameKey; currentCategory = null; return; }
-            if (isSectionHeaderLine(lower, line)) {
-              currentCategory = (lower.includes('júri') || lower.includes('juri')) ? 'juri' : 'audiencias';
-              return;
-            }
-            if (currentPromoter !== promoterFilter) return;
-            if (achou) return;
-            var cat = currentCategory;
-            if (lower.includes('júri') || lower.includes('juri')) cat = 'juri';
-            else if (!cat) cat = 'audiencias';
-            achou = cat;
-          });
-          if (achou && (!melhor || dia < melhor.dia)) melhor = { dia: dia, categoria: achou };
-        });
-        return melhor;
+      function computeProximoAto(data,promoterFilter){
+        var parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Fortaleza',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+        function part(type){return parts.find(function(p){return p.type===type;}).value;}
+        var today=part('year')+'-'+part('month')+'-'+part('day');
+        var next=pautaEvents(data).find(function(e){return e.date>=today;});
+        return next?{dia:next.day,categoria:next.category}:null;
       }
       async function loadAgendaCalendar(){
         // desenha já, sem marcações, para o card nunca aparecer vazio
@@ -2097,39 +2112,23 @@
         return true;
       }
       var SVG_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-      async function loadMaterialDoAto(categoria, dia, ref){
-        var lista = $('#materialLista'), btn = $('#btnMaterial');
-        if(!lista || !btn) return;
-        lista.innerHTML = ''; btn.hidden = true;
-        var root = (categoria === 'juri') ? JURI_ROOT : AUD_ROOT;
-        var mes = ref.mes + 1;
-        try {
-          await Drive.initGapiWithRetry(3);
-          var pastas = await Drive.listFolders(root);
-          var pasta = pastas.find(function(f){ return pastaEhDoDia(f.name, dia, mes, ref.ano); });
-          if (!pasta) {
-            lista.innerHTML = '<span class="material-vazio">Pasta do dia ainda não criada</span>';
-            return;
-          }
-          btn.href = pasta.webViewLink;
-          btn.hidden = false;
-          var sub = await Drive.listFolders(pasta.id);
-          if (!sub.length) {
-            lista.innerHTML = '<span class="material-vazio">Nenhum material preparado ainda</span>';
-            return;
-          }
-          sub.forEach(function(f){
-            var row = document.createElement('a'); row.href=f.webViewLink; row.dataset.folder=f.id; row.dataset.parentFolder=pasta.id; row.dataset.parentName=pasta.name; row.target='_blank'; row.rel='noopener';
-            row.className = 'material-item';
-            row.innerHTML = SVG_CHECK + '<span></span>';
-            row.querySelector('span').textContent = f.name;
-            row.title = f.name;
-            lista.appendChild(row);
+      async function loadMaterialDoAto(categoria,dia,ref){
+        var lista=$('#materialLista'),btn=$('#btnMaterial');if(!lista||!btn)return;
+        lista.replaceChildren();btn.hidden=true;
+        var date=ref.ano+'-'+String(ref.mes+1).padStart(2,'0')+'-'+String(dia).padStart(2,'0');
+        try{
+          var events=pautaEvents(await getPautaData()).filter(function(e){return e.date===date&&e.category===categoria;});
+          var index=await getPublicIndex();
+          btn.href='#materiais-'+date+'-'+categoria;btn.dataset.actDay=date;btn.dataset.actCategory=categoria;btn.hidden=!events.length;
+          events.forEach(function(event){
+            var url=index.links.get(event.number),row=document.createElement(url?'a':'span');row.className='material-item';
+            row.innerHTML=SVG_CHECK+'<span></span>';row.querySelector('span').textContent=event.time?event.time.replace(':','h'):'Horário não informado';
+            if(url){row.href=url;row.target='_blank';row.rel='noopener noreferrer';row.setAttribute('aria-label','Abrir materiais de '+event.number+', '+(event.time||'horário não informado'));}
+            else{row.classList.add('material-indisponivel');row.setAttribute('aria-disabled','true');}
+            row.title=event.number+(url?' — abrir materiais no Drive':' — pasta ainda não disponível no índice');lista.append(row);
           });
-        } catch (e) {
-          console.error('Erro ao localizar o material do próximo ato:', e);
-          lista.innerHTML = '<span class="material-vazio">Não foi possível ler o Drive</span>';
-        }
+          if(!events.length)lista.textContent='Nenhum processo informado na pauta deste dia.';
+        }catch(e){lista.textContent='Os links dos materiais não puderam ser carregados. Tente atualizar.';}
       }
       async function updateNextAct() {
         const elTipo = $('#nextTipo'), elDia = $('#nextDia'), elSemana = $('#nextSemana');
@@ -2348,76 +2347,44 @@
  const modal=document.createElement('dialog');modal.className='public-browser';
  modal.setAttribute('aria-labelledby','publicFolderTitle');
  modal.innerHTML='<header><div class="public-title-row"><span class="public-clock">'+icon('clock')+'</span><h2 id="publicFolderTitle">Materiais</h2></div><div class="public-card-controls"><button class="public-back" type="button" aria-label="Voltar à pasta anterior" title="Voltar à pasta anterior">'+icon('back')+'</button><button class="public-close" type="button" aria-label="Fechar materiais" title="Fechar">'+icon('close')+'</button></div><p class="public-process-number" hidden></p><p class="public-folder-section" hidden></p></header><div class="public-files-heading">Arquivos</div><div class="public-files" aria-live="polite"></div><a class="original" target="_blank" rel="noopener">'+driveIcon+'<span>Abrir pasta no Google Drive</span></a>';
- document.body.append(modal);let revision=0,history=[],currentFolder=null;
- const processPattern=/\b\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b/g;
- const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const withoutExtension=name=>name.replace(/\.[^.]+$/,'');
- const cleanEdges=name=>name.replace(/^[\s\-_·:]+|[\s\-_·:]+$/g,'').replace(/\s+/g,' ').trim();
- function numbers(name){return [...new Set((name.match(processPattern)||[]))];}
- function stripNumber(name){return cleanEdges(name.replace(processPattern,'').replace(/\b\d{20}\b/g,''));}
- function label(file,section){
-   const folder=file.mimeType==='application/vnd.google-apps.folder';
-   const stem=folder?file.name:withoutExtension(file.name);
-   if(folder)return stem;
-   // Os vídeos mantêm o nome original, retirando apenas a extensão.
-   if(file.mimeType?.startsWith('video/')||/\.(mp4|mov|webm|mkv|avi|m4v)$/i.test(file.name))return stem;
-   let name=stripNumber(stem);
-   if(norm(section).includes('transcri')||/transcri[cç][aã]o|depoimento/i.test(name)){
-     name=name.replace(/\b(?:transcri[cç][aã]o|depoimento|resumido)\b/gi,'');
-     return cleanEdges(name)||'Transcrição';
-   }
-   if(/resumo\s+inteligente/i.test(name))return 'Resumo Inteligente';
-   if(/resumo\s+para\s+audi[eê]ncia/i.test(name))return 'Resumo Para Audiência';
-   if(/resumo\s+para\s+j[uú]ri/i.test(name))return 'Resumo Para Júri';
-   if(/^autos(?:\b|[-_])/i.test(name)||(!name&&/\.pdf$/i.test(file.name)))return 'Autos';
-   return name||stem;
- }
- function header(title,context,files){
-   let text=cleanEdges(title.replace(/^\s*▸\s*/,''));
-   const time=text.match(/\b\d{1,2}(?:h\d{2}m?|:\d{2})\b/);
-   const processList=[...new Set([...numbers(text),...files.flatMap(f=>numbers(f.name)),...(context.processes||[])])];
-   const heading=time?time[0]:(context.time||stripNumber(text)||'Materiais');
-   modal.querySelector('h2').textContent=heading;
-   const number=modal.querySelector('.public-process-number');number.textContent=processList.join(' · ');number.hidden=!processList.length;
-   const section=modal.querySelector('.public-folder-section');section.textContent=(!time&&context.time&&!numbers(text).length)?text:'';section.hidden=!section.textContent;
-   return {time:time?time[0]:context.time||'',processes:processList,section:(!time?text:context.section||'')};
- }
+ document.body.append(modal);let revision=0;
  modal.querySelector('.public-close').onclick=()=>modal.close();
- modal.querySelector('.public-back').onclick=()=>{const previous=history.pop();if(previous)open(previous.id,previous.title,previous.context);};
- modal.addEventListener('close',()=>{revision++;history=[];currentFolder=null;});
+ modal.querySelector('.public-back').disabled=true;
+ modal.addEventListener('close',()=>{revision++;});
  modal.addEventListener('click',e=>{if(e.target===modal){const r=modal.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)modal.close();}});
- async function open(id,title,context={}){
-   const current=++revision;currentFolder={id,title,context};header(title,context,[]);modal.querySelector('.public-back').disabled=!history.length;
-   modal.querySelector('.original').href='https://drive.google.com/drive/folders/'+id;
-   const body=modal.querySelector('.public-files');body.textContent='Carregando materiais…';if(!modal.open)modal.showModal();
+ async function openDay(date,category){
+   const current=++revision;
+   if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!['audiencias','juri'].includes(category))return;
+   modal.querySelector('h2').textContent=date.slice(8)+'-'+date.slice(5,7);
+   const number=modal.querySelector('.public-process-number');number.hidden=true;number.textContent='';
+   const section=modal.querySelector('.public-folder-section');section.hidden=false;section.textContent=category==='juri'?'Sessões do Júri':'Audiências';
+   modal.querySelector('.public-files-heading').textContent=category==='juri'?'Sessões':'Horários';
+   modal.querySelector('.original').href='https://drive.google.com/drive/folders/15BGv2LuXpL6N2QglENoSezGk9ns4Oa6u';
+   const body=modal.querySelector('.public-files');body.textContent='Carregando horários…';if(!modal.open)modal.showModal();
    try{
-     const params=new URLSearchParams({key:"AIzaSyCiKskmgVtGyYLba17b6hR9pNDLHcE-Y4Y",q:"'"+id+"' in parents AND trashed=false",fields:'nextPageToken,files(id,name,mimeType,webViewLink)',orderBy:'name',pageSize:'1000'});
-     let files=[],token='';do{if(token)params.set('pageToken',token);const r=await fetch('https://www.googleapis.com/drive/v3/files?'+params,{signal:AbortSignal.timeout(15000)});if(!r.ok)throw new Error();const d=await r.json();files.push(...(d.files||[]));token=d.nextPageToken||'';}while(token);
+     const data=window.PublicMaterialsData;
+     const [pauta,index]=await Promise.all([data.pauta(),data.index()]);
      if(current!==revision)return;
-     files=files.filter(f=>norm(f.name)!=='.ds_store');
-     const nextContext=header(title,context,files);currentFolder.context=nextContext;body.replaceChildren();
-     for(const f of files){
-       const a=document.createElement('a'),folder=f.mimeType==='application/vnd.google-apps.folder';
-       const displayName=label(f,nextContext.section);
-       const kind=folder?'folder':/resumo inteligente/i.test(displayName)?'smart':f.mimeType?.startsWith('video/')||/\.(mp4|mov|webm|mkv|avi|m4v)$/i.test(f.name)?'video':f.mimeType?.startsWith('audio/')||/\.(mp3|wav|m4a|ogg|flac)$/i.test(f.name)?'audio':f.mimeType?.startsWith('image/')?'image':f.mimeType==='application/pdf'||/\.pdf$/i.test(f.name)?'pdf':'file';
-       a.className='public-file public-file-'+kind;
-       a.innerHTML='<span class="public-file-icon">'+icon(kind)+'</span><span class="public-file-name"></span>';
-       a.querySelector('.public-file-name').textContent=displayName;
-       a.href=f.webViewLink||(folder?'https://drive.google.com/drive/folders/':'https://drive.google.com/file/d/')+f.id;a.target='_blank';a.rel='noopener';
-       if(folder){a.dataset.folder=f.id;a.dataset.folderName=f.name;a.dataset.folderContext=JSON.stringify(nextContext);}
-       body.append(a);
+     const events=data.events(pauta).filter(e=>e.date===date&&e.category===category);body.replaceChildren();
+     for(const event of events){
+       const url=index.links.get(event.number),row=document.createElement(url?'a':'div');
+       row.className='public-file public-file-folder'+(url?'':' public-file-unavailable');
+       row.innerHTML='<span class="public-file-icon">'+icon('folder')+'</span><span class="public-event-label"><span class="public-file-name"></span><span class="public-event-process"></span></span><span class="public-event-open" aria-hidden="true">'+(url?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3h7v7M21 3l-9 9M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg>':'')+'</span>';
+       row.querySelector('.public-file-name').textContent=event.time?event.time.replace(':','h'):'Horário não informado';
+       row.querySelector('.public-event-process').textContent=event.number;
+       if(url){row.href=url;row.target='_blank';row.rel='noopener noreferrer';row.title='Abrir materiais no Google Drive';}
+       else{row.setAttribute('aria-disabled','true');const note=document.createElement('span');note.className='public-link-missing';note.textContent='Pasta ainda não disponível no índice';row.querySelector('.public-event-label').append(note);}
+       body.append(row);
      }
-     if(!files.length)body.textContent='Nenhum material disponível nesta pasta.';
-   }catch(e){if(current===revision)body.textContent='Não foi possível listar esta pasta. Abra-a no Google Drive abaixo e entre com sua conta.';}
+     if(!events.length)body.textContent='Nenhum processo informado na pauta deste dia.';
+   }catch(e){if(current===revision)body.textContent='Não foi possível carregar os horários e links. Feche e tente atualizar a pauta.';}
  }
+ window.PublicMaterials={openDay:openDay};
  document.addEventListener('click',e=>{
-   const a=e.target.closest('a');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
-   const id=a.dataset.folder;if(!id)return;e.preventDefault();
-   let context={};try{context=JSON.parse(a.dataset.folderContext||'{}');}catch(e){}
-   if(modal.open&&currentFolder)history.push({...currentFolder});
-   else{history=[];if(a.dataset.parentFolder)history.push({id:a.dataset.parentFolder,title:a.dataset.parentName||'Materiais',context:{}});}
-   open(id,a.dataset.folderName||a.textContent.trim(),context);
+   const trigger=e.target.closest('[data-act-day]');if(!trigger||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+   e.preventDefault();openDay(trigger.dataset.actDay,trigger.dataset.actCategory);
  });
+
 })();
 </script></body>
 </html>
