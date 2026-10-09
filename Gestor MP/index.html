@@ -1598,6 +1598,16 @@
         if(e.key !== 'Escape') return;
         $$('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
       });
+      // Dados externos entram no documento como texto, nunca como marcação.
+      function externalText(value) {
+        return value == null ? '' : String(value);
+      }
+      function renderEmpty(container, message, isError) {
+        const el = document.createElement('div');
+        el.className = isError ? 'empty error' : 'empty';
+        el.textContent = externalText(message);
+        container.replaceChildren(el);
+      }
       async function fetchAndRender(action, containerId, loadingId, renderFn) {
         const container = $(containerId), loadingEl = $(loadingId);
         if(loadingEl) loadingEl.style.display = 'block';
@@ -1608,7 +1618,7 @@
           if (!response.ok) throw new Error('Falha na resposta da rede.');
           const data = await response.json();
           if(loadingEl) loadingEl.style.display = 'none';
-          if (data.error) { container.innerHTML = `<div class="empty error">${data.error}</div>`; return; }
+          if (data && data.error) { renderEmpty(container, data.error, true); return; }
           if (!data || (Array.isArray(data) && data.length === 0)) { container.innerHTML = `<div class="empty">Nenhum dado encontrado.</div>`; return; }
           renderFn(data, container);
         } catch (error) {
@@ -1618,16 +1628,26 @@
         }
       }
       function renderTable(data, container, headers) {
-        let tableHTML = '<table class="data-table"><thead><tr>';
-        headers.forEach(h => tableHTML += `<th>${h.title}</th>`);
-        tableHTML += '</tr></thead><tbody>';
-        data.forEach(item => {
-          tableHTML += `<tr>`;
-          headers.forEach(h => tableHTML += `<td>${item[h.key]}</td>`);
-          tableHTML += `</tr>`;
+        if (!Array.isArray(data)) {
+          renderEmpty(container, 'Formato de dados inválido.', true);
+          return;
+        }
+        const table = document.createElement('table');
+        table.className = 'data-table';
+        const head = table.createTHead().insertRow();
+        headers.forEach(h => {
+          const cell = document.createElement('th');
+          cell.textContent = externalText(h.title);
+          head.appendChild(cell);
         });
-        tableHTML += '</tbody></table>';
-        container.innerHTML = tableHTML;
+        const body = table.createTBody();
+        data.forEach(item => {
+          const row = body.insertRow();
+          headers.forEach(h => {
+            row.insertCell().textContent = externalText(item && item[h.key]);
+          });
+        });
+        container.replaceChildren(table);
       }
       // === FUNÇÃO PARA ABRIR O MODAL DE INFORMAÇÕES DO PROCESSO ===
       function openProcessoInfo(procNum) {
@@ -1642,16 +1662,16 @@
           .then(r => r.json())
           .then(data => {
             loading.style.display = 'none';
-            if(data.error) {
-              infoGrid.innerHTML = `<div class="empty error">${data.error}</div>`;
+            if(data && data.error) {
+              renderEmpty(infoGrid, data.error, true);
               infoGrid.style.display = 'block';
-            } else if(!data.found) {
-              infoGrid.innerHTML = `<div class="empty">${data.message || 'Informações não encontradas para este processo.'}</div>`;
+            } else if(!data || !data.found) {
+              renderEmpty(infoGrid, (data && data.message) || 'Informações não encontradas para este processo.', false);
               infoGrid.style.display = 'block';
             } else {
               let situacaoClass = 'proc-badge';
               let situacaoIcon = '';
-              const lowerSit = data.situacao ? data.situacao.toLowerCase() : '';
+              const lowerSit = externalText(data.situacao).toLowerCase();
               if (lowerSit.includes('preso')) {
                 situacaoClass += ' red';
                 situacaoIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
@@ -1667,7 +1687,7 @@
                           <div class="proc-card-header">
                               <div class="proc-badge blue" title="Quantidade de Réus (Presos em parênteses)">
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                                  <span>${data.reus} Réu(s)</span>
+                                  <span data-process-field="reus"></span>
                               </div>
                               <div class="proc-badge" title="Testemunhas Restantes">
                                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1676,17 +1696,17 @@
                                       <path d="M12 12s2.5-4 5-4 5 4 5 4-2.5 4-5 4-5-4-5-4z"/>
                                       <circle cx="17" cy="12" r="1.5"/>
                                   </svg>
-                                  <span>${data.testemunhas} Testemunha(s)</span>
+                                  <span data-process-field="testemunhas"></span>
                               </div>
                               <div class="${situacaoClass}" title="Situação Carcerária">
                                   ${situacaoIcon}
-                                  <span>${data.situacao}</span>
+                                  <span data-process-field="situacao"></span>
                               </div>
                           </div>
                           <div class="proc-card-body">
                               <div class="proc-info-block">
                                   <div class="proc-copy-row">
-                                      <code>${procNum}</code>
+                                      <code data-process-field="numero"></code>
                                       <button type="button" class="proc-copy-btn" id="procCopyBtn" title="Copiar número do processo" aria-label="Copiar número do processo">
                                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                       </button>
@@ -1697,7 +1717,7 @@
                                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                       Motivação do Crime
                                   </h4>
-                                  <p>${data.motivacao}</p>
+                                  <p data-process-field="motivacao"></p>
                               </div>
                               <div class="proc-divider"></div>
                               <div class="proc-info-block">
@@ -1705,10 +1725,19 @@
                                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                                       Antecedentes Criminais
                                   </h4>
-                                  <p>${data.antecedentes}</p>
+                                  <p data-process-field="antecedentes"></p>
                               </div>
                           </div>
                       `;
+              const fields = {
+                reus: externalText(data.reus) + ' Réu(s)',
+                testemunhas: externalText(data.testemunhas) + ' Testemunha(s)',
+                situacao: data.situacao, numero: procNum,
+                motivacao: data.motivacao, antecedentes: data.antecedentes
+              };
+              infoGrid.querySelectorAll('[data-process-field]').forEach(el => {
+                el.textContent = externalText(fields[el.dataset.processField]);
+              });
               infoGrid.style.display = 'block';
               var copyBtn = $('#procCopyBtn');
               if(copyBtn){
@@ -1897,7 +1926,15 @@
           const isToday = String(day.dia).trim() === String(todayNum);
           if(isToday) card.classList.add('is-today');
           const dayNum = document.createElement('div'); dayNum.className = `day-number ${isHoliday ? 'is-holiday' : ''}`;
-          dayNum.innerHTML = `<span>Dia ${day.dia}</span>${isToday ? '<span class="today-tag">Hoje</span>' : ''}`; card.appendChild(dayNum);
+          const dayLabel = document.createElement('span');
+          dayLabel.textContent = 'Dia ' + externalText(day.dia);
+          dayNum.appendChild(dayLabel);
+          if (isToday) {
+            const todayTag = document.createElement('span');
+            todayTag.className = 'today-tag'; todayTag.textContent = 'Hoje';
+            dayNum.appendChild(todayTag);
+          }
+          card.appendChild(dayNum);
           const contentBox = document.createElement('div'); contentBox.className = 'day-events';
           /* A planilha traz cabeçalhos fixos ("Júri - 09h", "Audiências")
              mesmo nos dias em que nenhum processo foi marcado embaixo deles.
