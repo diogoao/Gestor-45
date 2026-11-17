@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mídias das audiências • 45ª Promotoria de Justiça (MPPE)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="./escudo-mppe.jpg" type="image/jpeg">
+<script>
+  /* Endereço do app da Web do player (Apps Script na conta do MPPE).
+     Fica aqui, num lugar só: o ícone da página inicial aponta para esta
+     página, que repassa o número do processo (?processo=) ao player.
+     Para trocar, cole o endereço que termina em /exec. */
+  var PLAYER_URL = '';
+  (function () {
+    if (!/^https:\/\/script\.google\.com\/[\w\/.-]+\/exec$/.test(PLAYER_URL)) return;
+    var n = new URLSearchParams(location.search).get('processo');
+    location.replace(PLAYER_URL + (n ? '?processo=' + encodeURIComponent(n) : ''));
+  })();
+</script>
+<style>
+  :root{--red:#7a0e18;--red-deep:#4f0a10;--gold:#b6934a;--bg:#eef1f6;--card:#fff;--text:#1b2230;--text-2:#667085;--line:#e6e9ef}
+  @media (prefers-color-scheme:dark){:root{--bg:#11141a;--card:#1a1e26;--text:#eef1f6;--text-2:#a2aab8;--line:#2a2f3a}}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column}
+  header{color:#fff;background:linear-gradient(135deg,var(--red),var(--red-deep));position:relative;padding:18px 24px 22px}
+  header::after{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--gold),#e3c98c,var(--gold))}
+  .marca{display:flex;align-items:center;gap:14px;max-width:960px;margin:0 auto}
+  .marca img{width:44px;height:44px;border-radius:50%}
+  .marca small{display:block;font-size:.66rem;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;color:#f3c98f}
+  .marca b{font-family:Lora,Georgia,serif;font-size:1.2rem}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+  .cartao{max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;box-shadow:0 12px 28px -6px rgb(16 24 40/.14);line-height:1.55}
+  h1{font-family:Lora,Georgia,serif;font-size:1.3rem;margin:0 0 10px}
+  p{margin:0 0 14px;color:var(--text-2)}
+  a.voltar{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem}
+</style>
+</head>
+<body>
+<header><div class="marca"><img src="./escudo-mppe.jpg" alt=""><div><small>Ministério Público de Pernambuco</small><b>45ª Promotoria de Justiça</b></div></div></header>
+<main>
+  <div class="cartao">
+    <h1>Mídias das audiências</h1>
+    <p>O player de mídias ainda não foi publicado. Ele roda no Google Apps Script da conta do MPPE, para abrir os vídeos e as transcrições direto do Drive sem deixá-los públicos.</p>
+    <p>Depois de publicado, o endereço do app (terminado em <code>/exec</code>) é colocado nesta página e o ícone da página inicial passa a abrir o player.</p>
+    <a class="voltar" href="./">← Voltar ao painel</a>
+  </div>
+</main>
+</body>
+</html>
