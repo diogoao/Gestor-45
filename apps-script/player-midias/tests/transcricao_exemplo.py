@@ -8,7 +8,6 @@ TEXTO2 = '''ARQUIVO: 00542934320248172001_2026_02_26_0002
 PROCESSO: 0054293-43.2024.8.17.2001
 DATA: 2026-02-26
 TIPO: VITIMA
-DEPOENTE: JOAO PEREIRA DOS SANTOS
 [PRESENTES]
 João Pereira dos Santos | Vítima
 [TRANSCRICAO]
@@ -20,3 +19,11 @@ João Pereira dos Santos | Vítima
 00:00:45 | Vítima (JOÃO PEREIRA DOS SANTOS) | Tinha o poste aceso. Deu pra ver bem o rosto dele.
 '''
 open(os.path.join(sys.argv[1], '0054293-43.2024.8.17.2001 - JOAO PEREIRA DOS SANTOS - 00542934320248172001_2026_02_26_0002.txt'), 'w', encoding='utf-8').write(TEXTO2)
+# Relatório de verificação do painel: linhas no formato das falas, mas não é transcrição.
+RELATORIO = '''VERIFICAÇÃO DA TRANSCRIÇÃO · 0054293-43.2024.8.17.2001
+Mídia: 00542934320248172001_2026_02_26_0001
+00:00:05 | Horário aproximado | encaixe acústico fraco; horário aproximado
+00:00:13 | Horário aproximado | encaixe acústico fraco; horário aproximado
+00:00:15 | Horário aproximado | encaixe acústico fraco; horário aproximado
+'''
+open(os.path.join(sys.argv[1], '00542934320248172001_2026_02_26_0001 - verificação.txt'), 'w', encoding='utf-8').write(RELATORIO)

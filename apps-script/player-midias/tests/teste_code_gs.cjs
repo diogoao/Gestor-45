@@ -38,6 +38,9 @@ arq('MARIA JOSE DA SILVA-00542934320248172001_2026_02_26_0001.pdf', transc, null
 const nomeTxt2 = '0054293-43.2024.8.17.2001 - JOAO PEREIRA DOS SANTOS - 00542934320248172001_2026_02_26_0002.txt';
 arq('00542934320248172001_2026_02_26_0002.mp3', mp3, fs.readFileSync(DIR + '/00542934320248172001_2026_02_26_0002.mp3'), 'audio/mpeg');
 arq(nomeTxt2, transc, fs.readFileSync(DIR + '/' + nomeTxt2), 'text/plain');
+arq('JOAO PEREIRA DOS SANTOS-00542934320248172001_2026_02_26_0002.pdf', transc, null, 'application/pdf');
+arq('00542934320248172001_2026_02_26_0001 - verificação.txt', transc, fs.readFileSync(DIR + '/00542934320248172001_2026_02_26_0001 - verificação.txt'), 'text/plain');
+arq('conferencia-0001.txt', transc, fs.readFileSync(DIR + '/00542934320248172001_2026_02_26_0001 - verificação.txt'), 'text/plain');
 arq('0054293-43.2024.8.17.2001 resumido.txt', txt, Buffer.from('RESUMO AIJ\n[RESUMO]\ntexto'), 'text/plain');
 arq('autos.pdf', ocr, null, 'application/pdf');
 // pasta de ato depois de "distribuir": arquivos de outro processo soltos
@@ -73,7 +76,8 @@ let r = J(ctx.carregarProcesso('0054293-43.2024.8.17.2001', ''));
 assert.strictEqual(r.numero, '0054293-43.2024.8.17.2001');
 assert.ok(r.pasta && r.pasta.id === p1.id, 'achou a pasta do processo pela raiz');
 assert.deepStrictEqual(r.midias.map(m => m.kind + ':' + m.pasta).sort(), ['audio:Mp3', 'audio:Mp3', 'video:Mídias']);
-assert.strictEqual(r.transcricoes.length, 2, 'só as transcrições (não o resumido.txt)');
+assert.strictEqual(r.transcricoes.length, 2, 'só as transcrições (não o resumido.txt nem os relatórios de verificação)');
+assert.deepStrictEqual(r.pdfs.map(p => p.nome).sort(), ['JOAO PEREIRA DOS SANTOS-00542934320248172001_2026_02_26_0002.pdf', 'MARIA JOSE DA SILVA-00542934320248172001_2026_02_26_0001.pdf'], 'só os PDFs com nome de mídia');
 assert.ok(r.transcricoes[0].texto.includes('[TRANSCRICAO]'));
 assert.ok(!JSON.stringify(r).includes('autos.pdf'), 'OCR não é percorrida');
 assert.strictEqual(r.email, 'teste@mppe.mp.br');
@@ -134,7 +138,7 @@ const ctxApi = Object.assign({}, ctx, { Drive: DriveMock, CacheService: { getScr
 vm.createContext(ctxApi);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'Code.gs'), 'utf8'), ctxApi);
 assert.ok(ctxApi.temDriveApi() && !ctx.temDriveApi());
-const resumo = (x) => ({ pasta: x.pasta && x.pasta.id, midias: x.midias.map(m => m.nome + '|' + m.kind + '|' + m.tamanho).sort(), transcricoes: x.transcricoes.map(t => t.nome + '|' + t.texto.length).sort() });
+const resumo = (x) => ({ pdfs: x.pdfs.map(p => p.nome).sort(), pasta: x.pasta && x.pasta.id, midias: x.midias.map(m => m.nome + '|' + m.kind + '|' + m.tamanho).sort(), transcricoes: x.transcricoes.map(t => t.nome + '|' + t.texto.length).sort() });
 for (const [num, pid] of [['0054293-43.2024.8.17.2001', ''], ['00542934320248172001', p1.id], ['0095111-37.2024.8.17.2001', '']]) {
   consultas = 0;
   const viaApi = J(ctxApi.carregarProcesso(num, pid)), viaApp = J(ctx.carregarProcesso(num, pid));

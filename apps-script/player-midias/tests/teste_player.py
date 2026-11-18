@@ -70,6 +70,8 @@ with sync_playwright() as p:
     pg.click('.proc[data-numero="0054293-43.2024.8.17.2001"]')
     pg.wait_for_selector('.midia')
     print('mídias:', pg.eval_on_selector_all('.midia', 'els => els.map(e => e.innerText.replace(/\\n+/g," | "))'))
+    nomes = pg.eval_on_selector_all('.midia-nome', 'els => els.map(e => e.textContent)')
+    assert nomes == ['Maria José da Silva', 'João Pereira dos Santos'], ('nomes das mídias', nomes)
     chamada = pg.evaluate('window.__chamadas[0]')
     assert chamada[2] == CARREGAR['pasta']['id'], 'passa a pasta do índice ao servidor'
     try:
@@ -77,6 +79,7 @@ with sync_playwright() as p:
     except Exception:
         print('TOASTS:', pg.inner_text('#toasts'), '| baixando:', pg.inner_text('#baixando'), '| erros:', erros); raise
     print('falas:', pg.locator('.fala').count(), '| baixando:', pg.inner_text('#baixando'))
+    assert pg.locator('.fala').count() == 24 and pg.inner_text('.fala[data-i="0"] .quem') == 'Juiz', 'usa a transcrição, não o relatório de verificação'
     assert not pg.locator('#capa').is_hidden(), 'capa de áudio visível enquanto o vídeo baixa'
     pg.screenshot(path=str(OUT / '02-audio-baixando.png'))
 

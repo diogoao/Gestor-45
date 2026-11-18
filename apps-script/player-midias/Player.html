@@ -743,7 +743,11 @@ button{font:inherit;color:inherit}
       var k = arq || chaveMidia(t.nome);
       if (!arq) { Object.keys(videos).concat(Object.keys(audios)).some(function (mk) { if (semAcento(t.nome).indexOf(mk) !== -1) { k = mk; return true; } return false; }); }
       var item = { arquivo: t, info: info };
-      if (!transcr[k] || t.atualizado > transcr[k].arquivo.atualizado) transcr[k] = item;
+      var atual = transcr[k];
+      /* Mais de um TXT para a mesma mídia: fica o que tem mais falas (a
+         transcrição, não um relatório) e, empatando, o mais recente. */
+      if (!atual || info.falas.length > atual.info.falas.length ||
+          (info.falas.length === atual.info.falas.length && t.atualizado > atual.arquivo.atualizado)) transcr[k] = item;
     });
     var chaves = Object.keys(videos);
     Object.keys(audios).forEach(function (k) { if (chaves.indexOf(k) === -1) chaves.push(k); });
@@ -751,9 +755,10 @@ button{font:inherit;color:inherit}
     chaves.sort();
     E.midias = chaves.map(function (k, i) {
       var t = transcr[k] || null, campos = t ? t.info.campos : {};
-      var dep = campos.DEPOENTE && !/nao identificado/.test(semAcento(campos.DEPOENTE)) ? campos.DEPOENTE : '';
-      var presente = dep && t.info.presentes.find(function (p) { return semAcento(p.nome) === semAcento(dep); });
       var nomeArq = (videos[k] || audios[k] || (t && t.arquivo) || {}).nome || k;
+      var dep = depoenteDoPdf(d.pdfs, semExtensao(nomeArq)) || campos.DEPOENTE || '';
+      if (/nao identificado/.test(semAcento(dep))) dep = '';
+      var presente = dep && t && t.info.presentes.find(function (p) { return semAcento(p.nome) === semAcento(dep); });
       var doNome = dadosDoNome(nomeArq);
       return {
         chave: k, ordem: i + 1, video: videos[k] || null, audio: audios[k] || null, transcricao: t,
@@ -769,6 +774,22 @@ button{font:inherit;color:inherit}
     desenharMidias();
     var primeira = E.midias.find(function (m) { return m.transcricao && (m.video || m.audio); }) || E.midias[0];
     if (primeira) selecionarMidia(primeira);
+  }
+  /* O painel salva o PDF da transcrição como "NOME DO DEPOENTE-<mídia>.pdf":
+     o nome de quem depõe é o que vem antes do nome da mídia. */
+  function depoenteDoPdf(pdfs, nomeMidia) {
+    var alvo = String(nomeMidia || '').normalize('NFC').toLowerCase();
+    if (!alvo || !pdfs || !pdfs.length) return '';
+    var achado = null, prefixo = '';
+    pdfs.forEach(function (p) {
+      var nome = semExtensao(String(p.nome || '').normalize('NFC')).replace(/\.pdf$/i, '');
+      var i = nome.toLowerCase().indexOf(alvo);
+      if (i <= 0) return;
+      var antes = nome.slice(0, i).replace(/[\s\-–—_]+$/, '').trim();
+      if (!antes) return;
+      if (!achado || (p.atualizado || 0) > (achado.atualizado || 0)) { achado = p; prefixo = antes; }
+    });
+    return prefixo;
   }
   function preferir(novo, velho) {
     var emMidias = function (m) { return /^m[ií]dia/i.test(m.pasta || ''); };

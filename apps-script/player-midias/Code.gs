@@ -61,6 +61,42 @@ function extensao(nome) {
   return m ? m[1].toLowerCase() : '';
 }
 
+/* Relatório "<mídia> - verificação.txt" do painel: tem linhas no formato das
+   falas ("HH:MM:SS | Horário aproximado | ..."), mas não é a transcrição. */
+function ehRelatorio(nome, texto) {
+  return /verificacao/.test(semAcento(nome)) || /^\s*VERIFICA(?:C|Ç)(?:A|Ã)O DA TRANSCRI/i.test(texto || '');
+}
+
+/**
+ * Separa mídias, transcrições e PDFs de transcrição.
+ * lerTexto(a) devolve o conteúdo de um .txt. Os PDFs voltam só quando o nome
+ * contém o nome de uma mídia ("NOME DO DEPOENTE-<mídia>.pdf"): é de onde a
+ * página tira o nome de quem depõe.
+ */
+function classificar(lista, lerTexto) {
+  var midias = [], transcricoes = [], pdfs = [];
+  lista.forEach(function (a) {
+    var ext = extensao(a.nome);
+    var info = { id: a.id, nome: a.nome, tipo: a.tipo, tamanho: a.tamanho, atualizado: a.atualizado, pasta: a.pasta };
+    if (EXT_VIDEO.indexOf(ext) !== -1 || /^video\//.test(a.tipo)) { info.kind = 'video'; midias.push(info); }
+    else if (EXT_AUDIO.indexOf(ext) !== -1 || /^audio\//.test(a.tipo)) { info.kind = 'audio'; midias.push(info); }
+    else if (ext === 'pdf') pdfs.push(info);
+    else if (ext === 'txt' || a.tipo === 'text/plain') {
+      if (/resumido\.txt$/i.test(a.nome) || a.tamanho > LIMITE_TXT || ehRelatorio(a.nome)) return;
+      var texto = lerTexto(a);
+      if (ehRelatorio(a.nome, texto) || !pareceTranscricao(texto)) return;
+      info.texto = texto;
+      transcricoes.push(info);
+    }
+  });
+  var nomesMidia = midias.map(function (m) { return semAcento(m.nome.replace(/\.[a-z0-9]{1,5}$/i, '')); });
+  pdfs = pdfs.filter(function (p) {
+    var n = semAcento(p.nome);
+    return nomesMidia.some(function (m) { return m && n.indexOf(m) !== -1; });
+  });
+  return { midias: midias, transcricoes: transcricoes, pdfs: pdfs };
+}
+
 function pareceTranscricao(texto) {
   if (/^\s*\[TRANSCRI(?:C|Ç)(?:A|Ã)O\]\s*$/mi.test(texto)) return true;
   var falas = texto.match(/^\s*\d{1,2}:\d{2}(?::\d{2})?\s*\|[^|\n]*\|/gm);
@@ -211,26 +247,17 @@ function carregarProcessoApi(n, pastaId) {
     if (f.name.indexOf(n) !== -1 || f.name.indexOf(digitos) !== -1) adicionar(f);
   });
 
-  var midias = [], transcricoes = [];
-  Object.keys(arquivos).forEach(function (id) {
-    var a = arquivos[id], ext = extensao(a.nome);
-    if (EXT_VIDEO.indexOf(ext) !== -1 || /^video\//.test(a.tipo)) { a.kind = 'video'; midias.push(a); }
-    else if (EXT_AUDIO.indexOf(ext) !== -1 || /^audio\//.test(a.tipo)) { a.kind = 'audio'; midias.push(a); }
-    else if (ext === 'txt' || a.tipo === 'text/plain') {
-      if (/resumido\.txt$/i.test(a.nome) || a.tamanho > LIMITE_TXT) return;
-      var texto = DriveApp.getFileById(a.id).getBlob().getDataAsString('UTF-8');
-      if (!pareceTranscricao(texto)) return;
-      a.texto = texto;
-      transcricoes.push(a);
-    }
+  var c = classificar(Object.keys(arquivos).map(function (id) { return arquivos[id]; }), function (a) {
+    return DriveApp.getFileById(a.id).getBlob().getDataAsString('UTF-8');
   });
   var principal = pastas[0] || null;
   return {
     numero: n,
     pasta: principal ? { id: principal.id, nome: principal.nome, url: principal.url } : null,
     pastas: pastas.map(function (p) { return { id: p.id, nome: p.nome, origem: p.origem }; }),
-    midias: midias,
-    transcricoes: transcricoes,
+    midias: c.midias,
+    transcricoes: c.transcricoes,
+    pdfs: c.pdfs,
     email: Session.getActiveUser().getEmail()
   };
 }
@@ -302,21 +329,8 @@ function carregarProcessoDriveApp(numero, pastaId) {
     adicionar(f, nomePasta);
   }
 
-  var midias = [], transcricoes = [];
-  Object.keys(arquivos).forEach(function (id) {
-    var a = arquivos[id], ext = extensao(a.nome);
-    var info = { id: a.id, nome: a.nome, tipo: a.tipo, tamanho: a.tamanho, atualizado: a.atualizado, pasta: a.pasta };
-    if (EXT_VIDEO.indexOf(ext) !== -1 || /^video\//.test(a.tipo)) {
-      info.kind = 'video'; midias.push(info);
-    } else if (EXT_AUDIO.indexOf(ext) !== -1 || /^audio\//.test(a.tipo)) {
-      info.kind = 'audio'; midias.push(info);
-    } else if (ext === 'txt' || a.tipo === 'text/plain') {
-      if (/resumido\.txt$/i.test(a.nome) || a.tamanho > LIMITE_TXT) return;
-      var texto = a.arquivo.getBlob().getDataAsString('UTF-8');
-      if (!pareceTranscricao(texto)) return;
-      info.texto = texto;
-      transcricoes.push(info);
-    }
+  var c = classificar(Object.keys(arquivos).map(function (id) { return arquivos[id]; }), function (a) {
+    return a.arquivo.getBlob().getDataAsString('UTF-8');
   });
 
   var principal = pastas.length ? pastas[0].pasta : null;
@@ -324,8 +338,9 @@ function carregarProcessoDriveApp(numero, pastaId) {
     numero: n,
     pasta: principal ? { id: principal.getId(), nome: principal.getName(), url: principal.getUrl() } : null,
     pastas: pastas.map(function (p) { return { id: p.pasta.getId(), nome: p.pasta.getName(), origem: p.origem }; }),
-    midias: midias,
-    transcricoes: transcricoes,
+    midias: c.midias,
+    transcricoes: c.transcricoes,
+    pdfs: c.pdfs,
     email: Session.getActiveUser().getEmail()
   };
 }
