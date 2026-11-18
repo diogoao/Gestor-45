@@ -1,11 +1,13 @@
 /**
  * Player de mídias das audiências — 45ª Promotoria de Justiça Criminal da Capital.
  *
- * App da Web do Google Apps Script, publicado na conta do MPPE com:
+ * App da Web do Google Apps Script, publicado numa conta Google pessoal com
+ * a pasta "Material de Preparação" do MPPE compartilhada com ela:
  *   Executar como: "Usuário que acessa o app da Web"
- *   Quem pode acessar: "Qualquer pessoa no MPPE"
+ *   Quem pode acessar: "Qualquer pessoa com Conta do Google"
  * Cada pessoa entra com a própria conta e só enxerga o que essa conta já
- * enxerga no Drive. Nenhuma mídia ou transcrição fica pública.
+ * enxerga no Drive. Quem abrir o endereço sem ter a pasta compartilhada não
+ * vê nada. Nenhuma mídia ou transcrição fica pública.
  *
  * O que o servidor faz:
  *   - acha a pasta do processo (link do índice da página inicial, pasta raiz
@@ -17,7 +19,9 @@
  *   - salva o PDF de trechos na pasta do processo, quando pedido.
  */
 
-/** Pasta do Drive sincronizada com o computador (Material de Preparação). */
+/** Pasta "Material de Preparação" (a mesma sincronizada com o computador e
+    compartilhada com a conta pessoal). Se a conta não tiver acesso a ela, o
+    app ainda acha os processos pelo índice da página inicial e pela busca. */
 var PASTA_RAIZ = '1WvZVfl0Ej6-fvP5pYQAqR20ah2rvCQsw';
 
 var EXT_VIDEO = ['mp4', 'm4v', 'mov', 'webm', 'mkv', 'avi', 'mpg', 'mpeg', 'wmv', 'asf', '3gp'];

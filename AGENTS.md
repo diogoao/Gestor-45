@@ -11,7 +11,7 @@ Por determinação do usuário, toda alteração na página inicial do painel lo
 
 ## Player de mídias das audiências
 
-- O player roda no Google Apps Script da conta do MPPE (executa como quem acessa, só para o domínio), para abrir mídias e transcrições do Drive sem torná-las públicas. Código em `apps-script/player-midias/` (`Code.gs`, `Player.html`, `appsscript.json`); como publicar está no `LEIA-ME.md` de lá.
+- O player roda no Google Apps Script de uma conta Google pessoal com a pasta "Material de Preparação" do MPPE compartilhada (a conta do MPPE não permite Apps Script). Executa como quem acessa: cada pessoa só vê o que a própria conta vê no Drive; nada fica público. Código em `apps-script/player-midias/` (`Code.gs`, `Player.html`, `appsscript.json`); como publicar está no `LEIA-ME.md` de lá.
 - Mudar esses arquivos no GitHub não atualiza o player: é preciso colá-los no projeto do Apps Script e publicar uma nova versão.
 - Na página inicial, o ícone `#midiasBtn` (cabeçalho de Próximos Atos) abre `Gestor MP/midias.html`, que só repassa para o endereço do app (`PLAYER_URL`).
 - `Player.html` copia de `index.html` as funções que montam os Próximos Atos (`canonicalProcess`, `pautaTime`, `pautaEvents`, `validateImportedActs`, corte de 5 dias). Se essa regra mudar na página inicial, mude lá também.
