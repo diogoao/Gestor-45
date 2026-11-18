@@ -59,8 +59,12 @@ with sync_playwright() as p:
     nums = pg.eval_on_selector_all('.proc', 'els => els.map(e => e.dataset.chave)')
     datas = sorted({c.split('|')[1] for c in nums})
     print('processos na lista:', len(nums), '| datas:', datas[0], '→', datas[-1])
-    assert datas[0] == '2026-11-12', 'corte de 5 dias inclusivo (hoje 17/11 → desde 12/11)'
-    assert not any('2026-11-1' + d in c for c in nums for d in '01'), 'atos de 10 e 11/11 ficam fora'
+    import datetime, zoneinfo
+    hoje = datetime.datetime.now(zoneinfo.ZoneInfo('America/Fortaleza')).date()
+    corte = (hoje - datetime.timedelta(days=5)).isoformat()
+    esperados = sorted({'|'.join([e['number'], e['date'], e.get('time', '')]) for e in publicacao['events'] if e['date'] >= corte})
+    assert sorted(nums) == esperados, 'lista = atos de %s em diante (corte inclusivo de 5 dias)' % corte
+    print('corte inclusivo de 5 dias: desde', corte)
     pg.screenshot(path=str(OUT / '01-lista.png'))
 
     pg.click('.proc[data-numero="0054293-43.2024.8.17.2001"]')
@@ -127,12 +131,25 @@ with sync_playwright() as p:
     pg.click('.fala[data-i="9"] .marcar'); pg.click('.fala[data-i="9"] .marcar')   # desmarca e marca de novo
     assert pg.locator('.fala.marcada').count() == 3
     pg.screenshot(path=str(OUT / '04-marcados.png'))
+    # Segunda mídia (outra pessoa, só áudio): marcar duas falas
+    pg.click('.midia:has-text("João Pereira")')
+    pg.wait_for_function("document.querySelectorAll('.fala').length === 6 && document.querySelector('#contaFalas').textContent.startsWith('6')", timeout=10000)
+    for i in (1, 3):
+        pg.click('.fala[data-i="%d"] .marcar' % i)
+    print('rodapé com duas mídias:', pg.inner_text('#contaMarcas'))
+    assert '5 trechos marcados no processo (2 nesta mídia)' in pg.inner_text('#contaMarcas')
     with pg.expect_download() as d:
         pg.click('#pdfBtn')
     dl = d.value
     destino = OUT / dl.suggested_filename
     dl.save_as(str(destino))
     print('PDF baixado:', dl.suggested_filename)
+    import subprocess
+    texto = subprocess.run(['pdftotext', '-layout', str(destino), '-'], capture_output=True, text=True).stdout
+    for esperado in ('Maria José da Silva', 'João Pereira dos Santos', '00542934320248172001_2026_02_26_0001.mp4', '00542934320248172001_2026_02_26_0002.mp3', '5 trechos · 2 depoentes · 2 mídias'):
+        assert esperado in texto, ('faltou no PDF', esperado)
+    assert texto.index('Maria José da Silva') < texto.index('João Pereira dos Santos')
+    print('PDF: um arquivo para o processo, separado por depoente, com o arquivo original de cada trecho')
     pg.click('.toast button:has-text("Salvar na pasta")')
     pg.wait_for_function("window.__chamadas.some(c => c[0] === 'salvarPdf')", timeout=5000)
     print('salvar no Drive:', pg.evaluate("window.__chamadas.filter(c => c[0] === 'salvarPdf')[0]"))

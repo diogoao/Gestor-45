@@ -409,6 +409,10 @@ button{font:inherit;color:inherit}
     return String(s || '').toLowerCase().replace(/(^|[\s(\-])([a-zà-ú])/g, function (m, a, b) { return a + b.toUpperCase(); })
       .split(' ').map(function (p, i) { return i && minusc.indexOf(p.toLowerCase()) !== -1 ? p.toLowerCase() : p; }).join(' ');
   }
+  /* O campo TIPO vem do painel em maiúsculas e sem acento. */
+  var TIPOS = { VITIMA: 'Vítima', REU: 'Réu', RE: 'Ré', ACUSADO: 'Acusado', ACUSADA: 'Acusada', TESTEMUNHA: 'Testemunha', INFORMANTE: 'Informante',
+    DECLARANTE: 'Declarante', OFENDIDO: 'Ofendido', OFENDIDA: 'Ofendida', INTERROGATORIO: 'Interrogatório', INTERROGADO: 'Interrogado', AUDIENCIA: 'Audiência', PERITO: 'Perito' };
+  function tipoBonito(t) { var k = semAcento(t).toUpperCase().replace(/[^A-Z]/g, ''); return TIPOS[k] || tituloNome(t); }
   function tamanhoTxt(b) { if (!b) return ''; var mb = b / 1048576; return mb >= 1024 ? (mb / 1024).toFixed(1).replace('.', ',') + ' GB' : Math.max(1, Math.round(mb)) + ' MB'; }
   function guardar(chave, valor) { try { localStorage.setItem(chave, JSON.stringify(valor)); } catch (e) {} }
   function ler(chave, padrao) { try { var v = localStorage.getItem(chave); return v == null ? padrao : JSON.parse(v); } catch (e) { return padrao; } }
@@ -793,7 +797,7 @@ button{font:inherit;color:inherit}
       $('.midia-meta', b).textContent = meta.join(' · ') || m.nomeArquivo;
       var selos = $('.selos', b);
       var selo = function (txt, cls) { var s = document.createElement('span'); s.className = 'selo-p' + (cls ? ' ' + cls : ''); s.textContent = txt; selos.append(s); };
-      if (m.tipo) selo(tituloNome(m.tipo));
+      if (m.tipo) selo(tipoBonito(m.tipo));
       if (!m.transcricao) selo('sem transcrição', 'alerta');
       if (!m.video && m.audio) selo('só áudio');
       if (!m.video && !m.audio) selo('mídia não encontrada', 'alerta');
@@ -838,7 +842,7 @@ button{font:inherit;color:inherit}
     var f = $('#ficha'); f.replaceChildren();
     var add = function (k, v) { if (!v) return; var dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = k; dd.textContent = v; f.append(dt, dd); };
     add('Depoente', m.depoente);
-    add('Tipo', m.tipo ? tituloNome(m.tipo) : '');
+    add('Tipo', m.tipo ? tipoBonito(m.tipo) : '');
     add('Gravação', m.data ? dataBR(m.data) + (m.seq ? ' · nº ' + m.seq : '') : '');
     add('Arquivo', m.nomeArquivo);
     if (info && info.presentes.length) add('Presentes', info.presentes.map(function (p) { return p.nome + (p.papel ? ' (' + p.papel + ')' : ''); }).join('; '));
@@ -1211,9 +1215,30 @@ button{font:inherit;color:inherit}
   var COR = { vinho: [122, 14, 24], vinhoSuave: [253, 236, 238], ouro: [182, 147, 74], ouroClaro: [227, 201, 140], texto: [27, 34, 48], cinza: [102, 112, 133], cinzaClaro: [152, 162, 179], linha: [230, 233, 239], fundo: [246, 248, 251], risco: [180, 35, 24] };
   var COR_PAPEL = { juiz: [71, 84, 103], mp: [122, 14, 24], defesa: [29, 95, 214], dep: [138, 109, 46], outro: [102, 112, 133] };
 
+  /* Nome do arquivo de mídia original (com extensão), para citar no PDF. */
+  function arquivoOriginal(m) {
+    return (m.video && m.video.nome) || (m.audio && m.audio.nome) || (m.transcricao && m.transcricao.info.campos.ARQUIVO) || m.nomeArquivo;
+  }
+  /* Um único PDF por processo: trechos marcados de todas as mídias,
+     separados pela pessoa que depôs; dentro dela, por mídia original. */
+  function trechosPorPessoa() {
+    var pessoas = [], idx = {};
+    E.midias.forEach(function (m) {
+      var falas = selecionadas(m); if (!falas.length) return;
+      var chave = m.depoente ? semAcento(m.depoente) : '#' + m.ordem;
+      if (!(chave in idx)) {
+        idx[chave] = pessoas.length;
+        pessoas.push({ nome: m.depoente || 'Depoente não identificado (mídia ' + m.ordem + ')', tipo: m.tipo, midias: [] });
+      }
+      pessoas[idx[chave]].midias.push({ m: m, falas: falas });
+    });
+    return pessoas;
+  }
+
   function gerarPdf() {
-    var grupos = E.midias.map(function (m) { return { m: m, falas: selecionadas(m) }; }).filter(function (g) { return g.falas.length; });
-    if (!grupos.length) return;
+    var pessoas = trechosPorPessoa();
+    if (!pessoas.length) return;
+    var nMidias = pessoas.reduce(function (s, p) { return s + p.midias.length; }, 0);
     var btn = $('#pdfBtn'); btn.disabled = true;
     carregarJsPDF().then(function (lib) {
       var doc = new lib.jsPDF({ unit: 'mm', format: 'a4' });
@@ -1233,9 +1258,9 @@ button{font:inherit;color:inherit}
       fonte('helvetica', 'bold', 10.5); doc.text(paraPdf('Processo nº ' + E.numero), L, y);
       y += 5.5;
       var linhaAto = E.ato ? (E.ato.category === 'juri' ? 'Sessão do Júri' : 'Audiência') + ' de ' + dataBR(E.ato.date) + (E.ato.time ? ' às ' + E.ato.time.replace(':', 'h') : '') + ' · ' : '';
-      var agora = new Date(), qtd = grupos.reduce(function (s, g) { return s + g.falas.length; }, 0);
+      var agora = new Date(), qtd = pessoas.reduce(function (s, p) { return s + p.midias.reduce(function (t, g) { return t + g.falas.length; }, 0); }, 0);
       fonte('helvetica', 'normal', 9, COR.cinza);
-      doc.text(paraPdf(linhaAto + qtd + (qtd === 1 ? ' trecho' : ' trechos') + ' de ' + grupos.length + (grupos.length === 1 ? ' mídia' : ' mídias') + ' · gerado em ' + agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })), L, y);
+      doc.text(paraPdf(linhaAto + qtd + (qtd === 1 ? ' trecho' : ' trechos') + ' · ' + pessoas.length + (pessoas.length === 1 ? ' depoente' : ' depoentes') + ' · ' + nMidias + (nMidias === 1 ? ' mídia' : ' mídias') + ' · gerado em ' + agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })), L, y);
       y += 4;
       doc.setDrawColor.apply(doc, COR.linha); doc.setLineWidth(0.3); doc.line(L, y, R, y);
       y += 7;
@@ -1280,33 +1305,48 @@ button{font:inherit;color:inherit}
         linha.forEach(function (p) { fonte(p.r.fam, p.r.est, p.r.tam, p.r.cor); doc.text(p.t, x, yy); x += p.w; });
       };
 
-      grupos.forEach(function (g, gi) {
-        var m = g.m;
-        caber(26);
-        if (gi) y += 3;
-        doc.setFillColor.apply(doc, COR.fundo); doc.setDrawColor.apply(doc, COR.linha);
-        doc.roundedRect(L, y, W, 14, 2, 2, 'FD');
-        doc.setFillColor.apply(doc, COR.vinho); doc.rect(L, y, 1.6, 14, 'F');
-        fonte('helvetica', 'bold', 10.5); doc.text(paraPdf('Mídia ' + m.ordem + ' · ' + tituloMidia(m)), L + 5, y + 5.8);
-        var sub = [m.tipo ? tituloNome(m.tipo) : '', m.data ? 'gravação de ' + dataBR(m.data) + (m.seq ? ' (nº ' + m.seq + ')' : '') : '', 'arquivo ' + m.nomeArquivo].filter(Boolean).join(' · ');
-        fonte('helvetica', 'normal', 8, COR.cinza); doc.text(doc.splitTextToSize(paraPdf(sub), W - 8)[0], L + 5, y + 10.8);
-        y += 20;
+      var desenharTrecho = function (f) {
+        var runs = f.partes.map(function (p) {
+          if (p.k === 'risco') return [{ t: p.t, fam: 'times', est: 'italic', tam: 11, cor: COR.risco }, { t: ' (risco de erro)', fam: 'helvetica', est: 'bolditalic', tam: 8.5, cor: COR.risco }];
+          if (p.k === 'nota') return [{ t: ' (' + p.t.trim() + ')', fam: 'helvetica', est: 'normal', tam: 8, cor: COR.cinzaClaro }];
+          return [{ t: p.t, fam: 'times', est: 'normal', tam: 11, cor: COR.texto }];
+        }).reduce(function (a, b) { return a.concat(b); }, []);
+        var linhas = montarLinhas(runs, W - 4);
+        caber(8 + Math.min(linhas.length, 3) * 5.2);
+        doc.setFillColor.apply(doc, COR.vinhoSuave); doc.roundedRect(L, y - 3.7, 17.5, 5.2, 1.2, 1.2, 'F');
+        fonte('helvetica', 'bold', 8.2, COR.vinho); doc.text(hms(f.t), L + 8.75, y, { align: 'center' });
+        if (f.quem) { fonte('helvetica', 'bold', 9, COR_PAPEL[papel(f.quem)]); doc.text(doc.splitTextToSize(paraPdf(f.quem), W - 24)[0], L + 21, y); }
+        y += 6;
+        linhas.forEach(function (ln) { caber(5.2); desenharLinha(ln, L + 2, y); y += 5.2; });
+        y += 3.2;
+      };
 
-        g.falas.forEach(function (f) {
-          var runs = f.partes.map(function (p) {
-            if (p.k === 'risco') return [{ t: p.t, fam: 'times', est: 'italic', tam: 11, cor: COR.risco }, { t: ' (risco de erro)', fam: 'helvetica', est: 'bolditalic', tam: 8.5, cor: COR.risco }];
-            if (p.k === 'nota') return [{ t: ' (' + p.t.trim() + ')', fam: 'helvetica', est: 'normal', tam: 8, cor: COR.cinzaClaro }];
-            return [{ t: p.t, fam: 'times', est: 'normal', tam: 11, cor: COR.texto }];
-          }).reduce(function (a, b) { return a.concat(b); }, []);
-          var linhas = montarLinhas(runs, W - 4);
-          caber(8 + Math.min(linhas.length, 3) * 5.2);
-          // hora + quem
-          doc.setFillColor.apply(doc, COR.vinhoSuave); doc.roundedRect(L, y - 3.7, 17.5, 5.2, 1.2, 1.2, 'F');
-          fonte('helvetica', 'bold', 8.2, COR.vinho); doc.text(hms(f.t), L + 8.75, y, { align: 'center' });
-          if (f.quem) { fonte('helvetica', 'bold', 9, COR_PAPEL[papel(f.quem)]); doc.text(doc.splitTextToSize(paraPdf(f.quem), W - 24)[0], L + 21, y); }
-          y += 6;
-          linhas.forEach(function (ln) { caber(5.2); desenharLinha(ln, L + 2, y); y += 5.2; });
-          y += 3.2;
+      pessoas.forEach(function (pessoa, pi) {
+        var total = pessoa.midias.reduce(function (t, g) { return t + g.falas.length; }, 0);
+        caber(34);
+        if (pi) y += 4;
+        // Cabeçalho da pessoa que depôs
+        doc.setFillColor.apply(doc, COR.fundo); doc.setDrawColor.apply(doc, COR.linha);
+        doc.roundedRect(L, y, W, 13, 2, 2, 'FD');
+        doc.setFillColor.apply(doc, COR.vinho); doc.rect(L, y, 1.6, 13, 'F');
+        fonte('times', 'bold', 13); doc.text(doc.splitTextToSize(paraPdf(pessoa.nome), W - 50)[0], L + 5, y + 6.2);
+        fonte('helvetica', 'normal', 8.2, COR.cinza);
+        doc.text(paraPdf([pessoa.tipo ? tipoBonito(pessoa.tipo) : 'Depoimento', total + (total === 1 ? ' trecho' : ' trechos')].join(' · ')), L + 5, y + 10.6);
+        y += 19;
+        pessoa.midias.forEach(function (g) {
+          var m = g.m;
+          caber(18);
+          // Mídia original de onde vêm os trechos
+          doc.setFillColor.apply(doc, COR.ouro); doc.rect(L, y - 3.4, 0.9, 4.4, 'F');
+          fonte('helvetica', 'bold', 8.2, COR.cinza); doc.text('Mídia original:', L + 3, y);
+          var rotulo = 'Mídia original:';
+          var xArq = L + 3 + doc.getTextWidth(rotulo) + 1.5;
+          fonte('helvetica', 'normal', 8.2, COR.texto);
+          var extra = m.data ? '  ·  gravação de ' + dataBR(m.data) + (m.seq ? ' (nº ' + m.seq + ')' : '') : '';
+          doc.text(doc.splitTextToSize(paraPdf(arquivoOriginal(m) + extra), R - xArq)[0], xArq, y);
+          y += 7;
+          g.falas.forEach(desenharTrecho);
+          y += 1.5;
         });
       });
 
