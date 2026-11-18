@@ -15,4 +15,5 @@ Por determinação do usuário, toda alteração na página inicial do painel lo
 - Mudar esses arquivos no GitHub não atualiza o player: é preciso colá-los no projeto do Apps Script e publicar uma nova versão.
 - Na página inicial, o ícone `#midiasBtn` (cabeçalho de Próximos Atos) abre `Gestor MP/midias.html`, que só repassa para o endereço do app (`PLAYER_URL`).
 - `Player.html` copia de `index.html` as funções que montam os Próximos Atos (`canonicalProcess`, `pautaTime`, `pautaEvents`, `validateImportedActs`, corte de 5 dias). Se essa regra mudar na página inicial, mude lá também.
+- As falas vêm do TXT de transcrição da pasta `Transcrições`; quando só existe o PDF da transcrição ("NOME DO DEPOENTE-<mídia>.pdf", que é o que o painel salva hoje), a página lê as falas do PDF com o PDF.js de `Gestor MP/vendor/pdfjs/`. O `… - verificação.txt` é relatório, não transcrição.
 - Testes: `apps-script/player-midias/tests/rodar.sh` (Node, Python, Playwright e Google Chrome).

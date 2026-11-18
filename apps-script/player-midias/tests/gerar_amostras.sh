@@ -8,3 +8,4 @@ ffmpeg -hide_banner -loglevel error -y -f lavfi -i "testsrc2=size=640x360:rate=2
 ffmpeg -hide_banner -loglevel error -y -i "$STEM.mp4" -vn -ac 1 -ar 32000 -b:a 32k "$STEM.mp3"
 cp "$STEM.mp3" 00542934320248172001_2026_02_26_0002.mp3
 python3 "$(dirname "$0")/transcricao_exemplo.py" "$DIR"
+python3 "$(dirname "$0")/gerar_pdf_transcricao.py" "$DIR"

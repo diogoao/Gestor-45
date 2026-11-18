@@ -386,6 +386,11 @@ button{font:inherit;color:inherit}
   var JSPDF_URLS = ['https://gestor45.vercel.app/vendor/jspdf.umd.min.js', 'https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js'];
   var TESTE = window.P45_TESTE || null;   // só usado nos testes automatizados
   var DRIVE_API = (TESTE && TESTE.driveApi) || 'https://www.googleapis.com';
+  /* PDF.js (Mozilla), para ler a transcrição do PDF quando não há o TXT. */
+  var PDFJS = (TESTE && TESTE.pdfjs) || [
+    { lib: 'https://gestor45.vercel.app/vendor/pdfjs/pdf.min.mjs', worker: 'https://gestor45.vercel.app/vendor/pdfjs/pdf.worker.min.mjs' },
+    { lib: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@6.5.438/build/pdf.min.mjs', worker: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@6.5.438/build/pdf.worker.min.mjs' }
+  ];
   var ESCUDO = document.querySelector('.selo img').src;
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -596,9 +601,149 @@ button{font:inherit;color:inherit}
         d.falas.push({ t: t, quem: quem, fala: fala });
       }
     });
+    return finalizarFalas(d);
+  }
+  function finalizarFalas(d) {
     d.falas.sort(function (a, b) { return a.t - b.t; });
     d.falas.forEach(function (f, i) { f.i = i; f.chave = f.t + '-' + hash(f.quem + '|' + f.fala).slice(0, 7); f.partes = partesDaFala(f.fala); f.plano = f.partes.map(function (p) { return p.t; }).join(''); });
     return d;
+  }
+
+  /* ============================================================
+     TRANSCRIÇÃO EM PDF (quando a pasta só tem o PDF, sem o .txt)
+     O PDF do painel traz, depois do título "Transcrição integral", uma
+     fala por bloco: "HH:MM:SS Nome: texto", com o texto quebrado em várias
+     linhas e o rodapé "Processo nº … · data   N / M" em cada página. Antes
+     do título vêm o resumo e os trechos relevantes.
+     ============================================================ */
+  var pdfjsPromessa = null;
+  function carregarPdfjs() {
+    if (pdfjsPromessa) return pdfjsPromessa;
+    var tentar = function (i) {
+      if (i >= PDFJS.length) return Promise.reject(new Error('não consegui carregar o leitor de PDF'));
+      return import(PDFJS[i].lib).then(function (lib) {
+        if (!lib || !lib.getDocument) throw new Error('leitor de PDF inválido');
+        lib.GlobalWorkerOptions.workerSrc = PDFJS[i].worker;
+        return lib;
+      }).catch(function () { return tentar(i + 1); });
+    };
+    pdfjsPromessa = tentar(0);
+    pdfjsPromessa.catch(function () { pdfjsPromessa = null; });
+    return pdfjsPromessa;
+  }
+  function linhasDoPdf(dados) {
+    return carregarPdfjs().then(function (lib) {
+      var tarefa = lib.getDocument({ data: dados, isEvalSupported: false, disableFontFace: true });
+      return tarefa.promise.then(function (doc) {
+        var linhas = [], p = 1;
+        var proxima = function () {
+          if (p > doc.numPages) { tarefa.destroy(); return linhas; }
+          return doc.getPage(p++).then(function (pg) { return pg.getTextContent(); }).then(function (tc) {
+            Array.prototype.push.apply(linhas, linhasDaPagina(tc.items));
+            return proxima();
+          });
+        };
+        return proxima();
+      }, function (e) { tarefa.destroy(); throw e; });
+    });
+  }
+  /* Junta os pedaços de texto da página em linhas, de cima para baixo. O
+     horário fica numa coluna própria, um pouco fora da linha de base do
+     texto: entra na mesma linha se a diferença for menor que meia letra. */
+  function linhasDaPagina(itens) {
+    var its = itens.filter(function (it) { return it && typeof it.str === 'string' && it.str.length && it.transform; }).map(function (it) {
+      return { s: it.str, x: it.transform[4], y: it.transform[5], w: it.width || 0, h: Math.abs(it.transform[3]) || it.height || 10 };
+    });
+    its.sort(function (a, b) { return b.y - a.y || a.x - b.x; });
+    var grupos = [];
+    its.forEach(function (it) {
+      var g = grupos[grupos.length - 1];
+      if (g && Math.abs(g.y - it.y) <= Math.max(2, Math.min(g.h, it.h) * 0.45)) { g.itens.push(it); g.h = Math.max(g.h, it.h); }
+      else grupos.push({ y: it.y, h: it.h, itens: [it] });
+    });
+    return grupos.map(function (g) {
+      g.itens.sort(function (a, b) { return a.x - b.x; });
+      var s = '', fim = null;
+      g.itens.forEach(function (it) {
+        if (fim != null && it.x - fim > it.h * 0.2 && !/\s$/.test(s) && !/^\s/.test(it.s)) s += ' ';
+        s += it.s; fim = it.x + it.w;
+      });
+      return s.replace(/\s+/g, ' ').trim();
+    }).filter(Boolean);
+  }
+  /* Continua um texto na linha seguinte, desfazendo a hifenização da página. */
+  function juntarLinha(texto, linha) {
+    if (!texto) return linha;
+    if (/[‐­]$/.test(texto)) return texto.slice(0, -1) + linha;
+    /* Hífen comum no fim da linha: quase sempre é a quebra da palavra. Só
+       fica quando o que segue é um pronome ligado ao verbo ("lembra-se",
+       "disse-me", "matá-lo") ou "-feira". */
+    var h = /([A-Za-zÀ-ÿ]+)-$/.exec(texto);
+    if (h) {
+      var antes = h[1], seg = (/^(se|me|lhes?|l[oa]s?|feira)(?![A-Za-zÀ-ÿ])/i.exec(linha) || [])[1];
+      seg = seg ? seg.toLowerCase() : '';
+      var fica = seg === 'feira' ||
+        (/^l[oa]s?$/.test(seg) && /[áéíóúâêô]$/i.test(antes)) ||
+        (seg === 'se' && antes.length >= 4 && !/s$/i.test(antes)) ||
+        (/^(me|lhes?)$/.test(seg) && antes.length >= 4);
+      return (fica ? texto : texto.slice(0, -1)) + linha;
+    }
+    return texto + ' ' + linha;
+  }
+  /* O PDF marca o trecho incerto em vermelho, seguido de "(conferir fala)".
+     A cor não vem no texto: marca-se a frase que termina na marca. */
+  function riscoDoPdf(fala) {
+    var pedacos = fala.split(/\s*\(conferir fala\)/i);
+    if (pedacos.length === 1) return fala;
+    var out = '';
+    pedacos.forEach(function (p, i) {
+      if (i === pedacos.length - 1) { out += p; return; }
+      var re = /[.!?…]["”']?\s+(?=\S)/g, corte = 0, m;
+      while ((m = re.exec(p))) corte = re.lastIndex;
+      out += p.slice(0, corte) + '[[RISCO]]' + (p.slice(corte) || '…') + '[[/RISCO]]';
+    });
+    return out;
+  }
+  var RE_RODAPE_PDF = /^Processo\s+n\S{0,2}\s*\d{1,7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}\b/i;
+  var RE_HORA_PDF = /^(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)$/;
+  function lerTranscricaoPdf(linhas) {
+    var d = { campos: {}, presentes: [], resumo: '', trechos: [], falas: [], doPdf: true };
+    var limpas = linhas.filter(function (l) { return !RE_RODAPE_PDF.test(l) && !/^\d+\s*\/\s*\d+$/.test(l); });
+    var compacto = function (l) { return semAcento(l).replace(/[^a-z]/g, ''); };
+    var ini = -1;
+    for (var i = 0; i < limpas.length && ini === -1; i++) {
+      if (limpas[i].length <= 60 && /transcricaointegral$/.test(compacto(limpas[i]))) ini = i;
+    }
+    // Resumo e trechos relevantes (antes da transcrição)
+    var modo = null, tr = null;
+    (ini > 0 ? limpas.slice(0, ini) : []).forEach(function (l) {
+      var n = semAcento(l).toUpperCase(), maiusculas = l === l.toUpperCase();
+      if (/resumodoato$/.test(compacto(l)) && maiusculas) { modo = 'resumo'; return; }
+      if (/^trechos/.test(compacto(l)) && maiusculas) { modo = 'trechos'; tr = null; return; }
+      if (maiusculas && l.length <= 60 && /^(\d{2}[A-Z]|PARTEI+$)/.test(n.replace(/\s+/g, ''))) { modo = null; return; }
+      if (modo === 'resumo') d.resumo = juntarLinha(d.resumo, l);
+      else if (modo === 'trechos') {
+        var m = RE_HORA_PDF.exec(l), th = m ? lerHora(m[1]) : null;
+        if (th != null) { tr = { t: th, desc: m[2] }; d.trechos.push(tr); }
+        else if (tr) tr.desc = juntarLinha(tr.desc, l);
+      }
+    });
+    // Falas
+    var atual = null, hora = null;
+    (ini >= 0 ? limpas.slice(ini + 1) : limpas).forEach(function (l) {
+      if (hora) { l = hora + ' ' + l; hora = null; }
+      if (/^\d{1,2}:\d{2}(?::\d{2})?$/.test(l)) { hora = l; return; }
+      var m = RE_HORA_PDF.exec(l), t = m ? lerHora(m[1]) : null;
+      if (t == null) { if (atual) atual.fala = juntarLinha(atual.fala, l); return; }
+      var resto = m[2], quem = '', q = /^([^:]{1,90}?):\s*(.*)$/.exec(resto);
+      if (q && !/[.!?…]/.test(q[1]) && q[1].split(/\s+/).length <= 9) { quem = q[1].trim(); resto = q[2]; }
+      atual = { t: t, quem: quem, fala: resto.trim() };
+      d.falas.push(atual);
+    });
+    d.falas = d.falas.filter(function (f) { return f.fala; });
+    d.falas.forEach(function (f) { f.fala = riscoDoPdf(f.fala); });
+    d.resumo = d.resumo.trim();
+    return finalizarFalas(d);
   }
   function partesDaFala(fala) {
     var s = String(fala).replace(/\s*\[\[TEMPO\]\][\s\S]*?\[\[\/TEMPO\]\]/g, '');
@@ -627,6 +772,13 @@ button{font:inherit;color:inherit}
     if (/\b(defens|advogad|defesa)/.test(q)) return 'defesa';
     if (/\b(testemunha|vitima|informante|reu|re\b|acusad|interrogad|depoente|declarante|ofendid|pronunciad)/.test(q)) return 'dep';
     return 'outro';
+  }
+  /* No PDF a fala do depoente às vezes vem só com o nome dele. */
+  function papelDe(quem, m) {
+    var p = papel(quem);
+    if (p !== 'outro' || !m || !m.depoente) return p;
+    var q = semAcento(quem), d = semAcento(m.depoente);
+    return q && d && (q.indexOf(d) !== -1 || d.indexOf(q) !== -1) ? 'dep' : p;
   }
   var RE_NOME_PJE = /^(\d{20})_(\d{4})_(\d{2})_(\d{2})_(\d{3,4})$/;
   function dadosDoNome(nome) {
@@ -756,40 +908,45 @@ button{font:inherit;color:inherit}
     E.midias = chaves.map(function (k, i) {
       var t = transcr[k] || null, campos = t ? t.info.campos : {};
       var nomeArq = (videos[k] || audios[k] || (t && t.arquivo) || {}).nome || k;
-      var dep = depoenteDoPdf(d.pdfs, semExtensao(nomeArq)) || campos.DEPOENTE || '';
+      var pdf = pdfDaMidia(d.pdfs, semExtensao(nomeArq));
+      var dep = (pdf && pdf.depoente) || campos.DEPOENTE || '';
       if (/nao identificado/.test(semAcento(dep))) dep = '';
       var presente = dep && t && t.info.presentes.find(function (p) { return semAcento(p.nome) === semAcento(dep); });
       var doNome = dadosDoNome(nomeArq);
       return {
         chave: k, ordem: i + 1, video: videos[k] || null, audio: audios[k] || null, transcricao: t,
+        pdfTranscricao: !t && pdf ? pdf.arquivo : null,
         depoente: presente ? presente.nome : (dep ? tituloNome(dep) : ''),
         tipo: campos.TIPO || '', data: (doNome && doNome.data) || (/^\d{4}-\d{2}-\d{2}$/.test(campos.DATA || '') ? campos.DATA : ''),
         seq: doNome ? doNome.seq : '', nomeArquivo: semExtensao(nomeArq)
       };
     });
-    var nv = E.midias.filter(function (m) { return m.video || m.audio; }).length, nt = E.midias.filter(function (m) { return m.transcricao; }).length;
+    var nv = E.midias.filter(function (m) { return m.video || m.audio; }).length, nt = E.midias.filter(temTranscricao).length;
     $('#procStatus').textContent = E.midias.length
       ? nv + (nv === 1 ? ' mídia' : ' mídias') + ' · ' + nt + (nt === 1 ? ' transcrição' : ' transcrições') + (d.pasta ? '' : ' · pasta do processo não localizada; arquivos achados pelo número')
       : (d.pasta ? 'Nenhuma mídia ou transcrição na pasta deste processo.' : 'Não achei a pasta deste processo no Drive com a sua conta.');
     desenharMidias();
-    var primeira = E.midias.find(function (m) { return m.transcricao && (m.video || m.audio); }) || E.midias[0];
+    var primeira = E.midias.find(function (m) { return temTranscricao(m) && (m.video || m.audio); }) || E.midias[0];
     if (primeira) selecionarMidia(primeira);
+    precarregarPdfs();
   }
+  /* Transcrição pronta (TXT) ou ainda a ler do PDF. */
+  function temTranscricao(m) { return !!(m.transcricao || (m.pdfTranscricao && !m.pdfErro)); }
   /* O painel salva o PDF da transcrição como "NOME DO DEPOENTE-<mídia>.pdf":
      o nome de quem depõe é o que vem antes do nome da mídia. */
-  function depoenteDoPdf(pdfs, nomeMidia) {
+  function pdfDaMidia(pdfs, nomeMidia) {
     var alvo = String(nomeMidia || '').normalize('NFC').toLowerCase();
-    if (!alvo || !pdfs || !pdfs.length) return '';
-    var achado = null, prefixo = '';
+    if (!alvo || !pdfs || !pdfs.length) return null;
+    var achado = null;
     pdfs.forEach(function (p) {
       var nome = semExtensao(String(p.nome || '').normalize('NFC')).replace(/\.pdf$/i, '');
       var i = nome.toLowerCase().indexOf(alvo);
       if (i <= 0) return;
       var antes = nome.slice(0, i).replace(/[\s\-–—_]+$/, '').trim();
       if (!antes) return;
-      if (!achado || (p.atualizado || 0) > (achado.atualizado || 0)) { achado = p; prefixo = antes; }
+      if (!achado || (p.atualizado || 0) > (achado.arquivo.atualizado || 0)) achado = { arquivo: p, depoente: antes };
     });
-    return prefixo;
+    return achado;
   }
   function preferir(novo, velho) {
     var emMidias = function (m) { return /^m[ií]dia/i.test(m.pasta || ''); };
@@ -819,7 +976,7 @@ button{font:inherit;color:inherit}
       var selos = $('.selos', b);
       var selo = function (txt, cls) { var s = document.createElement('span'); s.className = 'selo-p' + (cls ? ' ' + cls : ''); s.textContent = txt; selos.append(s); };
       if (m.tipo) selo(tipoBonito(m.tipo));
-      if (!m.transcricao) selo('sem transcrição', 'alerta');
+      if (!temTranscricao(m)) selo('sem transcrição', 'alerta');
       if (!m.video && m.audio) selo('só áudio');
       if (!m.video && !m.audio) selo('mídia não encontrada', 'alerta');
       if (nm) selo(nm + (nm === 1 ? ' marcado' : ' marcados'), 'marca');
@@ -852,11 +1009,68 @@ button{font:inherit;color:inherit}
     $('#grade').hidden = false;
     var info = m.transcricao ? m.transcricao.info : null;
     E.falas = info ? info.falas : [];
-    desenharFalas(info);
+    if (!info && temTranscricao(m)) {
+      desenharFalas(null, 'Lendo as falas no PDF da transcrição…', 'lendo o PDF…');
+      garantirTranscricao(m).then(function () { if (E.atual === m) mostrarTranscricao(m); })
+        .catch(function (e) {
+          if (E.atual !== m) return;
+          desenharMidias();
+          desenharFalas(null, 'Não consegui ler as falas no PDF da transcrição (' + escapar(e.message || e) + '). O vídeo pode ser assistido normalmente.');
+        });
+    } else desenharFalas(info);
     desenharFicha(m, info);
     $('#capaQuem').textContent = tituloMidia(m);
     pedirAjuste();
     prepararPlayer(m);
+  }
+  function mostrarTranscricao(m) {
+    var info = m.transcricao.info;
+    E.falas = info.falas; E.indice = -1;
+    desenharFalas(info);
+    desenharFicha(m, info);
+    desenharMidias();
+    pedirAjuste();
+    if (video.currentSrc) sincronizar(true);
+  }
+
+  /* Lê (uma vez) a transcrição do PDF e guarda como se viesse do TXT. */
+  var PDFS_LIDOS = new Map();
+  function garantirTranscricao(m) {
+    if (m.transcricao) return Promise.resolve(m.transcricao.info);
+    if (!m.pdfTranscricao) return Promise.reject(new Error('sem transcrição'));
+    if (m.pdfPromessa) return m.pdfPromessa;
+    var meta = m.pdfTranscricao, chave = meta.id + '|' + (meta.atualizado || '');
+    var lido = PDFS_LIDOS.has(chave) ? Promise.resolve(PDFS_LIDOS.get(chave)) : baixar(meta)
+      .then(function (blob) { return blob.arrayBuffer(); })
+      .then(function (buf) { return linhasDoPdf(new Uint8Array(buf)); })
+      .then(function (linhas) {
+        var info = lerTranscricaoPdf(linhas);
+        if (!info.falas.length) throw new Error('o PDF não tem a transcrição integral');
+        PDFS_LIDOS.set(chave, info);
+        return info;
+      });
+    m.pdfPromessa = lido.then(function (info) {
+      m.transcricao = { arquivo: meta, info: info, doPdf: true };
+      return info;
+    }, function (e) { m.pdfErro = e && e.message || String(e); m.pdfPromessa = null; throw e; });
+    return m.pdfPromessa;
+  }
+  /* Lê os PDFs das outras mídias em segundo plano, uma de cada vez, para
+     contar as marcações e ter tudo pronto para o PDF dos trechos. */
+  function precarregarPdfs() {
+    var numero = E.numero;
+    var fila = E.midias.filter(function (m) { return m.pdfTranscricao && !m.transcricao; });
+    fila.sort(function (a, b) { return ((E.marcas[b.chave] || []).length ? 1 : 0) - ((E.marcas[a.chave] || []).length ? 1 : 0); });
+    var passo = function () {
+      if (E.numero !== numero || !fila.length) return;
+      var m = fila.shift();
+      garantirTranscricao(m).catch(function () {}).then(function () {
+        if (E.numero !== numero) return;
+        if (E.atual !== m) { desenharMidias(); atualizarRodape(); }
+        passo();
+      });
+    };
+    passo();
   }
 
   function desenharFicha(m, info) {
@@ -870,17 +1084,20 @@ button{font:inherit;color:inherit}
     f.hidden = !f.children.length;
   }
 
-  function desenharFalas(info) {
+  function desenharFalas(info, msgHtml, conta) {
     lista.replaceChildren();
     $('#seguirBtn').hidden = true;
     var resumo = info && info.resumo ? info.resumo.replace(/\[\[\/?[A-Z]+\]\]/g, '') : '';
     $('#resumoBox').hidden = !resumo; $('#resumoTxt').textContent = resumo;
     if (!info) {
-      $('#contaFalas').textContent = 'sem transcrição';
-      lista.innerHTML = '<div class="falas-msg">Esta mídia ainda não tem transcrição na pasta <b>Transcrições</b>. O vídeo pode ser assistido normalmente.</div>';
+      var erroPdf = !msgHtml && E.atual && E.atual.pdfErro;
+      $('#contaFalas').textContent = conta || 'sem transcrição';
+      lista.innerHTML = '<div class="falas-msg">' + (msgHtml || (erroPdf
+        ? 'Não consegui ler as falas no PDF da transcrição (' + escapar(erroPdf) + '). O vídeo pode ser assistido normalmente.'
+        : 'Esta mídia ainda não tem transcrição na pasta <b>Transcrições</b>. O vídeo pode ser assistido normalmente.')) + '</div>';
       atualizarRodape(); return;
     }
-    $('#contaFalas').textContent = info.falas.length + (info.falas.length === 1 ? ' fala' : ' falas');
+    $('#contaFalas').textContent = info.falas.length + (info.falas.length === 1 ? ' fala' : ' falas') + (info.doPdf ? ' · lidas do PDF' : '');
     var trechos = info.trechos || [];
     var marcadas = new Set(E.marcas[E.atual.chave] || []);
     var frag = document.createDocumentFragment();
@@ -891,7 +1108,7 @@ button{font:inherit;color:inherit}
       c.setAttribute('aria-label', 'Ir para ' + hms(f.t) + (f.quem ? ', ' + f.quem : ''));
       var tr = trechos.find(function (x) { return Math.abs(x.t - f.t) <= 1; });
       c.innerHTML = '<div class="fala-topo"><span class="hora">' + hms(f.t) + '</span>' +
-        (f.quem ? '<span class="quem ' + papel(f.quem) + '">' + escapar(f.quem) + '</span>' : '') +
+        (f.quem ? '<span class="quem ' + papelDe(f.quem, E.atual) + '">' + escapar(f.quem) + '</span>' : '') +
         (tr ? '<span class="tag-resumo" title="' + escapar(tr.desc) + '">resumo</span>' : '') +
         '<button class="marcar" type="button" aria-pressed="' + marcadas.has(f.chave) + '" title="Marcar trecho para o PDF" aria-label="Marcar trecho"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button></div>' +
         '<p class="texto">' + htmlDaFala(f) + '</p>';
@@ -1185,7 +1402,14 @@ button{font:inherit;color:inherit}
     $('.marcar', card).setAttribute('aria-pressed', pos === -1);
     salvarMarcas(); atualizarRodape(); desenharMidias();
   }
-  function totalMarcas() { var t = 0; E.midias.forEach(function (m) { if (m.transcricao) t += selecionadas(m).length; }); return t; }
+  function totalMarcas() {
+    var t = 0;
+    E.midias.forEach(function (m) {
+      if (m.transcricao) t += selecionadas(m).length;
+      else if (temTranscricao(m)) t += (E.marcas[m.chave] || []).length;   // PDF ainda sendo lido
+    });
+    return t;
+  }
   function selecionadas(m) {
     var set = new Set(E.marcas[m.chave] || []);
     return m.transcricao ? m.transcricao.info.falas.filter(function (f) { return set.has(f.chave); }) : [];
@@ -1257,11 +1481,17 @@ button{font:inherit;color:inherit}
   }
 
   function gerarPdf() {
-    var pessoas = trechosPorPessoa();
-    if (!pessoas.length) return;
-    var nMidias = pessoas.reduce(function (s, p) { return s + p.midias.length; }, 0);
     var btn = $('#pdfBtn'); btn.disabled = true;
-    carregarJsPDF().then(function (lib) {
+    /* Mídias com trechos marcados cuja transcrição ainda está no PDF. */
+    var pendentes = E.midias.filter(function (m) { return !m.transcricao && m.pdfTranscricao && !m.pdfErro && (E.marcas[m.chave] || []).length; });
+    if (pendentes.length) toast('Lendo as transcrições em PDF…');
+    var pessoas, nMidias, midiaAtual = null;
+    Promise.all(pendentes.map(function (m) { return garantirTranscricao(m).catch(function () {}); })).then(function () {
+      pessoas = trechosPorPessoa();
+      if (!pessoas.length) throw new Error('nenhum trecho marcado pôde ser lido');
+      nMidias = pessoas.reduce(function (s, p) { return s + p.midias.length; }, 0);
+      return carregarJsPDF();
+    }).then(function (lib) {
       var doc = new lib.jsPDF({ unit: 'mm', format: 'a4' });
       var L = 18, R = 192, W = R - L, TOPO_CONT = 22, BASE = 279;
       var y = 0, pagina = 1;
@@ -1336,7 +1566,7 @@ button{font:inherit;color:inherit}
         caber(8 + Math.min(linhas.length, 3) * 5.2);
         doc.setFillColor.apply(doc, COR.vinhoSuave); doc.roundedRect(L, y - 3.7, 17.5, 5.2, 1.2, 1.2, 'F');
         fonte('helvetica', 'bold', 8.2, COR.vinho); doc.text(hms(f.t), L + 8.75, y, { align: 'center' });
-        if (f.quem) { fonte('helvetica', 'bold', 9, COR_PAPEL[papel(f.quem)]); doc.text(doc.splitTextToSize(paraPdf(f.quem), W - 24)[0], L + 21, y); }
+        if (f.quem) { fonte('helvetica', 'bold', 9, COR_PAPEL[papelDe(f.quem, midiaAtual)]); doc.text(doc.splitTextToSize(paraPdf(f.quem), W - 24)[0], L + 21, y); }
         y += 6;
         linhas.forEach(function (ln) { caber(5.2); desenharLinha(ln, L + 2, y); y += 5.2; });
         y += 3.2;
@@ -1366,6 +1596,7 @@ button{font:inherit;color:inherit}
           var extra = m.data ? '  ·  gravação de ' + dataBR(m.data) + (m.seq ? ' (nº ' + m.seq + ')' : '') : '';
           doc.text(doc.splitTextToSize(paraPdf(arquivoOriginal(m) + extra), R - xArq)[0], xArq, y);
           y += 7;
+          midiaAtual = m;
           g.falas.forEach(desenharTrecho);
           y += 1.5;
         });

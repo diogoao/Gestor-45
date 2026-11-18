@@ -13,8 +13,9 @@ indice['processos'].append({"numero": "0054293-43.2024.8.17.2001", "url": "https
 publicacao = {"version": 1, "events": atos['events'], "processos": indice['processos']}
 OUT = (DIR / 'saida'); OUT.mkdir(exist_ok=True)
 
+PDFJS = REPO / 'Gestor MP' / 'vendor' / 'pdfjs'
 MOCK = """
-window.P45_TESTE = { driveApi: 'http://127.0.0.1:8766' };
+window.P45_TESTE = { driveApi: 'http://127.0.0.1:8766', pdfjs: [{ lib: '/pdfjs/pdf.min.mjs', worker: '/pdfjs/pdf.worker.min.mjs' }] };
 window.__chamadas = [];
 window.__marcas = JSON.parse(sessionStorage.getItem('mock_marcas') || '{}');
 (function(){
@@ -35,15 +36,17 @@ window.__marcas = JSON.parse(sessionStorage.getItem('mock_marcas') || '{}');
   }
   window.google = { script: { run: runner(null, null), url: { getLocation: (cb) => cb({ parameter: {} }) }, history: { replace(){} } } };
 })();
-""" % json.dumps(CARREGAR)
+"""
+SO_PDF = dict(CARREGAR, transcricoes=[])     # pasta só com os PDFs das transcrições (sem os .txt)
 
 erros = []
 with sync_playwright() as p:
     nav = p.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--autoplay-policy=no-user-gesture-required', '--disable-features=LocalNetworkAccessChecks,PrivateNetworkAccessSendPreflights,PrivateNetworkAccessRespectPreflightResults,BlockInsecurePrivateNetworkRequests'])
     ctx = nav.new_context(viewport={'width': 1440, 'height': 900}, accept_downloads=True, timezone_id='America/Recife')
-    ctx.add_init_script(MOCK)
+    ctx.add_init_script(MOCK % json.dumps(CARREGAR))
     def rotas(route):
         u = route.request.url
+        if u.startswith('http://127.0.0.1:8767/pdfjs/'): return route.fulfill(body=(PDFJS / u.rsplit('/', 1)[-1]).read_bytes(), content_type='text/javascript')
         if u.startswith('http://127.0.0.1:8767/'): return route.fulfill(body=PLAYER, content_type='text/html; charset=utf-8')
         if 'getAtosPublicados' in u: return route.fulfill(body=json.dumps(publicacao), content_type='application/json', headers={'Access-Control-Allow-Origin': '*'})
         if 'getPauta' in u: return route.fulfill(body=json.dumps({"error": "teste"}), content_type='application/json', headers={'Access-Control-Allow-Origin': '*'})
@@ -173,5 +176,55 @@ with sync_playwright() as p:
     # Tela estreita
     pg.set_viewport_size({'width': 820, 'height': 1000}); time.sleep(0.5)
     pg.screenshot(path=str(OUT / '06-estreita.png'), full_page=False)
+
+    # ---------- Pasta só com os PDFs das transcrições (sem TXT) ----------
+    ctx2 = nav.new_context(viewport={'width': 1440, 'height': 900}, accept_downloads=True, timezone_id='America/Recife')
+    ctx2.add_init_script(MOCK % json.dumps(SO_PDF))
+    ctx2.route('**/*', rotas)
+    pg = ctx2.new_page()
+    pg.on('pageerror', lambda e: erros.append(str(e)))
+    pg.on('console', lambda m: m.type == 'error' and erros.append('console: ' + m.text))
+    pg.goto('http://127.0.0.1:8767/player.html')
+    pg.wait_for_selector('.proc')
+    t0 = time.time()
+    pg.click('.proc[data-numero="0054293-43.2024.8.17.2001"]')
+    pg.wait_for_selector('.midia')
+    assert '2 mídias · 2 transcrições' in pg.inner_text('#procStatus'), pg.inner_text('#procStatus')
+    assert pg.locator('.selo-p.alerta').count() == 0, 'nenhuma mídia aparece como "sem transcrição"'
+    pg.wait_for_selector('.fala', timeout=20000)
+    print('só PDF: falas na tela %.1f s depois do clique no processo | %s' % (time.time() - t0, pg.inner_text('#contaFalas')))
+    assert pg.locator('.fala').count() == 24 and 'lidas do PDF' in pg.inner_text('#contaFalas')
+    assert pg.inner_text('.fala[data-i="0"] .quem') == 'Juiz' and pg.inner_text('.fala[data-i="0"] .hora') == '00:00:02'
+    assert 'Declaro aberta a audiência de instrução e julgamento' in pg.inner_text('.fala[data-i="0"] .texto')
+    assert pg.inner_text('.fala[data-i="7"] .quem') == 'MARIA JOSÉ DA SILVA' and 'dep' in pg.get_attribute('.fala[data-i="7"] .quem', 'class')
+    assert 'sentado ao lado do advogado' in pg.inner_text('.fala[data-i="7"] .risco'), 'trecho de risco marcado'
+    assert not pg.evaluate('document.querySelector("#resumoBox").hidden') and 'dez metros' in pg.evaluate('document.querySelector("#resumoTxt").textContent')
+    assert pg.locator('.fala .tag-resumo').count() == 2, 'trechos relevantes do PDF'
+    pg.wait_for_function("document.querySelector('#video').readyState >= 1", timeout=15000)
+    pg.click('.fala[data-i="7"] .texto'); time.sleep(0.6)
+    t = pg.evaluate('document.querySelector("#video").currentTime')
+    assert 27 <= t < 29.5 and pg.evaluate('document.querySelector(".fala.atual").dataset.i') == '7'
+    pg.evaluate('document.querySelector("#video").pause()')
+    for i in (3, 7):
+        pg.click('.fala[data-i="%d"] .marcar' % i)
+    # a outra mídia foi lida em segundo plano: as falas aparecem na hora
+    pg.wait_for_function("window.P45_TESTE && document.querySelectorAll('.midia').length === 2")
+    t1 = time.time(); pg.click('.midia:has-text("Joao Pereira")')   # nome vem do arquivo PDF (aqui sem acento)
+    pg.wait_for_function("document.querySelectorAll('.fala').length === 6", timeout=10000)
+    print('só PDF: segunda mídia com as falas em %.2f s' % (time.time() - t1))
+    assert pg.inner_text('.fala[data-i="1"] .quem') == 'JOÃO PEREIRA DOS SANTOS'
+    pg.click('.fala[data-i="1"] .marcar')
+    assert '3 trechos marcados no processo (1 nesta mídia)' in pg.inner_text('#contaMarcas'), pg.inner_text('#contaMarcas')
+    # recarregar e gerar o PDF sem abrir a primeira mídia: ele espera a leitura dos PDFs
+    pg.reload(); pg.click('.proc[data-numero="0054293-43.2024.8.17.2001"]')
+    pg.wait_for_function("document.querySelector('#pdfBtn') && !document.querySelector('#pdfBtn').disabled", timeout=20000)
+    with pg.expect_download() as d:
+        pg.click('#pdfBtn')
+    destino = OUT / ('so-pdf-' + d.value.suggested_filename); d.value.save_as(str(destino))
+    texto = subprocess.run(['pdftotext', '-layout', str(destino), '-'], capture_output=True, text=True).stdout
+    for esperado in ('Maria Jose da Silva', 'Joao Pereira dos Santos', '00542934320248172001_2026_02_26_0001.mp4', '3 trechos · 2 depoentes · 2 mídias', 'sentado ao lado do advogado', '(risco de erro)', 'Fui esfaqueado no braço'):
+        assert esperado in texto, ('faltou no PDF (só PDF)', esperado)
+    print('só PDF: PDF dos trechos gerado a partir das transcrições em PDF')
+    pg.screenshot(path=str(OUT / '07-so-pdf.png'))
     nav.close()
 print('erros na página:', erros or 'nenhum')
