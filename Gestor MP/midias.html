@@ -10,7 +10,7 @@
      Fica aqui, num lugar só: o ícone da página inicial aponta para esta
      página, que repassa o número do processo (?processo=) ao player.
      Para trocar, cole o endereço que termina em /exec. */
-  var PLAYER_URL = '';
+  var PLAYER_URL = 'https://script.google.com/macros/s/AKfycbyDLMjTp3pwccp01XPSZvgNq_KgCZjK2pXF5UJlJBBJNL35sLVG9ncd44z86Cm3uSRL/exec';
   (function () {
     if (!/^https:\/\/script\.google\.com\/[\w\/.-]+\/exec$/.test(PLAYER_URL)) return;
     var n = new URLSearchParams(location.search).get('processo');
