@@ -113,5 +113,34 @@ console.log('6 ok: PDF salvo na pasta');
 assert.strictEqual(ctx.doGet().arquivo, 'Player');
 assert.strictEqual(ctx.tokenDrive().token, 'token-de-teste');
 console.log('7 ok: doGet/token');
+// 8. Mesmo resultado pela Drive API (serviço avançado), o caminho rápido
+const PASTA = 'application/vnd.google-apps.folder';
+const meta = (f) => ({ id: f.id, name: f.nome, mimeType: f.tipo === 'pasta' ? PASTA : f.mime, size: f.tipo === 'pasta' ? undefined : String((f.conteudo || Buffer.alloc(0)).length),
+  modifiedTime: '2026-11-01T12:00:00.000Z', parents: f.pai ? [f.pai.id] : [], trashed: false, webViewLink: 'https://drive.google.com/drive/folders/' + f.id });
+let consultas = 0;
+const DriveMock = { Files: {
+  get: (id) => { const f = porId[id]; if (!f) throw new Error('404'); return meta(f); },
+  list: ({ q }) => {
+    consultas++;
+    const pais = [...q.matchAll(/'([^']+)' in parents/g)].map(m => m[1]);
+    const iguais = [...q.matchAll(/name = '((?:[^'\\]|\\.)*)'/g)].map(m => m[1].replace(/\\(.)/g, '$1'));
+    const contem = (/name contains '([^']*)'/.exec(q) || [])[1];
+    const soPastas = /mimeType = 'application\/vnd\.google-apps\.folder'/.test(q), semPastas = /mimeType != 'application\/vnd\.google-apps\.folder'/.test(q);
+    const files = todos().filter(f => (!pais.length || (f.pai && pais.includes(f.pai.id))) && (!iguais.length || iguais.includes(f.nome)) &&
+      (!contem || f.nome.startsWith(contem)) && (!soPastas || f.tipo === 'pasta') && (!semPastas || f.tipo !== 'pasta')).map(meta);
+    return { files };
+  } } };
+const ctxApi = Object.assign({}, ctx, { Drive: DriveMock, CacheService: { getScriptCache: () => ({ get: () => null, put: () => {} }) } });
+vm.createContext(ctxApi);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'Code.gs'), 'utf8'), ctxApi);
+assert.ok(ctxApi.temDriveApi() && !ctx.temDriveApi());
+const resumo = (x) => ({ pasta: x.pasta && x.pasta.id, midias: x.midias.map(m => m.nome + '|' + m.kind + '|' + m.tamanho).sort(), transcricoes: x.transcricoes.map(t => t.nome + '|' + t.texto.length).sort() });
+for (const [num, pid] of [['0054293-43.2024.8.17.2001', ''], ['00542934320248172001', p1.id], ['0095111-37.2024.8.17.2001', '']]) {
+  consultas = 0;
+  const viaApi = J(ctxApi.carregarProcesso(num, pid)), viaApp = J(ctx.carregarProcesso(num, pid));
+  assert.deepStrictEqual(resumo(viaApi), resumo(viaApp), 'Drive API e DriveApp devolvem o mesmo para ' + num);
+  if (num === '0054293-43.2024.8.17.2001') assert.deepStrictEqual(viaApi.midias.map(m => m.pasta).sort(), ['Mp3', 'Mp3', 'Mídias'], 'nome da pasta dos arquivos da árvore do processo');
+  console.log('8 ok: Drive API igual ao DriveApp para', num, '(' + consultas + ' consultas à API)');
+}
 fs.writeFileSync(path.join(DIR, 'carregar.json'), JSON.stringify(ctx.carregarProcesso('0054293-43.2024.8.17.2001', p1.id)));
 console.log('TODOS OS TESTES DO SERVIDOR PASSARAM');

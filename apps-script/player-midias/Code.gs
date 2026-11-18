@@ -109,12 +109,145 @@ function percorrer(pasta, nivel, adicionar) {
   }
 }
 
+/* ------------------------------------------------------------------
+   Leitura pela Drive API (serviço avançado "Drive"): traz a pasta inteira
+   em uma consulta, em vez de um pedido por arquivo do DriveApp. Cai para o
+   DriveApp só se o serviço avançado não estiver ativado no projeto.
+   ------------------------------------------------------------------ */
+var MIME_PASTA = 'application/vnd.google-apps.folder';
+var MIME_ATALHO = 'application/vnd.google-apps.shortcut';
+var CAMPOS_LISTA = 'nextPageToken, files(id, name, mimeType, size, modifiedTime, parents, trashed, shortcutDetails, webViewLink)';
+var CAMPOS_ITEM = 'id, name, mimeType, size, modifiedTime, parents, trashed, shortcutDetails, webViewLink';
+
+function temDriveApi() {
+  return typeof Drive !== 'undefined' && Drive.Files && typeof Drive.Files.list === 'function';
+}
+function aspas(texto) { return String(texto).replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
+function listarDrive(q) {
+  var saida = [], pagina;
+  do {
+    var r = Drive.Files.list({ q: q, fields: CAMPOS_LISTA, pageSize: 1000, pageToken: pagina, supportsAllDrives: true, includeItemsFromAllDrives: true });
+    (r.files || []).forEach(function (f) { saida.push(f); });
+    pagina = r.nextPageToken;
+  } while (pagina && saida.length < 5000);
+  return saida;
+}
+/** Itens dentro de várias pastas de uma vez (40 pastas por consulta). */
+function filhosDe(ids, extra) {
+  var saida = [];
+  for (var i = 0; i < ids.length; i += 40) {
+    var q = '(' + ids.slice(i, i + 40).map(function (id) { return "'" + aspas(id) + "' in parents"; }).join(' or ') + ') and trashed = false';
+    saida = saida.concat(listarDrive(extra ? q + ' and ' + extra : q));
+  }
+  return saida;
+}
+function itemDrive(id) {
+  try { return Drive.Files.get(id, { fields: CAMPOS_ITEM, supportsAllDrives: true }); } catch (e) { return null; }
+}
+/* IDs das pastas "Processos" e "Fora de Pauta", guardados por 6 horas. */
+function basesApi() {
+  var cache = CacheService.getScriptCache(), guardado = cache.get('pastas-base-api');
+  if (guardado) return JSON.parse(guardado);
+  var nomes = "(name = 'Processos' or name = 'Fora de Pauta') and mimeType = '" + MIME_PASTA + "'";
+  var achadas = filhosDe([PASTA_RAIZ], nomes);
+  if (!achadas.length) {
+    /* A raiz pode estar um nível acima de "Material de Preparação". */
+    var filhas = filhosDe([PASTA_RAIZ], "mimeType = '" + MIME_PASTA + "'").slice(0, 40).map(function (f) { return f.id; });
+    if (filhas.length) achadas = filhosDe(filhas, nomes);
+  }
+  var ids = [PASTA_RAIZ].concat(achadas.map(function (f) { return f.id; }));
+  cache.put('pastas-base-api', JSON.stringify(ids), 21600);
+  return ids;
+}
+
+function carregarProcessoApi(n, pastaId) {
+  var digitos = n.replace(/\D/g, '');
+  var pastas = [];
+  var addPasta = function (f, origem) {
+    if (!f || f.trashed || f.mimeType !== MIME_PASTA) return;
+    if (pastas.some(function (p) { return p.id === f.id; })) return;
+    pastas.push({ id: f.id, nome: f.name, url: f.webViewLink || 'https://drive.google.com/drive/folders/' + f.id, origem: origem });
+  };
+  if (pastaId && /^[A-Za-z0-9_-]{10,200}$/.test(pastaId)) addPasta(itemDrive(pastaId), 'indice');
+  if (!pastas.length) {
+    filhosDe(basesApi(), "name = '" + aspas(n) + "' and mimeType = '" + MIME_PASTA + "'").forEach(function (f) { addPasta(f, 'raiz'); });
+  }
+  if (!pastas.length) {
+    listarDrive("name = '" + aspas(n) + "' and mimeType = '" + MIME_PASTA + "' and trashed = false").slice(0, 10).forEach(function (f) { addPasta(f, 'busca'); });
+  }
+
+  var nomesPasta = {}, arquivos = {};
+  pastas.forEach(function (p) { nomesPasta[p.id] = p.nome; });
+  var adicionar = function (f) {
+    if (f.mimeType === MIME_ATALHO) {
+      var alvo = f.shortcutDetails && f.shortcutDetails.targetId ? itemDrive(f.shortcutDetails.targetId) : null;
+      if (!alvo) return;
+      alvo.parents = f.parents;
+      f = alvo;
+    }
+    if (f.trashed || f.mimeType === MIME_PASTA || arquivos[f.id]) return;
+    arquivos[f.id] = {
+      id: f.id, nome: f.name, tipo: f.mimeType, tamanho: Number(f.size) || 0,
+      atualizado: Date.parse(f.modifiedTime) || 0,
+      pasta: nomesPasta[(f.parents || [])[0]] || ''
+    };
+  };
+  /* Pasta do processo e subpastas, um nível por consulta (até 3 níveis). */
+  var nivel = pastas.map(function (p) { return p.id; });
+  for (var prof = 0; prof <= 3 && nivel.length; prof++) {
+    var proximo = [];
+    filhosDe(nivel).forEach(function (f) {
+      if (f.mimeType === MIME_PASTA) {
+        if (PASTAS_IGNORADAS.indexOf(semAcento(f.name)) === -1 && !nomesPasta[f.id]) { nomesPasta[f.id] = f.name; proximo.push(f.id); }
+        return;
+      }
+      adicionar(f);
+    });
+    nivel = proximo;
+  }
+  /* Arquivos com o número no nome em qualquer pasta (pastas de ato depois
+     de "distribuir", com mídias de vários processos juntas). */
+  listarDrive("name contains '" + digitos.slice(0, 7) + "' and trashed = false and mimeType != '" + MIME_PASTA + "'").forEach(function (f) {
+    if (f.name.indexOf(n) !== -1 || f.name.indexOf(digitos) !== -1) adicionar(f);
+  });
+
+  var midias = [], transcricoes = [];
+  Object.keys(arquivos).forEach(function (id) {
+    var a = arquivos[id], ext = extensao(a.nome);
+    if (EXT_VIDEO.indexOf(ext) !== -1 || /^video\//.test(a.tipo)) { a.kind = 'video'; midias.push(a); }
+    else if (EXT_AUDIO.indexOf(ext) !== -1 || /^audio\//.test(a.tipo)) { a.kind = 'audio'; midias.push(a); }
+    else if (ext === 'txt' || a.tipo === 'text/plain') {
+      if (/resumido\.txt$/i.test(a.nome) || a.tamanho > LIMITE_TXT) return;
+      var texto = DriveApp.getFileById(a.id).getBlob().getDataAsString('UTF-8');
+      if (!pareceTranscricao(texto)) return;
+      a.texto = texto;
+      transcricoes.push(a);
+    }
+  });
+  var principal = pastas[0] || null;
+  return {
+    numero: n,
+    pasta: principal ? { id: principal.id, nome: principal.nome, url: principal.url } : null,
+    pastas: pastas.map(function (p) { return { id: p.id, nome: p.nome, origem: p.origem }; }),
+    midias: midias,
+    transcricoes: transcricoes,
+    email: Session.getActiveUser().getEmail()
+  };
+}
+
 /**
  * Mídias e transcrições de um processo.
  * @param {string} numero número do processo (com ou sem máscara)
  * @param {string} pastaId ID da pasta do processo, vindo do índice da página inicial (opcional)
  */
 function carregarProcesso(numero, pastaId) {
+  var n = numeroCanonico(numero);
+  if (!n) throw new Error('Número de processo inválido.');
+  return temDriveApi() ? carregarProcessoApi(n, pastaId) : carregarProcessoDriveApp(n, pastaId);
+}
+
+/* Caminho antigo (DriveApp), mais lento: um pedido ao Drive por arquivo. */
+function carregarProcessoDriveApp(numero, pastaId) {
   var n = numeroCanonico(numero);
   if (!n) throw new Error('Número de processo inválido.');
   var digitos = n.replace(/\D/g, '');
