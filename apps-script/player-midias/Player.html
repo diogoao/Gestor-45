@@ -77,13 +77,14 @@ body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 .lateral-cab h2{margin:0;font-size:1.05rem;font-weight:700;text-align:center}
 .lateral-cab .mini-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
 .lista-processos{flex:1;min-height:0;overflow:auto;padding-bottom:10px}
-.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#2b313d;padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#e7eaf0}
+.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#e6e3dc;padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#3d4148}
+[data-theme="dark"] .dia{background:#2b313d;color:#e7eaf0}
 .dia:first-child{margin-top:0}
-.dia.hoje .dia-data{color:#e3c98c}
+.dia.hoje .dia-data{color:var(--red)}[data-theme="dark"] .dia.hoje .dia-data{color:#e3c98c}
 .dia-tipo{display:flex;gap:8px}
 .tipo.aud{color:var(--blue)}.tipo.juri{color:#b3202e}[data-theme="dark"] .tipo.juri{color:#f58a94}
-/* linha do dia: cinza da faixa de menu da página inicial; tipos em tons claros para ler sobre ele */
-.dia .tipo.aud{color:#8fb3f5}.dia .tipo.juri,[data-theme="dark"] .dia .tipo.juri{color:#f58a94}
+/* linha do dia: cinza claro no tema claro; no escuro, o cinza da faixa de menu da página inicial, com os tipos em tons claros */
+[data-theme="dark"] .dia .tipo.aud{color:#8fb3f5}[data-theme="dark"] .dia .tipo.juri{color:#f58a94}
 .proc{width:100%;text-align:left;border:0;background:transparent;padding:9px 16px 9px 22px;display:flex;align-items:center;gap:11px;cursor:pointer}
 .proc:hover{background:color-mix(in srgb,var(--text) 4%,transparent)}
 .proc-hora{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--text-2);min-width:40px}
