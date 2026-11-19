@@ -186,6 +186,15 @@ with sync_playwright() as p:
     pg.click('#temaBtn'); time.sleep(0.4)
     pg.wait_for_function("document.querySelector('#video').readyState >= 1", timeout=15000)
     pg.screenshot(path=str(OUT / '05-escuro.png'))
+    # Prévia do PDF: folha branca também no tema escuro
+    assert pg.evaluate("getComputedStyle(document.querySelector('#previa')).backgroundColor") == 'rgb(255, 255, 255)'
+    # Janela larga: processos e vídeo travam na largura; as falas ficam com o que sobra
+    larg = lambda: pg.evaluate("['.lateral','#conteudo','.col-falas'].map(q=>Math.round(document.querySelector(q).getBoundingClientRect().width))")
+    pg.set_viewport_size({'width': 1600, 'height': 900}); time.sleep(0.4); l1 = larg()
+    pg.set_viewport_size({'width': 2200, 'height': 1000}); time.sleep(0.4); l2 = larg()
+    pg.screenshot(path=str(OUT / '08-larga.png'))
+    assert l1[:2] == l2[:2] == [315, 790] and l2[2] - l1[2] == 600, (l1, l2)
+    print('janela larga: colunas', l1, '→', l2)
     # Tela estreita
     pg.set_viewport_size({'width': 820, 'height': 1000}); time.sleep(0.5)
     pg.screenshot(path=str(OUT / '06-estreita.png'), full_page=False)

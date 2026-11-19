@@ -35,6 +35,8 @@ body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-seri
 a{color:var(--red);text-decoration:none}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+:root{color-scheme:light}[data-theme="dark"]{color-scheme:dark}
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 ::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:20px}::-webkit-scrollbar-track{background:transparent}
 [hidden]{display:none!important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -61,7 +63,7 @@ button{font:inherit;color:inherit}
 
 /* Estrutura: cabeçalho + três colunas (processos | vídeo | falas) */
 body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
-.app{flex:1;min-height:0;display:grid;grid-template-columns:330px minmax(0,1fr) minmax(360px,460px)}
+.app{flex:1;min-height:0;display:grid;grid-template-columns:315px minmax(0,790px) minmax(400px,1fr)}
 .painel{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
 .mini-btn{width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--text-2);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .mini-btn:hover{background:var(--bg);color:var(--red)}
@@ -71,14 +73,17 @@ body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
 /* Coluna dos processos */
 .lateral{background:var(--lado);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
-.lateral-cab{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 10px 22px}
-.lateral-cab h2{margin:0;font-size:1rem;font-weight:700}
+.lateral-cab{position:relative;display:flex;align-items:center;justify-content:center;padding:28px 46px 24px}
+.lateral-cab h2{margin:0;font-size:1.05rem;font-weight:700;text-align:center}
+.lateral-cab .mini-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
 .lista-processos{flex:1;min-height:0;overflow:auto;padding-bottom:10px}
-.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--text-2)}
+.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#fff}
 .dia:first-child{margin-top:0}
-.dia.hoje .dia-data{color:var(--text)}
+.dia.hoje .dia-data{color:#f3c98f}
 .dia-tipo{display:flex;gap:8px}
 .tipo.aud{color:var(--blue)}.tipo.juri{color:#b3202e}[data-theme="dark"] .tipo.juri{color:#f58a94}
+/* sobre o vermelho da linha do dia, azul e vermelho não se leem: tons claros */
+.dia .tipo.aud{color:#cfe0ff}.dia .tipo.juri,[data-theme="dark"] .dia .tipo.juri{color:#f3c98f}
 .proc{width:100%;text-align:left;border:0;background:transparent;padding:9px 16px 9px 22px;display:flex;align-items:center;gap:11px;cursor:pointer}
 .proc:hover{background:color-mix(in srgb,var(--text) 4%,transparent)}
 .proc-hora{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--text-2);min-width:40px}
@@ -168,6 +173,10 @@ body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 .previa-fala .hora{padding-top:2px}
 .previa-fala .texto{font-size:.86rem;line-height:1.45}
 
+[data-theme="dark"] .previa{--card:#fff;--text:#1f2328;--text-2:#6d675c;--text-3:#a09a8d;--line:#e4e0d8;--line-2:#cfc9bc;--vermelho:#7a0e18;
+  --role-juiz:#3b5b8c;--role-mp:#7a0e18;--role-defesa:#3d6b4f;--role-dep:#8a6a1f;--role-outro:#6d675c;background:#fff;color:#1f2328;border-color:#e4e0d8}
+[data-theme="dark"] .previa .risco{color:#b42318}
+
 /* Coluna das falas */
 .col-falas{background:var(--card);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;position:relative}
 .falas-cab{display:flex;align-items:baseline;gap:10px;padding:20px 26px 13px;border-bottom:1px solid var(--line)}
@@ -216,7 +225,7 @@ body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 .toast button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:7px;padding:5px 10px;font-weight:700;font-size:.76rem;cursor:pointer;white-space:nowrap}
 @keyframes entra{from{opacity:0;transform:translateY(8px)}}
 
-@media (max-width:1280px){.app{grid-template-columns:290px minmax(0,1fr) minmax(320px,400px)}.midia,.midias-msg{padding-left:62px}}
+@media (max-width:1280px){.app{grid-template-columns:290px minmax(0,790px) minmax(340px,1fr)}.midia,.midias-msg{padding-left:62px}}
 @media (max-width:1020px){
   body{height:auto;overflow:auto}
   .app{display:block}
