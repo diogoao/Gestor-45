@@ -12,27 +12,22 @@
   --red:#7a0e18;--red-hover:#931420;--red-deep:#4f0a10;--red-soft:#fdecee;
   --gold:#b6934a;--gold-soft:#f4e9d2;--gold-on-dark:#e3c98c;
   --blue:#1d5fd6;--blue-soft:#eaf1fd;--green:#178a4c;--amber:#b54708;--amber-soft:#fef0c7;
-  --bg:#eef1f6;--card:#fff;--card-2:#f6f8fb;--text:#1b2230;--text-2:#667085;--text-3:#98a2b3;
-  --line:#e6e9ef;--line-2:#d7dce4;
+  --bg:#f4f2ee;--lado:#fbfaf8;--card:#fff;--card-2:#f6f4ef;--text:#1f2328;--text-2:#6d675c;--text-3:#a09a8d;
+  --line:#e4e0d8;--line-2:#cfc9bc;--seg:#e9e5dc;--atual:#faf3e3;--vermelho:#7a0e18;
   --shadow:0 4px 10px -2px rgb(16 24 40/.08),0 2px 4px -2px rgb(16 24 40/.06);
   --shadow-lg:0 12px 28px -6px rgb(16 24 40/.14),0 4px 10px -4px rgb(16 24 40/.08);
   --r:14px;--r-sm:9px;--ease:cubic-bezier(.22,1,.36,1);
   --display:'Lora','Inter',serif;
-  --role-juiz:#475467;--role-juiz-soft:#eef0f3;
-  --role-mp:#7a0e18;--role-mp-soft:#fdecee;
-  --role-defesa:#1d5fd6;--role-defesa-soft:#eaf1fd;
-  --role-dep:#8a6d2e;--role-dep-soft:#f6eedc;
-  --role-outro:#667085;--role-outro-soft:#f2f4f7;
+  --role-juiz:#3b5b8c;--role-mp:#7a0e18;--role-defesa:#3d6b4f;--role-dep:#8a6a1f;--role-outro:#6d675c;
   --topo:76px;
 }
 [data-theme="dark"]{
-  --bg:#11141a;--card:#1a1e26;--card-2:#20242e;--text:#eef1f6;--text-2:#a2aab8;--text-3:#6d7686;
-  --line:#2a2f3a;--line-2:#363c49;--red-soft:#3a161b;--gold-soft:#3a3120;--blue-soft:#182338;--amber-soft:#3b2a10;
+  --bg:#11141a;--lado:#151920;--card:#1a1e26;--card-2:#20242e;--text:#eef1f6;--text-2:#a2aab8;--text-3:#6d7686;
+  --line:#2a2f3a;--line-2:#454c5a;--seg:#232833;--atual:#2c2618;--vermelho:#f0a3ab;--blue:#8fb3f5;--amber:#f0b35a;
+  --red-soft:#3a161b;--gold-soft:#3a3120;--blue-soft:#182338;--amber-soft:#3b2a10;
   --shadow:0 6px 16px -4px rgb(0 0 0/.45),0 2px 6px -2px rgb(0 0 0/.35);
   --shadow-lg:0 18px 34px -8px rgb(0 0 0/.55),0 6px 14px -6px rgb(0 0 0/.4);
-  --role-juiz:#b7c0ce;--role-juiz-soft:#262b35;--role-mp:#f0a3ab;--role-mp-soft:#3a161b;
-  --role-defesa:#8fb3f5;--role-defesa-soft:#182338;--role-dep:#e3c98c;--role-dep-soft:#3a3120;
-  --role-outro:#a2aab8;--role-outro-soft:#262b35;
+  --role-juiz:#9db8e6;--role-mp:#f0a3ab;--role-defesa:#8fcfa6;--role-dep:#e3c98c;--role-outro:#a2aab8;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -45,9 +40,9 @@ button{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* Cabeçalho (mesma identidade da página inicial) */
-.topo{position:sticky;top:0;z-index:30;color:#fff;background:radial-gradient(1100px 260px at 12% -40%,rgba(255,255,255,.10),transparent 60%),linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);box-shadow:0 6px 20px -8px rgb(0 0 0/.35)}
+.topo{position:relative;flex:none;z-index:30;color:#fff;background:radial-gradient(1100px 260px at 12% -40%,rgba(255,255,255,.10),transparent 60%),linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);box-shadow:0 6px 20px -8px rgb(0 0 0/.35)}
 .topo::after{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--gold),#e3c98c,var(--gold))}
-.wrap{max-width:1480px;margin-inline:auto;padding-inline:24px}
+.wrap{padding-inline:28px}
 .topo-in{height:var(--topo);display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:5px}
 .marca{display:flex;align-items:center;gap:14px;color:#fff;min-width:0}
 .marca:hover{color:#fff}
@@ -58,159 +53,159 @@ button{font:inherit;color:inherit}
 .nome{font-family:var(--display);font-size:1.2rem;font-weight:700;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sub{font-size:.78rem;color:#f3d9dc}
 .topo-dir{display:flex;align-items:center;gap:10px}
-.conta{font-size:.76rem;color:#f3d9dc;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .btn-topo{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s}
 .btn-topo:hover{background:rgba(255,255,255,.24);color:#fff}
 .btn-topo svg{width:16px;height:16px}
 .icone{width:38px;height:38px;padding:0;justify-content:center}
 .icone .lua{display:none}[data-theme="dark"] .icone .sol{display:none}[data-theme="dark"] .icone .lua{display:block}
 
-/* Estrutura */
-.principal{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;padding-top:20px;padding-bottom:28px;align-items:start}
-.painel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-.painel-cab{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--card-2),var(--card));border-radius:var(--r) var(--r) 0 0}
-.painel-cab h2{margin:0;font-size:.98rem;font-weight:700}
-.icone-titulo{width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:var(--red-soft);color:var(--red);flex-shrink:0}
-[data-theme="dark"] .icone-titulo{color:#f0a3ab}
-.icone-titulo svg{width:16px;height:16px}
-.titulo-linha{display:flex;align-items:center;gap:10px}
+/* Estrutura: cabeçalho + três colunas (processos | vídeo | falas) */
+body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.app{flex:1;min-height:0;display:grid;grid-template-columns:330px minmax(0,1fr) minmax(360px,460px)}
+.painel{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
 .mini-btn{width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--text-2);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .mini-btn:hover{background:var(--bg);color:var(--red)}
 .mini-btn svg{width:16px;height:16px}
 .mini-btn.girando svg{animation:gira .7s linear}
 @keyframes gira{to{transform:rotate(360deg)}}
 
-/* Lista de processos */
-.lateral{position:sticky;top:calc(var(--topo) + 20px)}
-.lista-processos{max-height:calc(100vh - var(--topo) - 190px);overflow:auto;padding:8px}
-.dia{margin:6px 4px 2px;font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:8px}
-.dia::after{content:'';flex:1;height:1px;background:var(--line)}
-.dia.hoje{color:var(--red)}[data-theme="dark"] .dia.hoje{color:#f0a3ab}
-.proc{width:100%;text-align:left;border:1px solid transparent;background:transparent;border-radius:10px;padding:9px 10px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;cursor:pointer;transition:background .15s,border-color .15s}
-.proc:hover{background:var(--card-2)}
-.proc.ativo{background:var(--red-soft);border-color:color-mix(in srgb,var(--red) 25%,transparent)}
-.proc-hora{grid-row:span 2;align-self:center;font-variant-numeric:tabular-nums;font-weight:700;font-size:.8rem;color:var(--text-2);min-width:42px}
-.proc-num{font-weight:600;font-size:.84rem;font-variant-numeric:tabular-nums;letter-spacing:-.1px}
-.proc-tipo{font-size:.7rem;color:var(--text-2);display:flex;gap:6px;align-items:center}
-.etq{display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.3px}
-.etq.juri{background:var(--gold-soft);color:#7a5c1e}[data-theme="dark"] .etq.juri{color:var(--gold-on-dark)}
-.etq.aud{background:var(--blue-soft);color:var(--blue)}[data-theme="dark"] .etq.aud{color:#8fb3f5}
-.lista-vazia{padding:18px 12px;color:var(--text-2);font-size:.85rem;line-height:1.45}
-.outro{border-top:1px solid var(--line);padding:12px 14px 14px}
+/* Coluna dos processos */
+.lateral{background:var(--lado);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.lateral-cab{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 10px 22px}
+.lateral-cab h2{margin:0;font-size:1rem;font-weight:700}
+.lista-processos{flex:1;min-height:0;overflow:auto;padding-bottom:10px}
+.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--text-2)}
+.dia:first-child{margin-top:0}
+.dia.hoje .dia-data{color:var(--text)}
+.dia-tipo{display:flex;gap:8px}
+.tipo.aud{color:var(--blue)}.tipo.juri{color:#b3202e}[data-theme="dark"] .tipo.juri{color:#f58a94}
+.proc{width:100%;text-align:left;border:0;background:transparent;padding:9px 16px 9px 22px;display:flex;align-items:center;gap:11px;cursor:pointer}
+.proc:hover{background:color-mix(in srgb,var(--text) 4%,transparent)}
+.proc-hora{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--text-2);min-width:40px}
+.proc-num{font-weight:600;font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.proc.ativo .proc-num{font-weight:800}
+.proc-seta{margin-left:auto;color:var(--text-3);display:inline-flex;transition:transform .2s}
+.proc-seta svg{width:14px;height:14px}
+.proc.ativo:not(.fechado) .proc-seta{transform:rotate(90deg)}
+.midias{padding:0 0 8px}
+.midias.fechado{display:none}
+.midia{width:100%;text-align:left;border:0;background:transparent;padding:6px 18px 6px 73px;display:flex;align-items:baseline;gap:8px;cursor:pointer;color:var(--text);font-size:.86rem}
+.midia:hover .midia-nome{text-decoration:underline}
+.midia.ativa .midia-nome{font-weight:700}
+.midia-nome{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.midia-obs{font-size:.7rem;color:var(--amber);white-space:nowrap}
+.midia-marcas{margin-left:auto;font-size:.74rem;font-weight:600;color:var(--gold);white-space:nowrap}
+.midias-msg{padding:4px 18px 6px 73px;font-size:.8rem;color:var(--text-2)}
+.lista-vazia{padding:18px 22px;color:var(--text-2);font-size:.85rem;line-height:1.45}
+.outro{border-top:1px solid var(--line);padding:12px 16px 14px 22px}
 .outro label{display:block;font-size:.74rem;font-weight:600;color:var(--text-2);margin-bottom:6px}
 .outro-linha{display:flex;gap:6px}
 .outro input{flex:1;min-width:0;height:34px;border:1px solid var(--line-2);border-radius:8px;padding:0 10px;background:var(--card);color:var(--text);font:inherit;font-size:.82rem;font-variant-numeric:tabular-nums}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 14px;border-radius:9px;border:1px solid var(--line-2);background:var(--card);color:var(--text);font-weight:600;font-size:.82rem;cursor:pointer;transition:background .15s,border-color .15s,color .15s,box-shadow .15s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:9px;border:1px solid var(--line-2);background:var(--card);color:var(--text);font-weight:600;font-size:.84rem;cursor:pointer;transition:background .15s,border-color .15s,color .15s;white-space:nowrap}
 .btn:hover{border-color:var(--red);color:var(--red)}
 .btn svg{width:16px;height:16px}
-.btn.primario{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 8px 18px -8px rgb(122 14 24/.6)}
+.btn.primario{background:var(--red);border-color:var(--red);color:#fff}
 .btn.primario:hover{background:var(--red-hover);color:#fff}
-.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 
-/* Conteúdo */
-.conteudo{min-width:0;display:flex;flex-direction:column;gap:16px}
-.vazio{padding:56px 32px;text-align:center;color:var(--text-2)}
-.vazio h2{font-family:var(--display);color:var(--text);margin:14px 0 8px;font-size:1.35rem}
+/* Coluna do meio */
+.conteudo{min-width:0;min-height:0;overflow:auto;padding:22px 28px 32px}
+.vazio{padding:56px 32px;text-align:center;color:var(--text-2);max-width:720px;margin:24px auto 0}
+.vazio h2{color:var(--text);margin:14px 0 8px;font-size:1.3rem}
 .vazio p{max-width:520px;margin:0 auto;line-height:1.55}
 .vazio .grande{width:58px;height:58px;border-radius:16px;background:var(--red-soft);color:var(--red);display:inline-flex;align-items:center;justify-content:center}
 .vazio .grande svg{width:28px;height:28px}
-.proc-cab{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.proc-rotulo{font-size:.74rem;font-weight:700;color:var(--text-2);letter-spacing:.4px;text-transform:uppercase;display:flex;gap:8px;align-items:center}
-.proc-cab h1{margin:4px 0 0;font-family:var(--display);font-size:1.45rem;letter-spacing:.2px;font-variant-numeric:tabular-nums}
-.proc-status{margin:6px 0 0;font-size:.82rem;color:var(--text-2)}
-.proc-acoes{display:flex;gap:8px;flex-wrap:wrap}
-
-/* Mídias */
-.midias{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.midia{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 13px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;box-shadow:var(--shadow);transition:border-color .15s,transform .15s,box-shadow .15s}
-.midia:hover{border-color:var(--line-2);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
-.midia.ativa{border-color:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 16%,transparent),var(--shadow)}
-.midia-ic{width:34px;height:34px;border-radius:9px;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-[data-theme="dark"] .midia-ic{color:#f0a3ab}
-.midia-ic svg{width:17px;height:17px}
-.midia-txt{min-width:0;display:flex;flex-direction:column;gap:3px}
-.midia-nome{font-weight:700;font-size:.86rem;line-height:1.25;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.midia-meta{font-size:.72rem;color:var(--text-2)}
-.selos{display:flex;gap:5px;flex-wrap:wrap;margin-top:2px}
-.selo-p{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 7px;border-radius:999px;font-size:.64rem;font-weight:700;background:var(--card-2);color:var(--text-2);border:1px solid var(--line)}
-.selo-p.alerta{background:var(--amber-soft);color:var(--amber);border-color:transparent}
-.selo-p.marca{background:var(--gold-soft);color:#7a5c1e;border-color:transparent}[data-theme="dark"] .selo-p.marca{color:var(--gold-on-dark)}
-
-/* Player + falas */
-.grade{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(360px,1fr);gap:16px;align-items:start}
-.col-video{position:sticky;top:calc(var(--topo) + 20px);display:flex;flex-direction:column;gap:12px}
-.video-caixa{overflow:hidden}
-.video-wrap{position:relative;background:#0b0e13;aspect-ratio:16/9}
+.proc-cab{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:0 4px;margin-bottom:14px}
+.proc-rotulo{font-size:.76rem;font-weight:700;color:var(--text-2);letter-spacing:.5px;text-transform:uppercase;display:flex;gap:9px;align-items:center}
+.proc-cab h1{margin:3px 0 0;font-size:1.45rem;font-weight:700;letter-spacing:.2px;font-variant-numeric:tabular-nums}
+.proc-status{margin:4px 0 0;font-size:.82rem;color:var(--text-2)}
+.link-pasta{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;color:var(--vermelho)}
+.link-pasta:hover{text-decoration:underline}
+.link-pasta svg{width:19px;height:19px}
+.video-wrap{position:relative;background:#0b0e13;aspect-ratio:16/9;border-radius:14px;overflow:hidden;max-height:62vh;width:100%}
 .video-wrap video{width:100%;height:100%;display:block;background:#0b0e13}
 .capa{position:absolute;inset:0 0 44px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#e7eaf0;pointer-events:none;background:radial-gradient(600px 220px at 50% 30%,rgba(182,147,74,.18),transparent 70%)}
 .capa svg{width:44px;height:44px;color:var(--gold-on-dark)}
-.capa .capa-nome{font-family:var(--display);font-size:1.15rem;font-weight:700;text-align:center;padding:0 24px}
+.capa .capa-nome{font-size:1.15rem;font-weight:700;text-align:center;padding:0 24px}
 .capa .obs{font-size:.78rem;color:#b9c0cc}
 .ondas{display:flex;gap:4px;align-items:flex-end;height:26px}
 .ondas i{width:4px;border-radius:3px;background:var(--gold-on-dark);height:30%;opacity:.8}
 .tocando .ondas i{animation:onda 1.1s ease-in-out infinite}
 .ondas i:nth-child(2){animation-delay:.15s}.ondas i:nth-child(3){animation-delay:.3s}.ondas i:nth-child(4){animation-delay:.45s}.ondas i:nth-child(5){animation-delay:.6s}
 @keyframes onda{0%,100%{height:25%}50%{height:100%}}
-.baixando{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--line);background:var(--card-2);font-size:.78rem;color:var(--text-2)}
+.baixando{display:flex;align-items:center;gap:12px;padding:10px 4px 0;font-size:.78rem;color:var(--text-2)}
 .barra{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden;min-width:60px}
 .barra span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--red));border-radius:99px;transition:width .3s}
-.link-btn{border:0;background:none;color:var(--red);}[data-theme="dark"] .link-btn{color:#f0a3ab}.link-btn{font-weight:600;font-size:.76rem;cursor:pointer;padding:0;white-space:nowrap}
-.controles{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;flex-wrap:wrap}
-.segmentos{display:inline-flex;padding:3px;border-radius:10px;background:var(--card-2);border:1px solid var(--line)}
-.segmentos button{border:0;background:transparent;height:30px;min-width:52px;padding:0 12px;border-radius:8px;font-weight:700;font-size:.82rem;color:var(--text-2);cursor:pointer;font-variant-numeric:tabular-nums}
-.segmentos button.ativo{background:var(--card);color:var(--red);box-shadow:var(--shadow)}
-[data-theme="dark"] .segmentos button.ativo{color:#f0a3ab}
-.nav-falas{display:flex;gap:6px}
-.fala-atual{padding:0 14px 14px;font-size:.8rem;color:var(--text-2);min-height:18px}
-.fala-atual b{color:var(--text)}
-.ficha{margin:0;padding:12px 14px;border-top:1px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:.78rem}
-.ficha dt{color:var(--text-3);font-weight:600}
-.ficha dd{margin:0;color:var(--text);overflow-wrap:anywhere}
+.link-btn{border:0;background:none;color:var(--vermelho);font-weight:600;font-size:.76rem;cursor:pointer;padding:0;white-space:nowrap}
+.controles{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 0;flex-wrap:wrap}
+.segmentos{display:inline-flex;padding:3px;border-radius:10px;background:var(--seg)}
+.segmentos button{border:0;background:transparent;height:32px;min-width:52px;padding:0 13px;border-radius:8px;font-weight:600;font-size:.84rem;color:var(--text-2);cursor:pointer;font-variant-numeric:tabular-nums}
+.segmentos button.ativo{background:var(--card);color:var(--vermelho);box-shadow:0 1px 2px rgb(0 0 0/.12)}
+.nav-falas{display:flex;gap:8px}
+.info{padding:14px 4px 4px}
+.fala-atual{font-size:.88rem;color:var(--text-2);min-height:20px}
+.fala-atual b{color:var(--vermelho)}
+.ficha{margin:11px 0 0;padding:11px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:.86rem}
+.ficha dt{color:var(--text-2)}
+.ficha dd{margin:0;color:var(--text);font-weight:500;overflow-wrap:anywhere}
 
-.col-falas{display:flex;flex-direction:column;height:calc(100vh - var(--topo) - 40px);min-height:460px;position:sticky;top:calc(var(--topo) + 20px);overflow:hidden}
-.falas-cab{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--card-2),var(--card))}
-.falas-cab h2{margin:0;font-size:.98rem}
-.conta-falas{font-size:.74rem;color:var(--text-2)}
-.resumo{border-bottom:1px solid var(--line);font-size:.82rem}
-.resumo summary{cursor:pointer;padding:9px 16px;color:var(--text-2);font-weight:600;list-style:none;display:flex;align-items:center;gap:6px}
+/* Prévia do PDF */
+.previa{margin-top:16px;padding:14px 20px 8px}
+.previa-cab{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.previa-cab h2{margin:0;font-size:.98rem;font-weight:700}
+.previa-conta{font-size:.82rem;color:var(--text-2)}
+.previa-cab .btn{margin-left:auto}
+.previa-msg{padding:16px 0 12px;font-size:.86rem;color:var(--text-2);line-height:1.5}
+.previa-pessoa{padding:13px 0 6px}
+.previa-pessoa+.previa-pessoa{border-top:1px solid var(--line)}
+.previa-nome{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.previa-nome b{font-size:.95rem}
+.previa-nome span{font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--role-dep)}
+.previa-midia{font-size:.76rem;color:var(--text-2);margin:8px 0 4px;overflow-wrap:anywhere}
+.previa-nome+.previa-midia{margin-top:3px}
+.previa-fala{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:5px 0;width:100%;text-align:left;border:0;background:none;cursor:pointer;color:inherit}
+.previa-fala:hover .texto{text-decoration:underline;text-decoration-color:var(--line-2)}
+.previa-fala .hora{padding-top:2px}
+.previa-fala .texto{font-size:.86rem;line-height:1.45}
+
+/* Coluna das falas */
+.col-falas{background:var(--card);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;position:relative}
+.falas-cab{display:flex;align-items:baseline;gap:10px;padding:20px 26px 13px;border-bottom:1px solid var(--line)}
+.falas-cab h2{margin:0;font-size:1.05rem;font-weight:700}
+.conta-falas{font-size:.8rem;color:var(--text-2)}
+.resumo{border-bottom:1px solid var(--line);font-size:.84rem}
+.resumo summary{cursor:pointer;padding:9px 26px;color:var(--vermelho);font-weight:600;list-style:none;display:flex;align-items:center;gap:6px}
 .resumo summary::-webkit-details-marker{display:none}
 .resumo summary::before{content:'›';display:inline-block;transition:transform .2s;font-size:1rem;line-height:1}
 .resumo[open] summary::before{transform:rotate(90deg)}
-.resumo p{margin:0;padding:0 16px 12px;line-height:1.55;color:var(--text);max-height:180px;overflow:auto}
-.falas{flex:1;overflow:auto;padding:10px 12px 70px;position:relative;overscroll-behavior:contain}
-.fala{position:relative;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:11px;padding:9px 12px 10px;margin-bottom:8px;background:var(--card);cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
-.fala:hover{border-color:var(--line-2);border-left-color:var(--line-2)}
-.fala.atual{background:color-mix(in srgb,var(--red) 7%,var(--card));border-color:color-mix(in srgb,var(--red) 30%,transparent);border-left-color:var(--red);box-shadow:0 6px 18px -10px rgb(122 14 24/.45)}
-.fala.marcada{border-left-color:var(--gold)}
-.fala.marcada.atual{border-left-color:var(--red)}
-.fala-topo{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.hora{font-variant-numeric:tabular-nums;font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--card-2);color:var(--text-2);border:1px solid var(--line)}
-.fala.atual .hora{background:var(--red);color:#fff;border-color:var(--red)}
-.quem{font-size:.74rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--role-outro-soft);color:var(--role-outro);max-width:62%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.quem.juiz{background:var(--role-juiz-soft);color:var(--role-juiz)}
-.quem.mp{background:var(--role-mp-soft);color:var(--role-mp)}
-.quem.defesa{background:var(--role-defesa-soft);color:var(--role-defesa)}
-.quem.dep{background:var(--role-dep-soft);color:var(--role-dep)}
-.tag-resumo{font-size:.62rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#7a5c1e;background:var(--gold-soft);padding:2px 6px;border-radius:5px}
-[data-theme="dark"] .tag-resumo{color:var(--gold-on-dark)}
-.marcar{margin-left:auto;width:30px;height:28px;border-radius:7px;border:0;background:transparent;color:var(--text-3);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.marcar:hover{background:var(--card-2);color:var(--gold)}
-.marcar svg{width:17px;height:17px}
+.resumo p{margin:0;padding:0 26px 12px;line-height:1.55;color:var(--text);max-height:180px;overflow:auto}
+.falas{flex:1;min-height:0;overflow:auto;padding:6px 0 24px;position:relative;overscroll-behavior:contain}
+.fala{display:grid;grid-template-columns:62px minmax(0,1fr) 30px;gap:8px;padding:10px 18px 10px 23px;border-left:3px solid transparent;cursor:pointer;opacity:.55;transition:background .2s,opacity .2s}
+.fala.atual,.fala.atual~.fala,.falas:not(:has(.fala.atual)) .fala{opacity:1}
+.fala:hover{background:color-mix(in srgb,var(--text) 3%,transparent);opacity:1}
+.fala.atual{background:var(--atual);border-left-color:var(--gold)}
+.hora{font-variant-numeric:tabular-nums;font-size:.74rem;color:var(--text-3);padding-top:3px}
+.fala-topo{display:flex;align-items:center;gap:8px;margin-bottom:3px;min-width:0}
+.quem{font-size:.76rem;font-weight:700;letter-spacing:.1px;color:var(--role-outro);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quem.juiz{color:var(--role-juiz)}.quem.mp{color:var(--role-mp)}.quem.defesa{color:var(--role-defesa)}.quem.dep{color:var(--role-dep)}
+.tag-resumo{font-size:.62rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--role-dep);background:var(--gold-soft);padding:2px 6px;border-radius:5px;flex-shrink:0}
+.marcar{width:30px;height:28px;border-radius:7px;border:0;background:transparent;color:var(--line-2);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-top:-3px}
+.marcar:hover{color:var(--gold)}
+.marcar svg{width:18px;height:18px}
 .fala.marcada .marcar{color:var(--gold)}
 .fala.marcada .marcar svg{fill:currentColor}
-.texto{margin:0;line-height:1.55;font-size:.9rem;overflow-wrap:anywhere}
+.texto{margin:0;line-height:1.5;font-size:.92rem;overflow-wrap:anywhere}
 .risco{color:#b42318}[data-theme="dark"] .risco{color:#f97066}
 .risco b{font-style:italic;font-size:.78em}
 .nota{color:var(--text-3);font-size:.8em}
 .inaudivel{color:var(--text-3);font-style:italic}
-.seguir{position:absolute;left:50%;transform:translateX(-50%);bottom:72px;z-index:3;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 16px;border-radius:999px;border:0;background:var(--red);color:#fff;font-weight:700;font-size:.8rem;box-shadow:var(--shadow-lg);cursor:pointer}
+.seguir{position:absolute;left:50%;transform:translateX(-50%);bottom:74px;z-index:3;display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 16px;border-radius:999px;border:0;background:var(--red);color:#fff;font-weight:700;font-size:.8rem;box-shadow:var(--shadow-lg);cursor:pointer}
 .seguir svg{width:15px;height:15px}
-.falas-rodape{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(6px)}
-.falas-rodape .conta-marcas{font-size:.78rem;color:var(--text-2)}
+.falas-rodape{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 18px 13px 26px;border-top:1px solid var(--line);background:var(--card);min-height:60px}
+.falas-rodape .conta-marcas{font-size:.84rem;color:var(--text-2)}
 .falas-rodape .conta-marcas b{color:var(--text)}
-.falas-rodape .acoes{display:flex;gap:6px}
-.falas-msg{padding:28px 18px;color:var(--text-2);text-align:center;line-height:1.5;font-size:.88rem}
-.esqueleto{height:13px;border-radius:6px;background:var(--line);margin:10px 4px;position:relative;overflow:hidden}
+.falas-msg{padding:28px 26px;color:var(--text-2);text-align:center;line-height:1.5;font-size:.88rem}
+.esqueleto{height:13px;border-radius:6px;background:var(--line);margin:10px 22px;position:relative;overflow:hidden}
 .esqueleto::after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:brilho 1.4s infinite}
 [data-theme="dark"] .esqueleto::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
 @keyframes brilho{to{transform:translateX(100%)}}
@@ -221,16 +216,14 @@ button{font:inherit;color:inherit}
 .toast button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:7px;padding:5px 10px;font-weight:700;font-size:.76rem;cursor:pointer;white-space:nowrap}
 @keyframes entra{from{opacity:0;transform:translateY(8px)}}
 
-@media (max-width:1180px){
-  .principal{grid-template-columns:1fr}
-  .lateral{position:static}
-  .lista-processos{max-height:260px}
-}
-@media (max-width:900px){
-  .grade{grid-template-columns:1fr}
-  .col-video{position:static}
-  .col-falas{position:relative;top:0;height:70vh}
-  .conta{display:none}
+@media (max-width:1280px){.app{grid-template-columns:290px minmax(0,1fr) minmax(320px,400px)}.midia,.midias-msg{padding-left:62px}}
+@media (max-width:1020px){
+  body{height:auto;overflow:auto}
+  .app{display:block}
+  .lateral{border-right:0;border-bottom:1px solid var(--line)}
+  .lista-processos{max-height:300px}
+  .conteudo{overflow:visible;padding:18px 16px 24px}
+  .col-falas{border-left:0;border-top:1px solid var(--line);height:80vh}
 }
 @media (max-width:560px){.wrap{padding-inline:14px}.sub,.sobre{display:none}.btn-topo span{display:none}}
 </style>
@@ -247,7 +240,6 @@ button{font:inherit;color:inherit}
       </span>
     </a>
     <div class="topo-dir">
-      <span class="conta" id="conta"></span>
       <a class="btn-topo" href="https://gestor45.vercel.app/" title="Voltar à página inicial">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
         <span>Início</span>
@@ -260,119 +252,109 @@ button{font:inherit;color:inherit}
   </div>
 </header>
 
-<main class="wrap principal">
+<main class="app">
   <aside class="lateral">
-    <section class="painel">
-      <div class="painel-cab">
-        <div class="titulo-linha">
-          <span class="icone-titulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-          <h2>Processos em pauta</h2>
-        </div>
-        <button class="mini-btn" id="atualizarBtn" type="button" title="Atualizar a pauta" aria-label="Atualizar a pauta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
-        </button>
+    <div class="lateral-cab">
+      <h2>Processos em pauta</h2>
+      <button class="mini-btn" id="atualizarBtn" type="button" title="Atualizar a pauta" aria-label="Atualizar a pauta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+      </button>
+    </div>
+    <div class="lista-processos" id="listaProcessos" aria-live="polite">
+      <div class="esqueleto" style="width:70%"></div><div class="esqueleto" style="width:80%"></div><div class="esqueleto" style="width:60%"></div>
+    </div>
+    <form class="outro" id="outroForm" autocomplete="off">
+      <label for="outroNumero">Abrir outro processo</label>
+      <div class="outro-linha">
+        <input id="outroNumero" placeholder="0000000-00.0000.8.17.0000" inputmode="numeric" aria-label="Número do processo">
+        <button class="btn" type="submit">Abrir</button>
       </div>
-      <div class="lista-processos" id="listaProcessos" aria-live="polite">
-        <div class="esqueleto" style="width:70%"></div><div class="esqueleto" style="width:90%"></div><div class="esqueleto" style="width:60%"></div>
-      </div>
-      <form class="outro" id="outroForm" autocomplete="off">
-        <label for="outroNumero">Abrir outro processo</label>
-        <div class="outro-linha">
-          <input id="outroNumero" placeholder="0000000-00.0000.8.17.0000" inputmode="numeric" aria-label="Número do processo">
-          <button class="btn" type="submit">Abrir</button>
-        </div>
-      </form>
-    </section>
+    </form>
   </aside>
 
-  <section class="conteudo">
-    <div class="painel vazio" id="vazio">
+  <section class="conteudo" id="conteudo">
+    <div class="vazio" id="vazio">
       <span class="grande"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="m10 8.5 5.5 3.5-5.5 3.5z" fill="currentColor"/></svg></span>
       <h2>Escolha um processo</h2>
-      <p>A lista ao lado mostra os mesmos processos dos Próximos Atos da página inicial. Ao escolher um, aparecem as mídias da audiência e, ao abrir uma mídia, a transcrição vira uma lista de falas: clique numa fala para o vídeo pular até ela.</p>
+      <p>A lista ao lado mostra os mesmos processos dos Próximos Atos da página inicial. Ao clicar num processo, aparecem os vídeos dele; ao abrir um vídeo, a transcrição vira a lista de falas à direita: clique numa fala para o vídeo pular até ela.</p>
     </div>
 
     <div id="area" hidden>
-      <div class="painel proc-cab">
+      <div class="proc-cab">
         <div>
           <div class="proc-rotulo" id="procRotulo"></div>
           <h1 id="procNumero"></h1>
           <p class="proc-status" id="procStatus"></p>
         </div>
-        <div class="proc-acoes">
-          <a class="btn" id="procPasta" target="_blank" rel="noopener" hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h5l3 4h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
-            Pasta no Drive
-          </a>
+        <a class="link-pasta" id="procPasta" target="_blank" rel="noopener" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h5l3 4h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+          Pasta do processo
+        </a>
+      </div>
+
+      <div id="grade" hidden>
+        <div class="video-wrap" id="videoWrap">
+          <video id="video" controls playsinline preload="auto"></video>
+          <div class="capa" id="capa" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <div class="ondas"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="capa-nome" id="capaQuem"></div>
+            <div class="obs" id="capaObs"></div>
+          </div>
+        </div>
+        <div class="baixando" id="baixando" hidden>
+          <span id="baixandoTxt">Baixando o vídeo…</span>
+          <div class="barra"><span id="baixandoBarra"></span></div>
+          <button class="link-btn" id="pararBtn" type="button">Seguir só com o áudio</button>
+        </div>
+        <div class="controles">
+          <div class="segmentos" role="group" aria-label="Velocidade de reprodução" id="velocidades">
+            <button type="button" data-v="1">1x</button>
+            <button type="button" data-v="1.5">1,5x</button>
+            <button type="button" data-v="2">2x</button>
+          </div>
+          <div class="nav-falas">
+            <button class="btn" id="antBtn" type="button" title="Fala anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20 9 12l10-8z"/><path d="M5 19V5"/></svg> Anterior
+            </button>
+            <button class="btn" id="proxBtn" type="button" title="Próxima fala">
+              Próxima <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 4 10 8-10 8z"/><path d="M19 5v14"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="info">
+          <div class="fala-atual" id="falaAtual"></div>
+          <dl class="ficha" id="ficha"></dl>
         </div>
       </div>
 
-      <div class="midias" id="midias" style="margin-top:16px"></div>
-
-      <div class="grade" id="grade" style="margin-top:16px" hidden>
-        <div class="col-video">
-          <div class="painel video-caixa">
-            <div class="video-wrap" id="videoWrap">
-              <video id="video" controls playsinline preload="auto"></video>
-              <div class="capa" id="capa" hidden>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                <div class="ondas"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="capa-nome" id="capaQuem"></div>
-                <div class="obs" id="capaObs"></div>
-              </div>
-            </div>
-            <div class="baixando" id="baixando" hidden>
-              <span id="baixandoTxt">Baixando o vídeo…</span>
-              <div class="barra"><span id="baixandoBarra"></span></div>
-              <button class="link-btn" id="pararBtn" type="button">Seguir só com o áudio</button>
-            </div>
-            <div class="controles">
-              <div class="segmentos" role="group" aria-label="Velocidade de reprodução" id="velocidades">
-                <button type="button" data-v="1">1x</button>
-                <button type="button" data-v="1.5">1,5x</button>
-                <button type="button" data-v="2">2x</button>
-              </div>
-              <div class="nav-falas">
-                <button class="btn" id="antBtn" type="button" title="Fala anterior">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20 9 12l10-8z"/><path d="M5 19V5"/></svg> Anterior
-                </button>
-                <button class="btn" id="proxBtn" type="button" title="Próxima fala">
-                  Próxima <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 4 10 8-10 8z"/><path d="M19 5v14"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="fala-atual" id="falaAtual"></div>
-            <dl class="ficha" id="ficha"></dl>
-          </div>
-        </div>
-
-        <div class="painel col-falas">
-          <div class="falas-cab">
-            <div class="titulo-linha">
-              <span class="icone-titulo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-              <div><h2>Falas</h2><div class="conta-falas" id="contaFalas"></div></div>
-            </div>
-          </div>
-          <details class="resumo" id="resumoBox" hidden><summary>Resumo da mídia</summary><p id="resumoTxt"></p></details>
-          <div class="falas" id="falas" tabindex="-1" aria-label="Falas da transcrição"></div>
-          <button class="seguir" id="seguirBtn" type="button" hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-            Acompanhar o vídeo
+      <section class="painel previa" id="previa" hidden>
+        <div class="previa-cab">
+          <h2>Prévia do PDF</h2>
+          <span class="previa-conta" id="previaConta"></span>
+          <button class="btn primario" id="pdfBtn" type="button" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>
+            Gerar PDF
           </button>
-          <div class="falas-rodape">
-            <span class="conta-marcas" id="contaMarcas">Nenhum trecho marcado</span>
-            <div class="acoes">
-              <button class="btn" id="limparBtn" type="button" disabled>Limpar</button>
-              <button class="btn primario" id="pdfBtn" type="button" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>
-                Gerar PDF
-              </button>
-            </div>
-          </div>
         </div>
-      </div>
+        <div id="previaCorpo"></div>
+      </section>
     </div>
   </section>
+
+  <aside class="col-falas">
+    <div class="falas-cab"><h2>Falas</h2><div class="conta-falas" id="contaFalas"></div></div>
+    <details class="resumo" id="resumoBox" hidden><summary>Resumo da mídia</summary><p id="resumoTxt"></p></details>
+    <div class="falas" id="falas" tabindex="-1" aria-label="Falas da transcrição"><div class="falas-msg">As falas aparecem aqui quando você abre um vídeo.</div></div>
+    <button class="seguir" id="seguirBtn" type="button" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Acompanhar o vídeo
+    </button>
+    <div class="falas-rodape">
+      <span class="conta-marcas" id="contaMarcas">Nenhum trecho marcado</span>
+      <button class="btn" id="limparBtn" type="button" disabled>Limpar</button>
+    </div>
+  </aside>
 </main>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
@@ -447,12 +429,11 @@ button{font:inherit;color:inherit}
 
   /* ---------------- tema ---------------- */
   (function () {
-    var salvo = ler('p45_tema', null);
-    var tema = salvo || (matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var tema = ler('p45_tema2', null) === 'dark' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', tema);
     $('#temaBtn').onclick = function () {
       tema = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', tema); guardar('p45_tema', tema);
+      document.documentElement.setAttribute('data-theme', tema); guardar('p45_tema2', tema);
     };
   })();
 
@@ -798,9 +779,38 @@ button{font:inherit;color:inherit}
   var video = $('#video'), lista = $('#falas');
 
   /* ---------------- lista de processos ---------------- */
+  var IC_SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
+  function botaoProcesso(numero, ato) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'proc'; b.dataset.numero = numero; b.dataset.chave = ato ? ato.number + '|' + ato.date + '|' + ato.time : numero + '||';
+    b.innerHTML = '<span class="proc-hora"></span><span class="proc-num"></span><span class="proc-seta">' + IC_SETA + '</span>';
+    $('.proc-hora', b).textContent = ato && ato.time ? ato.time.replace(':', 'h') : '—';
+    $('.proc-num', b).textContent = numero;
+    b.setAttribute('aria-expanded', 'false');
+    b.onclick = function () {
+      /* Clicar no processo já aberto só recolhe ou mostra os vídeos dele. */
+      if (b.classList.contains('ativo')) {
+        var fechado = b.classList.toggle('fechado');
+        var cx = $('#midias'); if (cx) cx.classList.toggle('fechado', fechado);
+        b.setAttribute('aria-expanded', String(!fechado));
+        return;
+      }
+      abrirProcesso(numero, ato);
+    };
+    return b;
+  }
+  function tipoSpan(cat) {
+    var s = document.createElement('span'); s.className = 'tipo ' + (cat === 'juri' ? 'juri' : 'aud'); s.textContent = cat === 'juri' ? 'Júri' : 'Audiência'; return s;
+  }
   function desenharProcessos() {
     var cont = $('#listaProcessos'); cont.replaceChildren();
-    if (!E.atos.length) { cont.innerHTML = '<div class="lista-vazia">Nenhum ato nos Próximos Atos. Use "Abrir outro processo" abaixo.</div>'; return; }
+    var naPauta = E.atos.some(function (a) { return a.number === E.numero; });
+    if (E.numero && !naPauta) {
+      var fora = document.createElement('div'); fora.className = 'dia';
+      fora.innerHTML = '<span class="dia-data">Fora da pauta</span>';
+      cont.append(fora, botaoProcesso(E.numero, null));
+    }
+    if (!E.atos.length && !E.numero) { cont.innerHTML = '<div class="lista-vazia">Nenhum ato nos Próximos Atos. Use "Abrir outro processo" abaixo.</div>'; return; }
     var hoje = hojeISO(), diaAtual = '';
     var semana = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
     E.atos.forEach(function (a) {
@@ -809,22 +819,34 @@ button{font:inherit;color:inherit}
         var d = new Date(a.date + 'T12:00:00Z');
         var cab = document.createElement('div');
         cab.className = 'dia' + (a.date === hoje ? ' hoje' : '');
-        cab.textContent = (a.date === hoje ? 'Hoje · ' : '') + semana[d.getUTCDay()] + ', ' + dataBR(a.date).slice(0, 5);
+        var data = document.createElement('span'); data.className = 'dia-data';
+        data.textContent = (a.date === hoje ? 'Hoje · ' : '') + semana[d.getUTCDay()] + ', ' + dataBR(a.date).slice(0, 5);
+        var tipos = document.createElement('span'); tipos.className = 'dia-tipo';
+        var cats = [];
+        E.atos.forEach(function (x) { var c = x.category === 'juri' ? 'juri' : 'aud'; if (x.date === a.date && cats.indexOf(c) === -1) cats.push(c); });
+        cats.forEach(function (c) { tipos.append(tipoSpan(c)); });
+        cab.append(data, tipos);
         cont.append(cab);
       }
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'proc'; b.dataset.numero = a.number; b.dataset.chave = a.number + '|' + a.date + '|' + a.time;
-      b.innerHTML = '<span class="proc-hora"></span><span class="proc-num"></span><span class="proc-tipo"><span class="etq"></span></span>';
-      $('.proc-hora', b).textContent = a.time ? a.time.replace(':', 'h') : '—';
-      $('.proc-num', b).textContent = a.number;
-      var etq = $('.etq', b); etq.textContent = a.category === 'juri' ? 'JÚRI' : 'AUDIÊNCIA'; etq.classList.add(a.category === 'juri' ? 'juri' : 'aud');
-      b.onclick = function () { abrirProcesso(a.number, a); };
-      cont.append(b);
+      cont.append(botaoProcesso(a.number, a));
     });
     marcarProcessoAtivo();
+    if (E.numero) desenharMidias();
   }
+  /* Marca o processo aberto e põe, logo abaixo dele, a lista dos vídeos. */
   function marcarProcessoAtivo() {
-    $$('.proc').forEach(function (b) { b.classList.toggle('ativo', !!E.ato && b.dataset.chave === E.ato.number + '|' + E.ato.date + '|' + E.ato.time || (!E.ato && b.dataset.numero === E.numero)); });
+    var ativo = null;
+    $$('.proc').forEach(function (b) {
+      var eh = !ativo && E.numero && (E.ato ? b.dataset.chave === E.ato.number + '|' + E.ato.date + '|' + E.ato.time : b.dataset.numero === E.numero);
+      b.classList.toggle('ativo', !!eh); b.classList.remove('fechado'); b.setAttribute('aria-expanded', String(!!eh));
+      if (eh) ativo = b;
+    });
+    if (E.numero && !ativo) { desenharProcessos(); return; }   // processo fora da pauta: ganha uma linha própria
+    var cx = $('#midias');
+    if (!ativo) { if (cx) cx.remove(); return; }
+    if (!cx) { cx = document.createElement('div'); cx.id = 'midias'; cx.className = 'midias'; }
+    cx.classList.remove('fechado');
+    if (cx.previousElementSibling !== ativo) ativo.after(cx);
   }
   function atualizarPauta(manual) {
     var btn = $('#atualizarBtn'); btn.classList.add('girando');
@@ -854,16 +876,17 @@ button{font:inherit;color:inherit}
     salvarPosicao(); pararDownload(); limparCache();
     E.numero = numero; E.ato = ato; E.dados = null; E.midias = []; E.atual = null; E.falas = [];
     marcarProcessoAtivo();
-    $('#vazio').hidden = true; $('#area').hidden = false; $('#grade').hidden = true;
+    $('#vazio').hidden = true; $('#area').hidden = false; $('#grade').hidden = true; $('#previa').hidden = true;
+    lista.innerHTML = '<div class="falas-msg">As falas aparecem aqui quando você abre um vídeo.</div>';
+    $('#contaFalas').textContent = ''; $('#resumoBox').hidden = true; $('#seguirBtn').hidden = true; atualizarRodape();
     $('#procNumero').textContent = numero;
     var rot = $('#procRotulo'); rot.replaceChildren();
     if (ato) {
-      var etq = document.createElement('span'); etq.className = 'etq ' + (ato.category === 'juri' ? 'juri' : 'aud'); etq.textContent = ato.category === 'juri' ? 'JÚRI' : 'AUDIÊNCIA';
-      rot.append(etq, document.createTextNode(dataBR(ato.date) + (ato.time ? ' · ' + ato.time.replace(':', 'h') : '')));
+      rot.append(tipoSpan(ato.category), document.createTextNode(dataBR(ato.date) + (ato.time ? ' · ' + ato.time.replace(':', 'h') : '')));
     } else rot.textContent = 'Processo';
     $('#procStatus').textContent = 'Procurando as mídias no Drive…';
     $('#procPasta').hidden = true;
-    $('#midias').innerHTML = '<div class="painel" style="padding:14px"><div class="esqueleto" style="width:40%"></div><div class="esqueleto" style="width:65%"></div></div>';
+    $('#midias').innerHTML = '<div class="midias-msg">Procurando os vídeos…</div>';
     try { history.replaceState(null, '', '?processo=' + encodeURIComponent(numero)); } catch (e) {}
     try { google.script.history && google.script.history.replace(null, { processo: numero }); } catch (e) {}
 
@@ -872,12 +895,11 @@ button{font:inherit;color:inherit}
     Promise.all([servidor('carregarProcesso', numero, idDaPasta(pastaLink)), carregarMarcas(numero)]).then(function (r) {
       if (E.numero !== pedido) return;
       E.dados = r[0];
-      if (r[0].email) $('#conta').textContent = r[0].email;
       montarMidias(r[0]);
     }).catch(function (e) {
       if (E.numero !== pedido) return;
       $('#procStatus').textContent = 'Não foi possível ler o Drive: ' + (e.message || e);
-      $('#midias').innerHTML = '';
+      if ($('#midias')) $('#midias').innerHTML = '<div class="midias-msg">Não foi possível ler o Drive.</div>';
     });
   }
 
@@ -960,45 +982,25 @@ button{font:inherit;color:inherit}
 
   function tituloMidia(m) { return m.depoente || ('Mídia ' + m.ordem); }
   function desenharMidias() {
-    var cont = $('#midias'); cont.replaceChildren();
+    var cont = $('#midias'); if (!cont) return;
+    cont.replaceChildren();
+    if (!E.dados) { cont.innerHTML = '<div class="midias-msg">Procurando os vídeos…</div>'; return; }
+    if (!E.midias.length) { cont.innerHTML = '<div class="midias-msg">Nenhum vídeo encontrado.</div>'; return; }
     E.midias.forEach(function (m) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'midia' + (E.atual === m ? ' ativa' : '');
-      var meta = [];
-      if (m.data) meta.push(dataBR(m.data));
-      if (m.seq) meta.push('nº ' + m.seq);
-      var fonte = m.video || m.audio;
-      if (fonte && fonte.tamanho) meta.push(tamanhoTxt(fonte.tamanho));
       var nm = (E.marcas[m.chave] || []).length;
-      b.innerHTML = '<span class="midia-ic">' + (m.video ? IC_VIDEO : m.audio ? IC_AUDIO : IC_TEXTO) + '</span><span class="midia-txt"><span class="midia-nome"></span><span class="midia-meta"></span><span class="selos"></span></span>';
+      var obs = !m.video && !m.audio ? 'mídia não encontrada' : !temTranscricao(m) ? 'sem transcrição' : !m.video ? 'só áudio' : '';
+      b.innerHTML = '<span class="midia-nome"></span>' + (obs ? '<span class="midia-obs' + (obs === 'só áudio' ? '' : ' selo-p alerta') + '"></span>' : '') + (nm ? '<span class="midia-marcas" title="Trechos marcados">' + nm + ' ★</span>' : '');
       $('.midia-nome', b).textContent = tituloMidia(m);
-      $('.midia-nome', b).title = m.nomeArquivo;
-      $('.midia-meta', b).textContent = meta.join(' · ') || m.nomeArquivo;
-      var selos = $('.selos', b);
-      var selo = function (txt, cls) { var s = document.createElement('span'); s.className = 'selo-p' + (cls ? ' ' + cls : ''); s.textContent = txt; selos.append(s); };
-      if (m.tipo) selo(tipoBonito(m.tipo));
-      if (!temTranscricao(m)) selo('sem transcrição', 'alerta');
-      if (!m.video && m.audio) selo('só áudio');
-      if (!m.video && !m.audio) selo('mídia não encontrada', 'alerta');
-      if (nm) selo(nm + (nm === 1 ? ' marcado' : ' marcados'), 'marca');
+      b.title = m.nomeArquivo + (m.data ? ' · ' + dataBR(m.data) : '');
+      if (obs) $('.midia-obs', b).textContent = obs;
+      if (E.atual === m) b.setAttribute('aria-current', 'true');
       b.onclick = function () { if (E.atual !== m) selecionarMidia(m); };
       cont.append(b);
     });
   }
 
-  /* A coluna de falas ocupa o espaço visível da janela, para o rodapé com
-     o botão de PDF nunca ficar abaixo da dobra. */
-  var colFalas = $('.col-falas'), ajustePendente = 0;
-  function ajustarAltura() {
-    ajustePendente = 0;
-    if ($('#grade').hidden) return;
-    if (innerWidth <= 900) { colFalas.style.height = ''; return; }
-    var topoFixo = $('.topo').offsetHeight + 20;
-    var topo = Math.max(colFalas.getBoundingClientRect().top, topoFixo);
-    colFalas.style.height = Math.max(420, innerHeight - topo - 16) + 'px';
-  }
-  function pedirAjuste() { if (!ajustePendente) ajustePendente = requestAnimationFrame(ajustarAltura); }
-  addEventListener('scroll', pedirAjuste, { passive: true });
-  addEventListener('resize', pedirAjuste);
+  function pedirAjuste() {}
 
   /* ---------------- selecionar mídia ---------------- */
   function selecionarMidia(m) {
@@ -1018,7 +1020,7 @@ button{font:inherit;color:inherit}
           desenharFalas(null, 'Não consegui ler as falas no PDF da transcrição (' + escapar(e.message || e) + '). O vídeo pode ser assistido normalmente.');
         });
     } else desenharFalas(info);
-    desenharFicha(m, info);
+    desenharFicha(m);
     $('#capaQuem').textContent = tituloMidia(m);
     pedirAjuste();
     prepararPlayer(m);
@@ -1027,7 +1029,7 @@ button{font:inherit;color:inherit}
     var info = m.transcricao.info;
     E.falas = info.falas; E.indice = -1;
     desenharFalas(info);
-    desenharFicha(m, info);
+    desenharFicha(m);
     desenharMidias();
     pedirAjuste();
     if (video.currentSrc) sincronizar(true);
@@ -1073,14 +1075,12 @@ button{font:inherit;color:inherit}
     passo();
   }
 
-  function desenharFicha(m, info) {
+  function desenharFicha(m) {
     var f = $('#ficha'); f.replaceChildren();
     var add = function (k, v) { if (!v) return; var dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = k; dd.textContent = v; f.append(dt, dd); };
     add('Depoente', m.depoente);
-    add('Tipo', m.tipo ? tipoBonito(m.tipo) : '');
-    add('Gravação', m.data ? dataBR(m.data) + (m.seq ? ' · nº ' + m.seq : '') : '');
+    add('Data da audiência', m.data ? dataBR(m.data) : '');
     add('Arquivo', m.nomeArquivo);
-    if (info && info.presentes.length) add('Presentes', info.presentes.map(function (p) { return p.nome + (p.papel ? ' (' + p.papel + ')' : ''); }).join('; '));
     f.hidden = !f.children.length;
   }
 
@@ -1107,11 +1107,11 @@ button{font:inherit;color:inherit}
       c.dataset.i = f.i; c.tabIndex = 0; c.setAttribute('role', 'button');
       c.setAttribute('aria-label', 'Ir para ' + hms(f.t) + (f.quem ? ', ' + f.quem : ''));
       var tr = trechos.find(function (x) { return Math.abs(x.t - f.t) <= 1; });
-      c.innerHTML = '<div class="fala-topo"><span class="hora">' + hms(f.t) + '</span>' +
+      c.innerHTML = '<span class="hora">' + hms(f.t) + '</span><div class="fala-corpo"><div class="fala-topo">' +
         (f.quem ? '<span class="quem ' + papelDe(f.quem, E.atual) + '">' + escapar(f.quem) + '</span>' : '') +
         (tr ? '<span class="tag-resumo" title="' + escapar(tr.desc) + '">resumo</span>' : '') +
-        '<button class="marcar" type="button" aria-pressed="' + marcadas.has(f.chave) + '" title="Marcar trecho para o PDF" aria-label="Marcar trecho"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button></div>' +
-        '<p class="texto">' + htmlDaFala(f) + '</p>';
+        '</div><p class="texto">' + htmlDaFala(f) + '</p></div>' +
+        '<button class="marcar" type="button" aria-pressed="' + marcadas.has(f.chave) + '" title="Marcar trecho para o PDF" aria-label="Marcar trecho"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></button>';
       frag.append(c);
     });
     lista.append(frag);
@@ -1148,7 +1148,7 @@ button{font:inherit;color:inherit}
   function api(id) { return DRIVE_API + '/drive/v3/files/' + encodeURIComponent(id) + '?alt=media&supportsAllDrives=true'; }
   function tokenDrive(forcar) {
     if (!forcar && E.token && Date.now() - E.tokenEm < 40 * 60 * 1000) return Promise.resolve(E.token);
-    return servidor('tokenDrive').then(function (r) { E.token = r.token; E.tokenEm = Date.now(); if (r.email) $('#conta').textContent = r.email; return r.token; });
+    return servidor('tokenDrive').then(function (r) { E.token = r.token; E.tokenEm = Date.now(); return r.token; });
   }
   function baixar(meta, aoProgredir, sinal) {
     var tentar = function (forcar) {
@@ -1419,6 +1419,55 @@ button{font:inherit;color:inherit}
     var txt = total ? '<b>' + total + '</b> ' + (total === 1 ? 'trecho marcado' : 'trechos marcados') + (total !== aqui ? ' no processo (' + aqui + ' nesta mídia)' : '') : 'Nenhum trecho marcado';
     $('#contaMarcas').innerHTML = txt;
     $('#pdfBtn').disabled = !total; $('#limparBtn').disabled = !aqui;
+    desenharPrevia(total);
+  }
+  /* Prévia do PDF: os trechos marcados de todas as mídias do processo, na
+     mesma ordem do arquivo (por depoente e, dentro dele, por mídia). */
+  function desenharPrevia(total) {
+    var caixa = $('#previa'), corpo = $('#previaCorpo');
+    caixa.hidden = !E.numero || !E.midias.length;
+    if (caixa.hidden) return;
+    corpo.replaceChildren();
+    var pessoas = trechosPorPessoa();
+    var lidos = pessoas.reduce(function (s, p) { return s + p.midias.reduce(function (t, x) { return t + x.falas.length; }, 0); }, 0);
+    var nMidias = pessoas.reduce(function (s, p) { return s + p.midias.length; }, 0);
+    $('#previaConta').textContent = total
+      ? total + (total === 1 ? ' trecho marcado' : ' trechos marcados') + (lidos ? ' · ' + pessoas.length + (pessoas.length === 1 ? ' depoente' : ' depoentes') + ' · ' + nMidias + (nMidias === 1 ? ' mídia' : ' mídias') : '')
+      : '';
+    if (!total) { corpo.innerHTML = '<div class="previa-msg">Marque as falas importantes com a estrela, na coluna ao lado. Os trechos marcados de todos os depoimentos deste processo aparecem aqui, como vão sair no PDF.</div>'; return; }
+    pessoas.forEach(function (p) {
+      var bloco = document.createElement('div'); bloco.className = 'previa-pessoa';
+      var nome = document.createElement('div'); nome.className = 'previa-nome';
+      var b = document.createElement('b'); b.textContent = p.nome; nome.append(b);
+      if (p.tipo) { var t = document.createElement('span'); t.textContent = tipoBonito(p.tipo); nome.append(t); }
+      bloco.append(nome);
+      p.midias.forEach(function (x) {
+        var mi = document.createElement('div'); mi.className = 'previa-midia';
+        mi.textContent = 'Mídia original: ' + arquivoOriginal(x.m) + (x.m.data ? ' · gravação de ' + dataBR(x.m.data) : '');
+        bloco.append(mi);
+        x.falas.forEach(function (f) {
+          var l = document.createElement('button'); l.type = 'button'; l.className = 'previa-fala'; l.title = 'Ir para este trecho';
+          l.innerHTML = '<span class="hora">' + hms(f.t) + '</span><span>' + (f.quem ? '<span class="quem ' + papelDe(f.quem, x.m) + '" style="display:block;margin-bottom:2px">' + escapar(f.quem) + '</span>' : '') + '<span class="texto" style="display:block">' + htmlDaFala(f) + '</span></span>';
+          l.onclick = function () { irParaTrecho(x.m, f); };
+          bloco.append(l);
+        });
+      });
+      corpo.append(bloco);
+    });
+    if (lidos < total) {
+      var falta = document.createElement('div'); falta.className = 'previa-msg';
+      falta.textContent = 'Lendo as transcrições dos outros depoimentos para mostrar os demais trechos…';
+      corpo.append(falta);
+    }
+  }
+  function irParaTrecho(m, f) {
+    if (E.atual !== m) {
+      /* Outra mídia: abre-a já no ponto do trecho (mesmo caminho do "continuar de onde parou"). */
+      salvarPosicao();
+      var mapa = ler('p45_posicoes', {}); mapa[E.numero + '|' + m.chave] = Math.max(1, Math.floor(f.t)); guardar('p45_posicoes', mapa);
+      selecionarMidia(m);
+    } else irPara(E.falas[f.i] || f);
+    $('#conteudo').scrollTo({ top: 0, behavior: 'smooth' });
   }
   var limparConfirmar = 0;
   $('#limparBtn').onclick = function () {

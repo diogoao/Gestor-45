@@ -144,6 +144,19 @@ with sync_playwright() as p:
         pg.click('.fala[data-i="%d"] .marcar' % i)
     print('rodapé com duas mídias:', pg.inner_text('#contaMarcas'))
     assert '5 trechos marcados no processo (2 nesta mídia)' in pg.inner_text('#contaMarcas')
+    # layout: dias com o tipo à direita, vídeos dentro do processo aberto, prévia do PDF com todos os depoentes
+    tipos = pg.eval_on_selector_all('.dia', 'els => els.map(e => [e.querySelector(".dia-data").textContent, [...e.querySelectorAll(".tipo")].map(t => t.textContent + ":" + t.className).join(",")])')
+    assert tipos and all(t[1] for t in tipos) and all(('juri' in t[1]) == ('Júri' in t[1]) for t in tipos), tipos
+    assert pg.evaluate('document.querySelector("#midias").previousElementSibling.dataset.numero') == '0054293-43.2024.8.17.2001'
+    assert pg.locator('#conta').count() == 0, 'e-mail fora do cabeçalho'
+    previa = pg.inner_text('#previa')
+    for esperado in ('Prévia do PDF', '5 trechos marcados · 2 depoentes · 2 mídias', 'Maria José da Silva', 'João Pereira dos Santos', 'Mídia original: 00542934320248172001_2026_02_26_0001.mp4', 'Gerar PDF'):
+        assert esperado in previa, ('faltou na prévia', esperado)
+    assert pg.locator('#previa .previa-fala').count() == 5
+    assert set(pg.evaluate('[...document.querySelectorAll("#ficha dt")].map(e => e.textContent)')) == {'Depoente', 'Data da audiência', 'Arquivo'}
+    pg.click('.proc.ativo'); assert not pg.locator('#midias').is_visible(), 'clicar no processo aberto recolhe os vídeos'
+    pg.click('.proc.ativo'); assert pg.locator('#midias').is_visible()
+    print('layout: dias', len(tipos), '| prévia com', pg.locator('#previa .previa-fala').count(), 'trechos de 2 depoentes | recolher/abrir ok')
     with pg.expect_download() as d:
         pg.click('#pdfBtn')
     dl = d.value
@@ -165,8 +178,8 @@ with sync_playwright() as p:
     pg.reload(); pg.click('.proc[data-numero="0054293-43.2024.8.17.2001"]')
     pg.wait_for_selector('.fala')
     n_marc = pg.locator('.fala.marcada').count(); print('depois de recarregar (sem cache local): marcados =', n_marc); assert n_marc == 3
-    pdf_visivel = pg.evaluate('(() => { const r = document.querySelector("#pdfBtn").getBoundingClientRect(); return r.bottom <= innerHeight && r.top >= 0; })()')
-    print('botão PDF visível sem rolar a página:', pdf_visivel); assert pdf_visivel
+    pdf_visivel = pg.evaluate('(() => { const r = document.querySelector("#contaMarcas").getBoundingClientRect(); return r.bottom <= innerHeight && r.top >= 0; })()')
+    print('faixa de trechos marcados visível sem rolar a página:', pdf_visivel); assert pdf_visivel
     print('nome da mídia:', pg.inner_text('.midia-nome'))
 
     # Tema escuro
