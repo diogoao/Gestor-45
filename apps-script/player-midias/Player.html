@@ -22,7 +22,7 @@
   --topo:76px;
 }
 [data-theme="dark"]{
-  --bg:#11141a;--lado:#151920;--card:#1a1e26;--card-2:#20242e;--text:#eef1f6;--text-2:#a2aab8;--text-3:#6d7686;
+  --bg:#11141a;--lado:#0b0e13;--card:#1a1e26;--card-2:#20242e;--text:#eef1f6;--text-2:#a2aab8;--text-3:#6d7686;
   --line:#2a2f3a;--line-2:#454c5a;--seg:#232833;--atual:#2c2618;--vermelho:#f0a3ab;--blue:#8fb3f5;--amber:#f0b35a;
   --red-soft:#3a161b;--gold-soft:#3a3120;--blue-soft:#182338;--amber-soft:#3b2a10;
   --shadow:0 6px 16px -4px rgb(0 0 0/.45),0 2px 6px -2px rgb(0 0 0/.35);
@@ -77,13 +77,13 @@ body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 .lateral-cab h2{margin:0;font-size:1.05rem;font-weight:700;text-align:center}
 .lateral-cab .mini-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
 .lista-processos{flex:1;min-height:0;overflow:auto;padding-bottom:10px}
-.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#fff}
+.dia{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#2b313d;padding:8px 22px;margin:8px 0 4px;font-size:.72rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#e7eaf0}
 .dia:first-child{margin-top:0}
-.dia.hoje .dia-data{color:#f3c98f}
+.dia.hoje .dia-data{color:#e3c98c}
 .dia-tipo{display:flex;gap:8px}
 .tipo.aud{color:var(--blue)}.tipo.juri{color:#b3202e}[data-theme="dark"] .tipo.juri{color:#f58a94}
-/* sobre o vermelho da linha do dia, azul e vermelho não se leem: tons claros */
-.dia .tipo.aud{color:#cfe0ff}.dia .tipo.juri,[data-theme="dark"] .dia .tipo.juri{color:#f3c98f}
+/* linha do dia: cinza da faixa de menu da página inicial; tipos em tons claros para ler sobre ele */
+.dia .tipo.aud{color:#8fb3f5}.dia .tipo.juri,[data-theme="dark"] .dia .tipo.juri{color:#f58a94}
 .proc{width:100%;text-align:left;border:0;background:transparent;padding:9px 16px 9px 22px;display:flex;align-items:center;gap:11px;cursor:pointer}
 .proc:hover{background:color-mix(in srgb,var(--text) 4%,transparent)}
 .proc-hora{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--text-2);min-width:40px}
