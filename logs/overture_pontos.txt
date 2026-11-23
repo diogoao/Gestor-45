@@ -1,0 +1,708 @@
+# Overture Maps places, release 2026-11-18.0 (s3://overturemaps-us-west-2/release/2026-11-18.0/theme=places/type=place/)
+# Ponto: -7.129428, -34.827039 (Altiplano, Joao Pessoa). Raio: 800 m (haversine ate o centro do bbox). Gerado em 2026-11-23.
+# 703 lugares, ordenados por distancia. Categoria = basic_category. Fonte = sources[].dataset (sem o rotulo 'Overture' da conflacao).
+# Colunas separadas por TAB: nome, categoria, distancia, fonte, confianca, site
+nome	categoria	distancia	fonte	confianca	site
+unito_terapiaocupacional	health_care	8 m	Meta	0.41	-
+Maíra Pontes Arquiteta	design_service	13 m	Meta	0.26	-
+Clínica Health Fisio	physical_medicine_and_rehabilitation	37 m	Meta	0.92	http://clinicahealthfisio.com.br/
+Splendore Home e Gifts	flowers_and_gifts_store	37 m	Meta	0.54	http://instagram.com/splendorejp
+Celebrate JPA	music_venue	38 m	Meta	0.64	http://instagram.com/pinkjpa
+Jessica Meadow Maquiagens	personal_care_and_beauty_store	46 m	Meta	0.63	https://jessicameadow.com.br/
+Studio HA arquitetura	design_service	50 m	Meta	0.17	https://bio.site/studiohaarquitetura?fbclid=PAAabCWirH2SKsD8e0R7lLJMoDVyun-eQH1LXepgu90IMlOAoshFmLja5-lFI_aem_ARo32-ybFeOuuTPbD-9NTso7wijgZqtqMzDNQ_b4j_QMcWeeatkCnNDJ7LXYjXaterA
+Larissa Maciel Arquitetura	design_service	50 m	Meta	0.58	https://www.instagram.com/larissamacielarquitetura/
+Forronejo Music Bar	music_venue	53 m	Meta	0.92	https://www.instagram.com/forronejomusicbar/
+Instituto Reabilite - Odontologia Especializada	dental_clinic	58 m	Meta	0.32	-
+El Señor Barbearia	personal_or_beauty_service	60 m	Meta	0.72	-
+Grandmare Club Residence	lodging	60 m	Meta	0.99	http://alliance.com.br/portal/empreendimento/Grandmare/24
+Drª Simone Chacon	wellness_service	63 m	Meta	0.20	-
+Valéria Melo	fashion_and_apparel_store	63 m	Meta	0.41	http://www.valeriamelocorretora.com.br/
+Clínica Health Fisio	-	63 m	Meta	0.69	-
+Efigênia Mendonça Corretora	real_estate_service	63 m	Meta	0.11	-
+Mahogany Cosméticos	personal_care_and_beauty_store	63 m	Meta	0.68	-
+Alliance Paraiso do Atlantico Construcoes Spe	hardware_home_and_garden_store	71 m	Meta	0.43	-
+Unic Imobiliária	real_estate_service	71 m	Meta	0.53	-
+Acuidar Franquias	professional_service	72 m	Meta	0.31	http://www.acuidarfranquias.com.br/
+Tour Geneve	real_estate_service	74 m	Meta	0.61	-
+Noi Pizza Altiplano	restaurant	75 m	Meta	0.83	http://www.noipizza.com.br/
+Mirante Skybeach	beach	76 m	Meta	0.97	https://instagram.com/miranteskybeach
+Soul Beauty Clinic - Unidade Altiplano	wellness_service	78 m	Meta	0.48	-
+Pink Elephant	nightlife_venue	81 m	Foursquare	0.77	https://pinkjpa.com.br
+Nèvi Padaria Artesanal	casual_eatery	83 m	Meta	0.78	-
+Residencial Fontana Di Mare	lodging	85 m	Meta	0.86	alliance.com.br/imovel/fontana-di-mare
+Vanessa Frade	-	88 m	Meta	0.35	-
+Dra Talita Aires - Dentista	dental_clinic	91 m	Meta	0.22	-
+Avenir Desenvolvimentos LTDA	technical_service	94 m	Meta	0.19	https://avenirdesenvolvimentos.com.br/
+Skybar Tour Geneve	bar	95 m	Meta	0.92	-
+Djan Advogado Imobiliário: Escritório de Advocacia, em João Pessoa Pb	-	102 m	Microsoft	0.93	https://djan.app.br/imobiliario/
+Ladik Studio Extensão de Cílios	personal_or_beauty_service	102 m	Meta	0.95	https://www.instagram.com/ladikstudio/
+Agilitar Consultoria	professional_service	103 m	Meta	0.11	http://www.agilitarconsultoria.com/
+The Beauty Place Studio	personal_or_beauty_service	104 m	Meta	0.94	https://bit.ly/TheBeautyPlace
+Fisioterapia Domiciliar| Fraturas | Pilates| Idoso| Maria Martins Fisioterapeuta	physical_medicine_and_rehabilitation	105 m	Meta	0.26	https://instagram.com/mariamartinsfisio
+Viva Urban	real_estate_service	107 m	Meta	0.25	http://vivaurban.com.br/
+Gratitude Empório Natural	food_and_beverage_store	108 m	Meta	0.94	-
+Giovanna Mayer Advocacia	attorney_or_law_firm	110 m	Meta	0.68	http://www.mayerarcoverde.adv.br/
+Subway	fast_food_restaurant	110 m	Microsoft	0.85	http://www.subway.com.br/
+Xavier & Batista Advogados Associados	attorney_or_law_firm	112 m	Meta	0.67	-
+Lavanderia Via Sul	laundry_service	112 m	Meta	0.57	-
+Mayer e Arcoverde Advocacia	attorney_or_law_firm	112 m	Meta	0.70	http://www.mayerarcoverde.adv.br/
+Caroline Tortorella - Consultora de Imagem	fashion_and_apparel_store	112 m	Meta	0.25	https://campsite.to/carolinetortorella
+Altiplano Nails2You	personal_or_beauty_service	112 m	Meta	0.61	-
+Dr Paulo Guimarães	health_care	112 m	Meta	0.26	https://drpauloguimaraesjgn.com.br/
+Travassos Imobiliária	real_estate_service	112 m	Meta	0.49	http://www.wagnertravassosimoveis.com.br/
+Alliance Plaza Center	event_or_party_service	113 m	Meta	0.60	-
+Mitt Sushi Bar	restaurant	115 m	Meta	0.97	-
+Clínica Dr Anderson Gomes	dental_clinic	117 m	Meta	0.90	-
+Direto do Pé	restaurant	120 m	Meta	0.55	-
+TECPRED	building_or_construction_service	123 m	Meta	0.17	https://api.whatsapp.com/send?phone=5583987550770
+Coppa Empreendimentos	building_or_construction_service	123 m	Meta	0.45	-
+Amanda Carneiro Consultório Odontológico	dental_clinic	123 m	Meta	0.29	https://www.instagram.com/draamandacarneiro
+D Unhas Nails & Beauty	personal_or_beauty_service	123 m	Meta	0.68	-
+Pimentel Advocacia	attorney_or_law_firm	124 m	Meta	0.38	http://pimenteladvocacia.adv.br/
+CYM Nordeste	event_or_party_service	124 m	Meta	0.34	https://linktr.ee/DigaCYM?utm_source=linktree_admin_share
+Instituto Emily Brito	-	124 m	Meta	0.22	https://elinks.site/emilybrito
+Tática Design Studio	design_service	124 m	Meta	0.28	https://taticastudio.wordpress.com/
+Muscle e Cia	food_and_beverage_store	125 m	Meta	0.31	https://instagram.com/muscleecia
+Anna Rachel e Nevita Luna Advocacia de Família	attorney_or_law_firm	126 m	Meta	0.75	http://www.nevitafrancaluna.com.br/
+Mais Fios Altiplano	personal_or_beauty_service	126 m	Meta	0.45	-
+Laís Costa de Carvalho	behavioral_or_mental_health_clinic	126 m	Meta	0.56	-
+Clínica Psiq	behavioral_or_mental_health_clinic	127 m	Meta	0.47	-
+Synergy Fisioterapia	physical_medicine_and_rehabilitation	127 m	Meta	0.52	http://www.synergyfisioterapia.com.br/
+Grupo Aditar	b2b_office_and_professional_service	127 m	Meta	0.19	https://www.instagram.com/GRUPOADITAR/
+Thayse Gonzaga Odontologia Especializada	dental_clinic	128 m	Meta	0.44	-
+Agge Assessoria Empresarial	professional_service	128 m	Meta	0.31	http://www.agge.com.br/
+CORRETOR DE IMÓVEIS ALTO PADRÃO - Marcelo Cristofoli - VENDAS I INVESTIMENTOS - ALTIPLANO	real_estate_service	130 m	Meta	0.35	-
+Dra. Renata Azevedo	dental_clinic	131 m	Meta	0.85	https://sites.google.com/view/drarenataazevedo/
+AEA Arquitetos	design_service	131 m	Meta	0.45	-
+Jra Construtora	building_or_construction_service	132 m	Meta	0.73	-
+Clinica Ponte	medical_service	132 m	Meta	0.90	-
+Sakê Temakeria Altiplano	restaurant	134 m	Meta	0.79	-
+Soberano Imóveis	real_estate_service	134 m	Meta	0.90	https://www.soberanoimoveis.com/
+Academia Korpus Altiplano	gym	135 m	Meta	0.97	http://www.academiakorpus.com.br/
+Pimenta Nativa Altiplano	restaurant	136 m	Meta	0.46	-
+My Therapy Juice	smoothie_juice_bar	140 m	Meta	0.62	https://www.instagram.com/mytherapyjuice/
+Aquamare	historic_site	140 m	Meta	0.92	http://gmail.com/
+Bonna Gelateria Pátio Shopping	casual_eatery	141 m	Meta	0.91	-
+Karina Simões	behavioral_or_mental_health_clinic	141 m	Meta	0.29	http://www.karinasimoes.com.br/
+Tatiana Ferreira	specialized_medical_facility	142 m	Meta	0.35	-
+Nucleobari	wellness_service	142 m	Meta	0.96	https://linktr.ee/nucleobari_
+Harmony Vida e Saúde	behavioral_or_mental_health_clinic	143 m	Meta	0.61	http://harmonyvidaesaude.com.br/
+Depilie Express	personal_or_beauty_service	143 m	Meta	0.39	-
+Protezi Seguros	financial_service	143 m	Meta	0.48	https://www.proteziseguros.com.br/pt/
+Fernanda Valéria Estética	wellness_service	144 m	Meta	0.89	-
+Dra. Carolina Bandeira Domiciano	diagnostics_imaging_or_lab_service	144 m	Meta	0.44	-
+BoxCon CrossFit Altiplano	gym	144 m	Meta	0.84	-
+Nutricionista Darlan Chacon	wellness_service	144 m	Meta	0.26	-
+Instituto Odontológico Marinho Wanderley	dental_clinic	144 m	Meta	0.97	-
+Atalho Mini-Mart	convenience_store	144 m	Meta	0.59	-
+Little Cake Coffee Shop	coffee_shop	144 m	Meta	0.85	-
+Dra. Yohana Silveira Oliveira	surgery	144 m	Meta	0.48	-
+Dr. Augusto De Almeida Júnior	surgery	144 m	Meta	0.45	-
+Jéssica Rica boutique	fashion_and_apparel_store	144 m	Meta	0.58	-
+CR Advocacia	legal_service	144 m	Meta	0.49	-
+Rafaella Viana Arquitetura	design_service	144 m	Meta	0.37	https://www.instagram.com/arqlorrany_/
+shake pátio altiplano	non_alcoholic_beverage_venue	144 m	Meta	0.97	-
+Cuidadores de Pessoas Acuidar João Pessoa	social_or_community_service	144 m	Meta	0.53	https://www.acuidarbr.com.br/unidade/joaopessoa
+Saladellas Crepes e Saladas	restaurant	145 m	Meta	0.78	-
+Dra. Sarah Rodrigues	surgery	145 m	Meta	0.99	-
+Dr. Marcelo Gonçalves	surgery	145 m	Meta	0.86	http://drmarcelogoncalves.com.br/
+Claro Brasil	electronics_store	145 m	Meta	0.42	-
+Especialy Odontologia	dental_clinic	148 m	Meta	0.75	-
+Tws Imobiliária	real_estate_service	148 m	Meta	0.92	https://www.twsimobiliaria.com.br/
+Qualis Cursos - Enem e Vestibulares	place_of_learning	149 m	Meta	0.87	-
+Mansões Heron Marinho	historic_site	149 m	Meta	0.49	-
+Valisere	fashion_and_apparel_store	150 m	Meta	0.97	https://www.instagram.com/valiserealtiplanoshop
+Agência Boss	professional_service	151 m	Meta	0.02	-
+IC Clinic - Harmonização e Reabilitação Oral	dental_clinic	152 m	Meta	0.35	https://linktr.ee/icclinic
+Odon Bezerra Advogados Associados	attorney_or_law_firm	152 m	Meta	0.92	-
+L'Equipe Express	personal_or_beauty_service	152 m	Meta	0.98	https://linktr.ee/lequipe.jrmendes
+Detect End - Caça Vazamentos por Ultrassom	home_service	152 m	Meta	0.44	http://www.fimdovazamento.com.br/
+Josenildo Monteiro Corretor de Imoveis	real_estate_service	152 m	Meta	0.18	https://www.orulo.com.br/a/jmjamapa6311
+Débora Barreto Arquitetura	design_service	154 m	Meta	0.41	http://instagram.com/deborabarreto_arquitetura
+P. Rodrigues e Seiboth - Advogados Associados	attorney_or_law_firm	155 m	Meta	0.48	-
+Fernando Bronzeado Fotografias	media_service	155 m	Meta	0.50	-
+Dr. Riceli Morais	behavioral_or_mental_health_clinic	155 m	Meta	0.54	-
+Onofre Ramos Advogados	attorney_or_law_firm	155 m	Meta	0.46	-
+Mon Blanc Makeup Studio	personal_or_beauty_service	155 m	Meta	0.05	https://instagram.com/monblancstudio
+Ultramare Class Club Residence	historic_site	155 m	Meta	0.95	-
+Instituto Queiroga	diagnostics_imaging_or_lab_service	156 m	Meta	0.73	http://www.drednaldoqueiroga.com.br/
+Domum Construções e Incorporações	building_or_construction_service	156 m	Meta	0.56	http://domumconstrutora.com.br/
+Shopping Pátio Altiplano	shopping_mall	156 m	Meta	1.00	http://www.patioaltiplano.com.br/
+Cada	historic_site	156 m	Meta	0.06	-
+Terapeuta Aura Master e Coach de Relacionamento	behavioral_or_mental_health_clinic	156 m	Meta	0.33	https://linktr.ee/terapeutaleandramichelon
+Clínica Michelon	health_care	157 m	Meta	0.28	http://www.drchrislima.com.br/
+John's Grill	restaurant	157 m	Meta	0.70	-
+Hobby Bichos - Altiplano	animal_and_pet_store	158 m	Meta	0.80	-
+Select Negócios Imobiliários	real_estate_service	158 m	Meta	0.70	-
+Mediwork Coworking Médico	health_care	159 m	Meta	0.82	-
+Roselle Amaral	real_estate_service	159 m	Meta	0.21	https://www.instagram.com/rosellecorretora/
+O Boticário	personal_care_and_beauty_store	160 m	Meta	0.99	http://www.boticario.com.br/
+Enjoy Kids - Parque e Salão de Festas	-	161 m	Meta	0.90	http://linktr.ee/enjoykidspark
+Analina Amarante Studio Pilates	-	161 m	Meta	0.47	-
+Sobrancelhas Design	personal_or_beauty_service	162 m	Meta	0.69	http://sobrancelhasdesign.com.br/
+Victor Perrusi	diagnostics_imaging_or_lab_service	167 m	Meta	0.68	http://www.victorperrusi.com.br/
+Ana Alice Macedo	wellness_service	168 m	Meta	0.33	-
+Roval Farmácia de Manipulação Pátio Altiplano: Suplementos, Chás, Nutrição, PB	pharmacy_and_drug_store	168 m	Meta	0.99	https://www.farmaciaroval.com.br/
+Dra. Daniely Maria Queiroz Carneiro	specialized_health_care	168 m	Meta	0.42	https://linktr.ee/drotaciliovascular
+Cacau Show	casual_eatery	168 m	Meta	1.00	https://lojavirtual.cacaushow.com.br/
+Lucas Fernandes Arquitetura	design_service	168 m	Meta	0.42	https://www.instagram.com/arqlorrany_/
+Alirio Trigueiro	real_estate_service	168 m	Meta	0.32	http://aliriocorretor.havite.com.br/
+Centro de Terapia Vida	behavioral_or_mental_health_clinic	168 m	Meta	0.92	-
+Promus Digital	professional_service	168 m	Meta	0.31	https://agenciapromus.com.br/
+Marie Studio Express	personal_or_beauty_service	169 m	Meta	0.37	-
+Stc Advogados Associados - ImobiliÁRio - Trabalhista	attorney_or_law_firm	169 m	Meta	0.79	http://ssassociados.webnode.com/
+Acupuntura, Fisioterapia e Estética | Clínica LuVivari	physical_medicine_and_rehabilitation	169 m	Meta	0.95	https://www.instagram.com/clinicaluvivari/
+Dr. Estevam Luiz	diagnostics_imaging_or_lab_service	169 m	Meta	0.44	https://drestevamluiz.com.br/
+Jt Arquitetos	design_service	169 m	Meta	0.34	-
+Psicóloga Yanna Varandas João Pessoa PB	behavioral_or_mental_health_clinic	169 m	Meta	0.70	https://www.instagram.com/yannavarandas.psi/
+Dra. Yasha Wanderley	dental_clinic	169 m	Meta	0.96	-
+Jacob Turismo	travel_service	169 m	Meta	0.87	http://www.jacobturismo.com.br/
+Raíza Maciel • Advogada	attorney_or_law_firm	169 m	Meta	0.32	http://www.raizamacieladvogada.com/
+Keilla Rebeka Freitas	reproductive_perinatal_and_womens_care	169 m	Meta	0.33	http://dramonicafreitas.smallpage.com.br/
+Vexa Incorporações	real_estate_service	169 m	Meta	0.41	-
+Psicóloga Rebeca Montenegro - Especialista em adolescência	behavioral_or_mental_health_clinic	169 m	Meta	0.41	-
+Dani Store	fashion_and_apparel_store	169 m	Meta	0.41	-
+Vida Toys Brinquedos - Unidade Shopping Pátio Altiplano	toys_and_games_store	169 m	Meta	0.74	-
+Psicóloga Isabela Jacob	behavioral_or_mental_health_clinic	169 m	Meta	0.16	-
+La Beauté	personal_care_and_beauty_store	170 m	Meta	0.69	https://www.labeauteweb.com.br/
+CXA	professional_service	170 m	Meta	0.38	http://www.cxa.business/
+Cakech emporio de paes	casual_eatery	170 m	Meta	0.44	-
+Espaço FK	hospital	170 m	Meta	0.93	http://fabianomourademoura.com.br/
+Helena Diniz	wellness_service	170 m	Meta	0.42	-
+Voejar.franquia	travel_service	170 m	Meta	0.55	https://franquia.voejarbrasil.com.br/
+Holding Perfeita	attorney_or_law_firm	170 m	Meta	0.27	http://holdingperfeita.com.br/
+CAF - Centro de Acupuntura e Fisioterapia	complementary_and_alternative_medicine	170 m	Meta	0.61	-
+Bruna Salles Quiropraxia	complementary_and_alternative_medicine	171 m	Meta	0.32	-
+Tainá Andrade Arquitetura	design_service	171 m	Meta	0.88	-
+Clinica Dr. Ivany Junior Cirurgia Plastica	surgery	175 m	Meta	1.00	http://bit.ly/clinicadrivanyjr
+Redesoft	technical_service	177 m	Meta	0.98	http://www.redesoft.com.br/
+Barbearia Sr. João Altiplano	personal_or_beauty_service	179 m	Meta	0.79	-
+Calheiros Odontologia	dental_clinic	179 m	Meta	0.62	-
+A7 Realizações	professional_service	183 m	Meta	0.27	-
+Arqueria Real	education	185 m	Meta	0.29	-
+Dra. Isabel Morais	dental_clinic	191 m	Meta	0.31	https://www.instagram.com/draisabelmorais/#
+Clínica Revivera	behavioral_or_mental_health_clinic	191 m	Meta	0.90	https://www.instagram.com/clinicarevivera
+Maralto Prime Residence	historic_site	193 m	Meta	0.89	-
+Villa Martins	fashion_and_apparel_store	197 m	Meta	0.86	https://www.instagram.com/villamartins_/
+Clínica Dra. Rafaela Chaves	-	198 m	Meta	0.42	-
+Mary Look	fashion_and_apparel_store	198 m	Meta	0.38	-
+Dr. João Júnior Cir. Bucal Avançada	dental_clinic	198 m	Meta	0.71	-
+Escola Flamengo Altiplano	gym	200 m	Meta	0.63	-
+Saint Michel Boulevard	historic_site	203 m	Meta	0.55	-
+Clube da Pessoa Idosa	social_or_community_service	204 m	Meta	0.84	-
+Ilê Asé Oyá Gìgán	christian_place_of_worship	204 m	Meta	0.06	-
+Estúdio Fotográfico Stéfani Tamara	professional_service	212 m	Meta	0.30	-
+Construtora NEO ABC | Empreendimentos em João Pessoa	building_or_construction_service	214 m	Meta	0.98	https://linktr.ee/NeoABC
+Ademicon	financial_service	220 m	Meta	0.32	-
+Boxcon Altiplano	sports_and_recreation	221 m	Meta	0.86	-
+Casa do Morango - Pb	shopping	221 m	Microsoft	0.85	http://www.casadomorangopb.com/
+Bianca Araújo Arquitetura e Interiores	event_or_party_service	229 m	Meta	0.31	http://instagram.com/biancaaraujoarquiteta
+Aliança Center	fashion_and_apparel_store	231 m	Meta	0.97	https://www.aliancacenter.com.br
+Cassius Almeida	real_estate_service	236 m	Meta	0.20	https://cassiusalmeidaimoveis.com.br/
+Igreja Presbiteriana de Altiplano	christian_place_of_worship	236 m	Meta	0.99	-
+Maison De Florence	historic_site	237 m	Meta	0.84	-
+Altiplano Cabo Branco	lodging	237 m	Meta	0.72	-
+Base Beach Tennis	corporate_or_business_office	238 m	Meta	0.80	https://www.instagram.com/base.bt/
+Studio Leidykbellus	personal_or_beauty_service	238 m	Meta	0.72	-
+Pixel Phone JP	electronics_store	241 m	Meta	0.27	https://www.instagram.com/pixelphonejp/
+Flat Vilagio Cabo Branco	hotel	242 m	Meta	0.50	-
+Tours Mont Blanc	real_estate_service	246 m	Meta	0.88	http://www.skyscrapercenter.com/building.php?building_id=4586
+Escola de Magistratura da Paraíba	specialty_school	250 m	Meta	0.99	http://esma.tjpb.jus.br/
+Odonto Company Cabo Branco	dental_clinic	254 m	Meta	0.61	https://odontocompanyjp.com.br/
+La Vitta Cabo Branco	historic_site	256 m	Meta	0.33	-
+Altiplex José Alípio	dental_clinic	256 m	Meta	0.76	-
+Idealiza Construções	building_or_construction_service	260 m	Meta	0.71	-
+3M Empreendimentos	real_estate_service	260 m	Meta	0.59	http://3mempreendimentos.com.br/
+Chacara Panaromica	event_or_party_service	261 m	Meta	0.27	-
+Dra. Isabelle Braz Cli'nica de Otorrino - Unidade Altiplano	diagnostics_imaging_or_lab_service	262 m	Meta	0.89	-
+Guedes e Braga Advogados	attorney_or_law_firm	264 m	Meta	0.42	http://www.guedesepiresbraga.adv.br/
+JAZZ & CIA - Academia de Dança	sports_and_recreation	265 m	Meta	0.85	-
+Little Shoes Boutique	fashion_and_apparel_store	265 m	Meta	0.91	-
+Instituto K.	professional_service	269 m	Meta	0.87	-
+Altiplano Residence Club	historic_site	269 m	Meta	0.94	-
+Cartório Eunápio Torres	legal_service	270 m	Meta	0.99	www.eunapiotorres.com.br
+Clínica Dra Thais Fontinele e Dr Diego Leal	medical_service	270 m	Meta	0.33	-
+Faccia Odontologia	dental_clinic	271 m	Meta	0.49	-
+Fabiobatistaimoveis	real_estate_service	273 m	Meta	0.21	-
+Dr. Ednaldo Ferreira da Silva	dental_clinic	274 m	Meta	0.74	http://www.drednaldoqueiroga.com.br/
+Centro Tenistico Paraibano	sport_court	280 m	Meta	0.99	-
+Centro Tenistico Paraibano	sport_court	280 m	Meta	0.98	-
+Condomínio do Edifício Cabo Branco Imperial	historic_site	280 m	Meta	0.92	-
+Hotel do Cabo	hotel	284 m	Meta	0.93	http://hoteldocabo.placeweb.site/
+Aquatur Turismo	travel_service	285 m	Meta	0.34	https://aquaturviagens.com.br/#passeios-estaduais
+Dra. Raísa Rebeka	dental_clinic	287 m	Meta	0.93	http://www.instagram.com/dra.raisarebeka
+Fm Construção e Incorporação LTDA	building_or_construction_service	287 m	Meta	0.44	http://www.fmconstrucao.com.br/
+Dr. Matheus Madruga	dental_clinic	288 m	Meta	0.56	https://www.instagram.com/madrugamatheus/
+Luzon Imobiliária	real_estate_service	288 m	Meta	0.60	-
+Bruna Sá Arquitetura	design_service	289 m	Meta	0.14	http://www.brunasaarquitetura.com.br/contato.html
+Bauten Brasil	home_service	289 m	Meta	0.89	-
+Toque de Carinho	flowers_and_gifts_store	293 m	Meta	0.31	https://www.instagram.com/toquedecarinhojp
+O Portuga Pousada	hotel	294 m	Meta	0.98	-
+Ed. Renoir	historic_site	297 m	Meta	0.83	-
+Cwmidiasociais	professional_service	301 m	Meta	0.26	-
+Campo de futebol	sport_field	307 m	Meta	0.92	-
+SnackBar.83	bar	314 m	Meta	0.96	-
+Oriental Praia Hotel	hotel	314 m	Meta	0.95	http://www.orientalhotel.com.br/
+Hostel Joao Pessoa	hotel	322 m	Meta	0.75	http://hosteljoaopessoa.com/
+Condominio Residencial Cabo Branco Garden	real_estate_service	326 m	Meta	0.60	-
+Igor Dantas - Personal	professional_service	334 m	Meta	0.27	-
+Apartamento Edifício Bom Vivant	historic_site	335 m	Meta	0.32	-
+Palhoça da Chicó	restaurant	338 m	Meta	0.90	-
+Tambaú Operadora de Viagens	travel_service	339 m	Meta	0.78	http://www.portaltambau.com.br/
+Jardim Self Service Cabo Branco	restaurant	344 m	Meta	0.95	-
+Altiplano	real_estate_service	347 m	Meta	0.54	https://www.rssimobiliaria.com.br/imovel/venda/todos/joao-pessoa/altiplano-cabo-branco-262657
+Residencial Maison Escorel	historic_site	347 m	Meta	0.83	-
+Residencial Amanda Holanda	historic_site	348 m	Meta	0.63	-
+Next Towers	real_estate_service	349 m	Meta	0.52	http://www.fibraconstrutora.com.br/
+Fast Escova Altiplano	personal_or_beauty_service	350 m	Meta	0.22	-
+Self service Cabo Branco	restaurant	350 m	Meta	0.61	-
+Residencial Yahweh	historic_site	354 m	Meta	0.85	-
+Peaky	fashion_and_apparel_store	354 m	Meta	0.32	http://peaky.com.br/
+Montalcino Residence	historic_site	356 m	Meta	0.32	-
+Vulp Collection	shopping	357 m	Meta	0.21	https://www.instagram.com/vulpcollection/
+Frapp Home Service	lodging	358 m	Meta	0.60	-
+Neo Residence	historic_site	359 m	Meta	0.49	https://massai.com.br/empreendimentos/neo-residence
+Cafeteria Litoral Altiplano	coffee_shop	367 m	Meta	0.28	-
+Condominio Atlantis Cabo Branco Joao Pessoa	historic_site	374 m	Meta	0.76	-
+Sushi Jampa Beach	restaurant	374 m	Meta	0.41	http://instagram.com/sushijampabeach_
+D’Luc Massoterapia para Homens	-	379 m	Meta	0.19	https://agendeonline.salonsoft.com.br/dlucmassagens
+Natuburguer - Hamburgueria Artesanal	restaurant	380 m	Meta	0.26	https://www.ifood.com.br/delivery/joao-pessoa-pb/natuburguer---hamburgueria-artesanal-altiplano-cabo-branco/159ab89c-b325-4e71-86a1-836659520660
+Leandro Paiva	real_estate_service	380 m	Meta	0.17	-
+Birutinhas	event_or_party_service	381 m	Meta	0.42	-
+Empório Infantil	fashion_and_apparel_store	381 m	Meta	0.57	http://instagram.com/
+Marianne Mota Hair Studio Green	personal_or_beauty_service	383 m	Meta	0.93	https://www.instagram.com/mariannemotagreen
+Pallazo di Toscana	historic_site	385 m	Meta	0.92	-
+Condomínio Gold Flat João Pessoa	hotel	386 m	Meta	0.72	https://www.viajebembrasil.com.br/links-de-contato-viaje-bem-brasil
+Oliva Cafe Boutique	restaurant	386 m	Meta	0.83	-
+GoldFlat Beira Mar Cabo Branco Férias para Família - One-Bedroom Apartment	private_lodging	387 m	Meta	0.43	-
+Vidainfusion - Impulsionando Vidas	health_care	387 m	Meta	0.32	https://api.whatsapp.com/send/?phone=5583982049000&text=Ol%C3%A1%21+Gostaria+de+agendar+um+hor%C3%A1rio.&type=phone_number&app_absent=0
+Porto 60 Restaurante	restaurant	387 m	Meta	0.99	-
+Mayonara Araujo Pilates and Fisioterapia	fitness_studio	387 m	Meta	0.33	-
+Escova Express JP	personal_or_beauty_service	388 m	Meta	0.81	-
+Dr. João Sucupira	surgery	389 m	Meta	0.96	http://www.joaosucupira.med.br/contato.php
+Shake do Brasil JP	restaurant	389 m	Meta	0.30	https://drive.google.com/file/d/1lJ93uwMcS_p3OlvY_bsjttnwREn7ke71/view?usp=sharing
+Restaurante Porto Madero	restaurant	389 m	Foursquare	0.77	http://portomadero.net
+Greenmare Club Residence	historic_site	392 m	Meta	0.89	https://alliance.com.br
+Jangada Clube	event_venue	392 m	Foursquare	0.77	http://www.joaopessoa.pb.gov.br
+Shopping da Beleza	shopping_mall	392 m	Meta	0.78	-
+Residencial Saint Germain Boulevard	lodging	392 m	Meta	0.88	-
+Ed. Mirante do Cabo Branco	historic_site	398 m	Meta	0.84	-
+Cabe Mais	storage_facility	398 m	Meta	0.75	http://www.cabemais.com.br/
+Ferias em João Pessoa	hotel	399 m	Meta	0.44	-
+Preferencial Emplacamentos	shipping_or_delivery_service	400 m	Meta	0.13	-
+Residencial Liege	historic_site	401 m	Meta	0.52	-
+Cácio Murilo	professional_service	401 m	Meta	0.49	http://caciomurilo.com.br/
+Almanara Residence	historic_site	402 m	Meta	0.90	-
+Rede Conveniência	convenience_store	402 m	Meta	0.91	-
+Arretado Turismo PB	travel_service	405 m	Meta	0.19	https://www.instagram.com/arretadoturismopb/
+Aliança N/NE Consultoria em Saúde Corporativa	b2b_industrial_and_machine_service	412 m	Meta	0.41	-
+Pousada Cabo Branco	hotel	413 m	Meta	0.99	http://www.pousadacabobranco.com.br/
+Piscina Littoral Hotel	swimming_pool	413 m	Meta	0.37	-
+Embelezacar	-	414 m	Meta	0.38	-
+ChurrasPB	fast_food_restaurant	414 m	Meta	0.27	-
+Italiamo Massas Artesanais	food_and_beverage_store	418 m	Meta	0.65	http://italiamo.com.br/
+Pousada da Lua	hotel	421 m	Meta	0.65	-
+Praia Da Bessa - Lovina	beach	421 m	Meta	0.77	-
+Condominio Oswaldo Pessoa	historic_site	427 m	Meta	0.38	-
+Edificio Monte Cristo	lodging	429 m	Meta	0.48	-
+Supermercado Litoral Altiplano	food_and_beverage_store	432 m	Meta	0.92	https://www.instagram.com/supermercadoslitoral/
+Verônica Mesquita Nutri	-	432 m	Meta	0.13	https://pay.kiwify.com.br/oLkmTMX
+Fauze Corretora	real_estate_service	433 m	Meta	0.26	-
+Maral Restaurante	restaurant	434 m	Meta	0.66	http://l.instagram.com/?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F14h1lMn0EDeEqo085AfzxgtzNwo9JLtDN%2Fview%3Fusp%3Ddrivesdk%26utm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnoZ3Q46y6rrd4KT-tvac4cVHXLqJQuU6BDOGrRmDzyC7b_FfzOFBa0TwYhjU_aem_SflA-eJNZ1JpL_0u2q3sXA&e=AT51mLhiAL8qvJkYQjdrmtpTw20exGtdQ6qeULkcOj5XsWSs4G_N1OjbV5fCH7JwBhdmZTM2-o211rmqde_8byjTNbQy8ZfzZ31P2WKaeA
+Condominio do Edificio Residencial Montcristo	real_estate_service	434 m	Meta	0.52	-
+Peixada do Capitão	restaurant	436 m	Meta	0.89	-
+Arena Park Mall	shopping_mall	437 m	Meta	0.84	https://linklist.bio/arenaparkmall
+Espaço Mari Barros	personal_or_beauty_service	437 m	Meta	0.59	https://instagram.com/espacomaribarros
+Centro La Pureté	wellness_service	437 m	Meta	0.90	https://www.instagram.com/centrolapurete/
+Unilife Faculdade	college_university	437 m	Meta	0.98	https://www.unilifeead.com.br/
+Chez Nanny	restaurant	438 m	Meta	0.92	-
+XIX Salão de Artesanato da Paraíba	arts_crafts_and_hobby_store	438 m	Meta	0.68	-
+Hotel Nord Easy Ondas do Atlantico	hotel	439 m	Meta	0.99	-
+Studio Carolina Menezes	personal_or_beauty_service	442 m	Meta	0.52	https://instagram.com/studiocarolinamenezes_
+Acqua Mais Espac o Aqua'tico	swimming_pool	442 m	Meta	0.88	https://www.instagram.com/acqua.mais/
+Bonna Gelateria	casual_eatery	442 m	Meta	0.86	-
+Porto Dalian Residence	historic_site	444 m	Meta	0.54	-
+Construtora Jms	shopping	444 m	Meta	0.33	-
+Rotary Club de João Pessoa Norte	social_or_community_service	444 m	Meta	0.68	http://www.rotaryclubjoaopessoanorte.org.br/
+Hotel Hplus Beach João Pessoa	hotel	444 m	Meta	0.94	https://www.hplus.com.br/hotel/hplus-beach-joao-pessoa/
+Esther Silvestre Fotografia	professional_service	444 m	Meta	0.62	http://www.esthersilvestre.com.br/
+Viverjampa	real_estate_service	445 m	Meta	0.42	https://mariobarreto.com.br/
+Ofertas Internet Fibra	professional_service	445 m	Meta	0.14	-
+Helder Loureiro Advocacia	attorney_or_law_firm	445 m	Meta	0.86	https://bit.ly/helderloureiroadvocacia
+Miranda Campos Advocacia	attorney_or_law_firm	446 m	Meta	0.97	-
+Duo Studio - Altiplano	personal_or_beauty_service	446 m	Meta	0.93	http://www.instagram.com/duostudiojp
+Omo Lavanderia João Pessoa Altiplano	laundry_service	446 m	Microsoft	0.99	https://omolavanderia.business.monster/omo-lavanderia-especializada-joao-pessoa-altiplano-cabo-branco-joao-pessoa-pb
+Patagonia vinhos e bebidas	supplier_or_distributor	447 m	Meta	0.60	https://instagram.com/patagoniavinhosebebidas?igshid=OGQ5ZDc2ODk2ZA%3D%3D
+Igatu Praia Hotel	hotel	448 m	Meta	0.88	http://hplus.com.br
+Quiosque Lunático	bar	449 m	Meta	0.91	-
+Recepção	hotel	451 m	Meta	0.40	-
+Flávio Gouveia - Imóveis de Alto Padrão	real_estate_service	452 m	Meta	0.21	https://www.flatspb.com.br/
+Orlla Restaurante	restaurant	452 m	Meta	0.67	-
+Restaurante Costa do Sol da Barra	restaurant	452 m	Meta	0.90	-
+Praia De Cabo Branco Pousada Do Caju	beach	452 m	Meta	0.70	-
+SAIÔ - arquitetura & design	design_service	453 m	Meta	0.56	https://saioarqui.wixsite.com/arquitetura
+Taipa Restaurante	restaurant	455 m	Meta	0.95	https://instagram.com/taiparestaurante/
+hotellittoral	hotel	456 m	Meta	0.70	http://www.hotellittoral.com.br/
+Littoral Hotel	lodging	458 m	Meta	1.00	http://www.littoral.com.br/
+Nord Skyler Hotel	hotel	460 m	Meta	0.99	http://www.nordhoteis.com.br
+Restaurante Malagueta	restaurant	461 m	Meta	0.69	-
+Residencial Gran Lux	historic_site	462 m	Meta	0.46	-
+Espaço VIP Salão e Spa	personal_or_beauty_service	462 m	Meta	0.69	-
+Curso de Matemática Jorge Oliveira	campus_building	463 m	Meta	0.30	-
+Quiosque a Mineirinha	bar	464 m	Meta	0.72	-
+Cancun Quiosque	smoothie_juice_bar	464 m	Meta	0.23	https://quiosquecancun.my.canva.site/
+Praia Do Jacare, Cabedelo-Pb	beach	466 m	Meta	0.73	-
+Praia Dos Seixas	beach	466 m	Meta	0.75	-
+Mineirinha no Litoral	restaurant	468 m	Meta	0.87	-
+Ambassador Flat	lodging	468 m	Meta	0.99	http://www.ambassadorflat.com.br
+S2 Bike Shop João Pessoa	sporting_goods_store	469 m	Meta	0.98	https://business.google.com/v/s2-bike-shop/012827034332100278841/5d2b/_
+Café Matuto	cafe	470 m	Meta	0.86	https://elinks.site/cafematutopb
+Condominio Residencial Piramide IV	event_or_party_service	471 m	Meta	0.43	-
+Argumentu's Bar e Restaurante	bar	472 m	Meta	0.81	-
+Espaço Paula Cristhyna	fashion_and_apparel_store	473 m	Meta	0.90	https://www.instagram.com/espacopaulacristhyna/
+AiOBichoPega	-	473 m	Meta	0.28	-
+DM Caffe	coffee_shop	474 m	Meta	0.93	https://www.instagram.com/dm.caffe/
+Quiosque Dois Irmãos	restaurant	475 m	Meta	0.85	http://quiosquedoisirmaos.blogspot.com
+Se7 Vôlei de Praia	sport_court	475 m	Meta	0.97	https://linktr.ee/SE7.voleidepraia
+Restaurante Argumentus	restaurant	477 m	Meta	0.42	-
+José Inácio Pereira Junior	travel_service	478 m	Meta	0.20	-
+CAF - Centro de Acupuntura e Fisioterapia	complementary_and_alternative_medicine	478 m	Meta	0.61	-
+Condomínio do Edifício Beira Mar	real_estate_service	478 m	Meta	0.89	-
+Alta Vista Premium Residence	historic_site	479 m	Meta	0.87	-
+Edificio Paulo Borges	historic_site	481 m	Meta	0.61	-
+Orla de Cabo Branco	beach	481 m	Meta	0.74	-
+Comunidade Catolica Nova Berith	christian_place_of_worship	484 m	Meta	0.93	http://www.novaberith.org.br/
+Occkio	fashion_and_apparel_store	484 m	Meta	0.40	-
+Superação Academia	gym	487 m	Meta	0.67	http://www.instagram.com/superacaofitnesscenter
+Panificadora Altiplano	casual_eatery	489 m	Meta	0.97	-
+Reveillon Solare	event_or_party_service	489 m	Meta	0.34	-
+Farmácia Pague Menos	pharmacy_and_drug_store	489 m	Meta	1.00	https://www.paguemenos.com.br/
+Croasonho	cafe	490 m	Foursquare	0.77	http://www.croasonho.com.br
+Drogasil	pharmacy_and_drug_store	492 m	Meta	0.95	-
+Praia de Cabo Branco	-	493 m	Meta	0.54	-
+Flat na Praia do Cabo Branco	private_lodging	495 m	Meta	0.44	-
+Parthenon Home & Business	real_estate_service	497 m	Meta	0.34	-
+Ruby Rose Paraiba Distribuidora	personal_care_and_beauty_store	497 m	Meta	0.47	-
+Condomi'nio Mar do Cabo Branco Residence	hotel	498 m	Meta	0.84	-
+Parque do sol	park	498 m	Meta	0.80	http://instagram.com/parquecabobranco
+Nucleo Imobiliario - Consultoria Imobiliaria	real_estate_service	500 m	Foursquare	0.77	http://www.nucleoimobiliario.com.br
+Restaurante Olho de Lula	restaurant	504 m	Meta	0.97	https://www.instagram.com/olhodelularest
+Fat Guys - Cabo Branco	fast_food_restaurant	504 m	Meta	0.39	-
+Agencia Hanzol	professional_service	505 m	Meta	0.51	http://www.hanzol.com.br/
+Nonino Gastronomia	restaurant	505 m	Meta	0.99	-
+Maria Melo Cabeleireiros	personal_or_beauty_service	505 m	Meta	0.95	-
+Noá Studio - Salão de Beleza	personal_or_beauty_service	506 m	Meta	0.19	-
+Edifício Anavilhanas	historic_site	507 m	Meta	0.62	-
+Nilo Del Campo	real_estate_service	508 m	Meta	0.24	-
+Ladik Studio	personal_or_beauty_service	509 m	Meta	0.84	https://www.instagram.com/ladikstudio/
+Quiosque Bakanas	restaurant	511 m	Meta	0.97	https://www.instagram.com/quiosquebakanas/
+Mar do Cabo Branco Residence - Studio Apartment	private_lodging	511 m	Meta	0.52	-
+Agência Seleta	professional_service	511 m	Meta	0.91	http://www.agenciaseleta.com.br/
+I Got U App	-	511 m	Meta	0.07	http://iguapp.com/
+Flat Mar Cabo Branco	historic_site	512 m	Meta	0.97	http://flatmardocabobranco1.placeweb.site/
+rooca.co	b2b_office_and_professional_service	512 m	Meta	0.08	http://www.roocacompany.com/
+Quiosque Chega Mais	restaurant	512 m	Meta	0.80	-
+Churrascaria Tererê	restaurant	514 m	Meta	0.78	-
+Corsário Bar	bar	514 m	Meta	0.93	-
+Praia do Cabo Branco	hotel	515 m	Meta	0.90	http://turismo.joaopessoa.pb.gov.br/o-que-fazer/pontos-turisticos/monumentos-historicos/farol-do-cabo-branco/
+Thiago Nascimento - Contabilidade	financial_service	516 m	Meta	0.37	https://l.instagram.com/?u=https%3A%2F%2Fwww.thiagonascimento.com%2F%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGntP_aykbg6LLLApx22dhCqYBrpNHO8apsleEN-_-ATBiNJjmn4jCnWttd4rQ_aem_eG4C4eQXgrpymGHt0D3kiA&e=AUB3IgQGysS06aPqlVVA58jBwpIFqGvpZsph13CWzhIO_h03rh4ljVJeLpWHB_FKniFEHTimtLSyH5m-Qh2fEQQHnt61WSl1PjJpbe7j5wWD-2nD1ppSEUtnRA
+felippenobregaimoveis	real_estate_service	517 m	Meta	0.35	https://wa.me/5583999898937
+Quiosque o Tubarão	restaurant	518 m	Meta	0.93	-
+Lojas Paloma Decorações	fashion_and_apparel_store	518 m	Meta	0.72	-
+Marinas Bar e Restaurante	restaurant	518 m	Meta	0.08	-
+Studio Eliza Brunini	personal_or_beauty_service	518 m	Meta	0.52	-
+A Casa Imobiliária	real_estate_service	519 m	Meta	0.54	https://www.luizfortesimoveis.com.br/
+VPower Energia	b2b_energy_and_utility_service	519 m	Meta	0.08	-
+Clinica Glam Beleza e Bem Estar	fitness_studio	519 m	Meta	0.92	http://www.clinicaesteticaglam.com.br/
+Brokers Negócios Imobiliários	real_estate_service	519 m	Meta	0.59	http://www.juremabksimoveis.com.br/
+Viva Petshop	animal_and_pet_store	520 m	Meta	0.95	https://www.instagram.com/viva_petshop/
+Grupo Holanda | Construtora João Pessoa | Residencial Hoteleiro	building_or_construction_service	520 m	Meta	0.96	http://www.grupoholanda.com.br/
+Flats Cabo Branco Pé na areia	hotel	520 m	Meta	0.25	http://airbnb.com/h/flet-marcabobranco-beira-mar
+New Limp	b2b_industrial_and_machine_service	520 m	Meta	0.53	-
+Butterfly Representações	professional_service	521 m	Meta	0.13	-
+EngeMax Construções e Incorporações	building_or_construction_service	521 m	Meta	0.54	http://www.engemaxconstrutora.com.br/
+Revista Consulta	medical_service	521 m	Meta	0.30	-
+Nutricionista Mariana Carneiro	wellness_service	521 m	Meta	0.19	-
+Ser Saúde Consultórios	event_or_party_service	521 m	Meta	0.35	https://wa.me/message/DXLTFZ5B3JU4I1
+Quiosque Cancun	restaurant	521 m	Meta	0.97	-
+Fogo e Brasa - Espeto e Petiscaria	restaurant	521 m	Meta	0.71	-
+Bloom Madame Studio De Beleza	personal_or_beauty_service	521 m	Meta	0.24	-
+VR Imóveis	real_estate_service	522 m	Meta	0.28	https://vrimobiliaria.com.br/
+VR Imobiliária	real_estate_service	522 m	Meta	0.25	https://vrimobiliaria.com.br/
+Laboratório Roseanne Dore Altiplano: Exames, Check UP, Laboratório, João Pessoa	b2b_service	522 m	Microsoft	0.99	https://www.roseannedore.com.br/
+Concresolo & Copesolo - Geotecnia e Fundações	building_or_construction_service	523 m	Meta	0.56	http://www.solo.eng.br/
+Larissa Aguiar	real_estate_service	523 m	Meta	0.33	http://larissaaguiar.remax.com.br/
+Re/Max View	real_estate_service	523 m	Meta	0.73	-
+Rosa Dantas Imobiliária Eireli	real_estate_service	524 m	Meta	0.69	-
+Ágile Imóveis	real_estate_service	525 m	Meta	0.66	http://www.agileimoveispb.com.br/
+Corretor Rafael Montenegro	real_estate_service	525 m	Meta	0.35	https://www.youtube.com/channel/UC25Z005JZpXtv-FsPAX8kfQ
+SC Investimento	building_or_construction_service	527 m	Meta	0.35	-
+Ancoreta Beach	sporting_goods_store	527 m	Meta	0.74	-
+Apoiotur Viagens E Turismo	travel_service	529 m	Meta	0.96	http://www.apoiotur.com.br/
+Holanda Imobiliária e Construtora Ltda.	corporate_or_business_office	529 m	Foursquare	0.77	http://www.holanda-imob.com.br
+Grupo Alba - Construtora e Incorporadora	-	530 m	Meta	0.60	https://www.construtoraalba.com.br/
+Nutricionista Gabriel Baia	wellness_service	533 m	Meta	0.42	https://www.instagram.com/nutrigabrielbaia
+Sal e Brasa João Pessoa	restaurant	533 m	Meta	0.99	http://www.salebrasa.com.br/
+Joao Pessoa Beach	beach	533 m	Meta	0.71	-
+Café Poético	coffee_shop	533 m	Meta	0.34	-
+Livana	personal_care_and_beauty_store	534 m	Meta	0.61	-
+Pousada Maria Bonita	hotel	534 m	Meta	0.57	-
+Pet Jolie Rações	animal_and_pet_store	534 m	Meta	0.73	https://instagram.com/petjolieracoes
+Amanda Bezerra Hair Salão de beleza em João Pessoa	personal_or_beauty_service	534 m	Meta	0.77	-
+Deu Vontade de Bolo	casual_eatery	535 m	Meta	0.29	https://pedido.anota.ai/loja/deu-vontade-de-bolo
+Com Açúcar Com Afeto	coffee_shop	535 m	Meta	0.96	http://linktr.ee/doceriaecafejp
+noastudiojp	personal_or_beauty_service	535 m	Meta	0.82	https://www.instagram.com/noastudiojp/
+Vigorazzi	shopping	537 m	Meta	0.35	-
+Conectados Casa Criativa	professional_service	537 m	Meta	0.22	http://conectadoscasacriativa.com.br/
+Esmaltando Salão de Unhas	personal_or_beauty_service	538 m	Meta	0.63	-
+Xuxucão Pet Shop	animal_and_pet_store	538 m	Meta	0.76	-
+Grupo Portomar	building_or_construction_service	538 m	Meta	0.75	http://www.portomarconstrutora.com.br/
+Instituto Paraíba Solidária	education	540 m	Meta	0.44	-
+Food Park Jampa	park	542 m	Meta	0.56	-
+Alice Tortas	casual_eatery	546 m	Meta	0.98	http://alicewerlang.com.br/
+60 Sabores Artesanal João Pessoa	casual_eatery	546 m	Meta	0.21	https://60sabores.com.br/unidade/60-sabores-joao-pessoa?utm_medium=biodaunidade
+Holmes Imóveis	real_estate_service	548 m	Meta	0.57	http://www.holmesimoveis.com.br/
+Box Few More	-	549 m	Meta	0.56	https://www.instagram.com/boxfewmore/
+Ink Lucas	personal_or_beauty_service	549 m	Meta	0.12	https://www.instagram.com/ink_lucasss?igsh=MXgydjRpdHl0dGh3YQ%3D%3D&utm_source=qr
+DEBEM IMOB	real_estate_service	549 m	Meta	0.22	https://www.instagram.com/debem.imob?igsh=MWF5MjIzbzJxMXNicg%3D%3D
+Fair Bags & Shoes	fashion_and_apparel_store	549 m	Meta	0.29	-
+Souza Amorim Engenharia	building_or_construction_service	549 m	Meta	0.30	-
+DM Caffe	restaurant	549 m	Meta	0.58	https://www.instagram.com/dm.caffe/
+Pallmyere Dantas	real_estate_service	550 m	Meta	0.33	https://www.instagram.com/corretorpallmyeredantas/profilecard/?igsh=OG12eTRqYjR3aWVx
+Regiane Beach Pousada e Hostel	hotel	550 m	Meta	0.92	https://fredericahostel.com/
+Chilique	fashion_and_apparel_store	551 m	Meta	0.52	-
+Orama Rooftop	restaurant	552 m	Meta	0.81	http://instagram.com.br/oramarooftop
+Paróquia Nossa Senhora de Guadalupe	christian_place_of_worship	552 m	Meta	0.99	https://instagram.com/nsguadalupejp
+Colmeia imob	real_estate_service	555 m	Meta	0.27	-
+Artico Bistrô Restaurante	restaurant	555 m	Meta	0.74	-
+FrutUp	restaurant	555 m	Meta	0.54	-
+FB Consultoria e Treinamentos em SST	b2b_industrial_and_machine_service	555 m	Meta	0.29	-
+Alice Tortas	casual_eatery	560 m	Meta	0.94	http://alicewerlang.com.br/
+Centro de Treinamento A Grande Sacada	gym	560 m	Meta	0.93	https://www.instagram.com/ctagrandesacada/
+Cidade Viva Altiplano	religious_organization	560 m	Meta	0.99	http://www.cidadeviva.org
+Igreja Presbiteriana Litora nea	christian_place_of_worship	560 m	Meta	0.65	-
+Quiosque Sereia Do MAR	bar	561 m	Meta	0.97	-
+ML Correspondente e Consultoria Imobiliaria	real_estate_service	561 m	Meta	0.20	-
+Vem e Lava - Lavanderia Self Service	laundry_service	561 m	Meta	0.96	http://www.instagram.com/vem_e_lava_lavanderia
+Portobello Apart Hotel	hotel	563 m	Meta	0.67	-
+Philipe Sanduíches Especiais	restaurant	564 m	Meta	0.87	http://philipesanduiches.com.br/
+YOUBE Work	event_or_party_service	566 m	Meta	0.34	http://www.yoube.work/
+Pixcell - Assistência Técnica	technical_service	567 m	Meta	0.95	http://Instagram.com/pixcelltecnologia
+013 Studio	professional_service	568 m	Meta	0.59	http://www.zrtz.com.br/013
+Villa do Alto	historic_site	568 m	Meta	0.54	-
+Cod. Vila Do Alto	historic_site	568 m	Meta	0.81	-
+Nóbrega Odontologia	dental_clinic	570 m	Meta	0.97	http://wa.me/5583998700000
+LCB Construção	building_or_construction_service	570 m	Meta	0.27	-
+North Imobiliária	real_estate_service	570 m	Meta	0.29	-
+Realeza da Sorte	supplier_or_distributor	570 m	Meta	0.48	-
+Divino Sabor	restaurant	571 m	Meta	0.60	https://www.instagram.com/divinocalzonejp
+Youserv Assessoria	real_estate_service	571 m	Meta	0.22	http://www.instagram.com/peixoto.assessoriafinanceira/
+Digivox - Digi Soluções	professional_service	572 m	Meta	0.42	http://www.digivox.com.br/
+Bauten Brasil	home_service	573 m	Meta	0.89	-
+Clinica Capilar - Tatyane Martins	-	573 m	Meta	0.23	-
+Iatrós Consultoria	professional_service	573 m	Meta	0.31	https://heylink.me/iatrosconsultoria
+One Cabo Branco	hotel	574 m	Meta	0.52	-
+Infinity At The Sea	hotel	574 m	Meta	0.96	-
+Abrantes e Montenegro Advogados	attorney_or_law_firm	574 m	Meta	0.73	https://abrantesemontenegro.com.br/
+Norma Sueli Cabeleireiros.	personal_or_beauty_service	575 m	Meta	0.95	-
+LH Contabilidade e Consultoria	financial_service	575 m	Meta	0.46	http://larissaherculanocontabeis.com/
+Quiosque Tororó	bar	575 m	Meta	0.97	-
+Mustachefe Burger	restaurant	575 m	Meta	0.61	https://mustachef.saipos.com/home
+Adalberto Castro Imóveis	financial_service	575 m	Meta	0.39	-
+Domous - Agência Marketing e Tráfego Pago	professional_service	575 m	Meta	0.37	http://domous.com.br/
+StudioArq Cursos	specialty_school	576 m	Meta	0.27	http://wa.me/83999174377
+Truck Du Chef Hamburgueria	food_truck_stand	576 m	Meta	0.35	-
+João Pessoa Imóveis	real_estate_service	576 m	Meta	0.64	https://www.instagram.com/joaopessoaimoveis/
+Dona Help João Pessoa Cabo Branco - Empresa de Limpeza Especializada	home_service	576 m	Meta	0.30	https://joaopessoacabobranco.donahelpbr.com.br/servicos-de-limpeza?utm_source=ig&utm_medium=social&utm_content=link_in_bio
+Ávora	casual_eatery	576 m	Meta	0.86	-
+Academia Smart Fit	gym	577 m	Meta	1.00	-
+Inove Consultoria Atuarial & Previdenciária	financial_service	578 m	Meta	0.68	-
+Alliance Horizon Square	public_plaza	578 m	Meta	0.28	http://Horizon.alliance.com.br/
+Spaguetti - It's Massa	restaurant	578 m	Meta	0.48	-
+C.T. Cangaço Vôlei de Praia	sport_court	579 m	Meta	0.96	-
+Edelweiss Flores e Presentes	flowers_and_gifts_store	579 m	Meta	0.98	-
+Julio França	real_estate_service	579 m	Meta	0.20	-
+Fellini Ristorante	restaurant	581 m	Meta	0.06	-
+PSIU Educação Corporativa	education	581 m	Meta	0.57	https://www.psiueducacao.com/
+Noblat Imobiliária	real_estate_service	581 m	Meta	0.15	-
+Maglife Seguros e Consultoria	financial_service	581 m	Meta	0.91	https://maglifeseguros.com.br/
+The World Real Estate	real_estate_service	582 m	Meta	0.71	https://oworld.com.br/
+Temporada PB	historic_site	582 m	Meta	0.43	http://www.temporadapb.com.br/
+João Pessoa Brazil Temple	-	583 m	Microsoft	0.85	https://www.thechurchnews.com/almanac/temples/joao-pessoa-brazil/?utm_source=bing&utm_medium=yext
+Doaa Jamal Rouqa	restaurant	584 m	Meta	0.89	-
+Restaurante Kyoto Sushibar e Temakeria	restaurant	585 m	Meta	0.21	-
+Telflex	corporate_or_business_office	585 m	Meta	0.25	-
+Qoma Burger	restaurant	585 m	Meta	0.50	http://instagram.com/qomaburger
+Bar do Bode	bar	586 m	Meta	0.63	-
+Farina In Natura	casual_eatery	586 m	Meta	0.96	-
+Holanda Park Hotel S A	hotel	588 m	Meta	0.46	-
+Cabo Branco Beach-Joao Pessoa-Paraiba-Northeast-Brazil	beach	589 m	Meta	0.71	-
+Mana Comedoria JP	restaurant	589 m	Meta	0.28	https://wa.me/p/27271391052467522/558336900004
+Cones da Lua	casual_eatery	590 m	Meta	0.24	https://linktr.ee/Conesdalua_
+Imobiliaria Os Cariocas Na Paraiba	real_estate_service	591 m	Foursquare	0.77	https://www.oscariocasnaparaibaimoveis.com.br
+Manaçaí Cabo Branco	restaurant	592 m	Meta	0.75	-
+Escola Estadual Padre Roma	elementary_school	592 m	Meta	0.91	-
+RL Aquarismo	animal_and_pet_store	593 m	Meta	0.69	http://rlaquarismo1.placeweb.site
+Forno di Roma	restaurant	593 m	Meta	0.40	http://www.instagram.com/fornodiromajp/
+Condomínio Residencial Imperial Palace	historic_site	593 m	Meta	0.65	-
+Estúdio Vinni Prótese Capilar	personal_or_beauty_service	597 m	Meta	0.75	-
+Leste Brasil Imoveis	real_estate_service	598 m	Meta	0.87	http://www.lesteimobi.com.br/
+Edifício Borborema	historic_site	598 m	Meta	0.82	-
+pilateslicicavalcanti	physical_medicine_and_rehabilitation	598 m	Meta	0.67	http://Instagram.com/pilateslicicavalcanti
+Js Clinic Estética	-	599 m	Meta	0.22	-
+A Esfiharia jp	restaurant	599 m	Meta	0.68	-
+Centro Cultural Poivre	cultural_center	600 m	Meta	0.96	-
+Residencial Pollari	historic_site	601 m	Meta	0.81	-
+Jampa Make 10	personal_care_and_beauty_store	603 m	Meta	0.23	-
+Spine Pilates Terapêutico	fitness_studio	605 m	Meta	0.93	https://instagram.com/spinepilatesterapeutico
+ITC Vertebral João Pessoa	physical_medicine_and_rehabilitation	606 m	Meta	0.98	http://www.itcvertebral.com.br/
+Empadinhas Barnabé	restaurant	606 m	Meta	1.00	http://www.empadinhasbarnabe.com.br
+Mood Store	fashion_and_apparel_store	606 m	Meta	0.56	https://keepo.io/moodstorejp/
+Marco Zero Sorvetes	casual_eatery	606 m	Meta	0.86	-
+Supermercado Mercearia	food_and_beverage_store	607 m	Meta	0.89	-
+Parque Cabo Branco	park	611 m	Meta	0.71	-
+Kombinaria Roupas e acessórios	fashion_and_apparel_store	611 m	Meta	0.46	-
+Igreja Nossa Senhora do Perpétuo Socorro	christian_place_of_worship	612 m	Meta	0.93	-
+Nucleo Social Altiplano Cabo Branco	religious_organization	613 m	Meta	0.33	-
+Cantina 101	restaurant	615 m	Foursquare	0.77	-
+Escola Espaço Infantil Girassol	preschool	615 m	Meta	0.99	https://www.instagram.com/espacoinfantilgirassol/
+Mercadinho Bora Bora	food_and_beverage_store	617 m	Meta	0.33	-
+La Caribeña	casual_eatery	617 m	Meta	0.72	-
+Dr. Tolentino Alcântara Veterinário Oncologista	animal_or_pet_service	619 m	Meta	0.54	https://campsite.bio/drtolentinoalcantara
+Circuito de Vôlei	arts_and_entertainment	622 m	Meta	0.35	-
+Associação dos Delegados de Polícia Civil da Paraiba - ADEPOL	arts_and_entertainment	624 m	Meta	0.44	-
+Calçadinha do Cabo Branco	beach	630 m	Meta	0.80	http://pt.wikipedia.org/wiki/Praia_de_Tamba%C3%BA
+Antony Cabeleireiros	wellness_service	631 m	Meta	0.62	-
+Odonto Cabo Branco	dental_clinic	631 m	Meta	0.62	-
+Padaria Cabo Branco	casual_eatery	634 m	Meta	0.94	https://instagram.com/padariacabobranco
+Quiosque Litoral Bar	restaurant	634 m	Meta	0.69	-
+Teatro A Pedra do Reino	theatre_venue	634 m	Meta	0.54	-
+APOLO concursos	education	637 m	Meta	0.14	-
+Bikinis Beach Bar	bar	639 m	Meta	0.82	-
+Jampa Auto Pros	automotive_service	640 m	Meta	0.84	-
+Bauten Brasil	building_or_construction_service	641 m	Meta	0.45	http://www.bauten.cc/
+Calmaria	bar	642 m	Meta	0.40	-
+Petjoy	animal_or_pet_service	643 m	Meta	0.41	https://www.instagram.com/petjoy.jp/
+Pimenta Vende e Aluga Imovéis	real_estate_service	643 m	Meta	0.58	-
+Espeto do Batatinha	restaurant	644 m	Meta	0.87	https://www.instagram.com/espetodobatatinha
+Bola de Neve Church	christian_place_of_worship	644 m	Meta	0.36	-
+Casa Rosada	hotel	645 m	Meta	0.18	-
+18K Drinks	bar	645 m	Meta	0.57	-
+Guarda Sol do Zildo	lodging	645 m	Meta	0.77	-
+Se Aprochegue	restaurant	648 m	Meta	0.32	https://www.instagram.com/seaprochegue.nordeste/
+Geandra Nogueira Santos	real_estate_service	650 m	Meta	0.12	-
+Michelly Carneiro	-	650 m	Meta	0.21	-
+Cintia Reis Imóveis	real_estate_service	650 m	Meta	0.33	http://cintiareis.remax.com.br/
+Pedro Morais - Corretor de Imóveis - C/PB 7906	-	651 m	Meta	0.07	-
+Rodolfo Tenório - Creci 5892-F	real_estate_service	651 m	Meta	0.37	-
+Pousada Costera	hotel	653 m	Meta	0.99	-
+Condominio Fantastic Cabo Branco	historic_site	653 m	Meta	0.34	-
+Verônica Mesquita Nutri	-	653 m	Meta	0.14	https://pay.kiwify.com.br/oLkmTMX
+Bethel 007 Guardiãs da Fênix	social_or_community_service	653 m	Meta	0.30	https://instagram.com/bethel007paraiba
+Condominio do Edificio Victory Tower	historic_site	654 m	Meta	0.71	-
+Clínica Veterinária Kelle Christine	animal_or_pet_service	654 m	Meta	0.68	https://wa.me/message/YZFDWG4NSMVAH1
+Casa Lotérica Oitizeiro - Oitizeiro	amusement_park	654 m	Meta	0.65	-
+Moca restaurante	restaurant	657 m	Meta	0.78	https://www.instagram.com/moca.restaurante/
+Palhoça Felix	restaurant	657 m	Meta	0.97	http://www.alexuchoa.com.br/
+Go Residencial Toulon	hotel	658 m	Meta	0.41	-
+A Primavera	fashion_and_apparel_store	660 m	Meta	1.00	http://www.aprimavera.com.br/
+Quiosque Delícias do Mar	restaurant	662 m	Meta	0.55	-
+Terciotur	travel_service	663 m	Meta	0.27	-
+Cris Presentes & Cestas	flowers_and_gifts_store	663 m	Meta	0.17	-
+Encanta turismo	travel_service	663 m	Meta	0.27	http://www.encantaturismo.com.br/
+Luxury Transfer & Passeios Jpa	travel_service	663 m	Meta	0.23	https://www.instagram.com/luxury_transferjpa
+Toque de Carinho	arts_and_entertainment	663 m	Meta	0.37	https://www.instagram.com/toquedecarinhojp
+Centro de Fisioterapia da Coluna Cabo Branco	hospital	666 m	Meta	0.62	-
+Dermo & Hair	wellness_service	667 m	Meta	0.57	-
+Kumon Cabo Branco	specialty_school	667 m	Meta	0.98	http://www.kumon.com.br/
+Arretado Turismo PB	travel_service	668 m	Meta	0.19	https://www.instagram.com/arretadoturismopb/
+Cesar David Ruiz	electronics_store	669 m	Meta	0.25	-
+Nu butiquim bar e petiscaria	bar	675 m	Meta	0.39	-
+Pousada Praia Cabo Branco	hotel	678 m	Meta	0.57	-
+Seu Tavares Barbearia Altiplano	wellness_service	679 m	Meta	0.85	https://tr.ee/a7uD6zE147
+Shamah Tattoo	personal_or_beauty_service	680 m	Meta	0.23	https://instagram.com/emilyn.magrini?utm_medium=copy_link
+Studio Pilates Juliana Cardoso	fitness_studio	680 m	Meta	0.88	https://bit.ly/2D0dIgK
+GHC Incorporações	home_service	684 m	Meta	0.62	https://somosghc.com/
+Studio Fit Personal Trainer	gym	685 m	Meta	0.98	https://www.instagram.com/studiofpersonal/
+Residencial Visconde de Cairu	historic_site	686 m	Meta	0.86	-
+Loja Masonica Segredo e Paz	social_or_community_service	686 m	Meta	0.39	-
+Cortiço Comida Caseira	restaurant	687 m	Meta	0.42	-
+Movae Moda Fitness	fashion_and_apparel_store	687 m	Meta	0.21	http://wa.me/5583996944657
+Grande Oriente do Brasil - Paraiba	civic_organization	689 m	Meta	0.91	http://www.gobpb.org/
+Barração De Pombo Gira Salomé	religious_organization	690 m	Meta	0.54	-
+Edifício Porto Cairu	historic_site	691 m	Meta	0.37	-
+Condomínio do Edifício Residencial Clocio Beltrão	historic_site	691 m	Meta	0.84	-
+Di Grano Pizzaria	restaurant	700 m	Meta	0.26	https://www.ifood.com.br/delivery/joao-pessoa-pb/di-grano-pizzaria-cabo-branco/6a3f63d1-ea20-438b-b2a3-7e07d0fc8223
+Maison Saint Patrick	historic_site	700 m	Meta	0.38	-
+Lavateria Fast Cabo Branco	laundry_service	704 m	Meta	0.91	-
+Tiffy Closet Br	fashion_and_apparel_store	704 m	Meta	0.69	-
+Grãonel	food_and_beverage_store	704 m	Meta	0.58	http://www.graonel.com.br/
+Vânia Bike Shop	sporting_goods_store	705 m	Meta	0.70	https://www.instagram.com/vania_bikeshop
+Quiosque Lunático	bar	707 m	Meta	0.91	-
+Akropolis Home	home_service	708 m	Meta	0.83	http://www.akropolishomeservice.com.br/
+Condomi'nio do Edifi'cio Pontal Cabo Branco	historic_site	708 m	Meta	0.87	-
+Gob Altiplano maçonaria	home_service	709 m	Meta	0.77	-
+Drogasil	pharmacy_and_drug_store	709 m	Meta	0.77	-
+Akademos	arts_and_entertainment	709 m	Meta	0.13	-
+Salt Pizza jp	restaurant	709 m	Meta	0.31	https://www.ifood.com.br/delivery/joao-pessoa-pb/salt-pizza-altiplano-cabo-branco/144805ce-36b0-4440-a066-4e7ca9fc2287
+Residencial Wellington Portela	historic_site	710 m	Meta	0.60	-
+Papelinda	office_supply_store	711 m	Meta	0.78	-
+Bendito Hostel	lodging	712 m	Meta	0.54	-
+Loja Tainnanda Store	fashion_and_apparel_store	712 m	Meta	0.71	-
+KATAR Sushi-Bar	restaurant	713 m	Meta	0.57	-
+Manga Tattoo	personal_or_beauty_service	713 m	Meta	0.40	-
+Óticas Roma	fashion_and_apparel_store	714 m	Meta	0.87	-
+Absolut Beach	hotel	714 m	Meta	0.41	-
+Dikicô Esmalteria	personal_or_beauty_service	714 m	Meta	0.60	-
+Menstop Barbearia	personal_or_beauty_service	716 m	Meta	0.91	-
+Liga da Moda	fashion_and_apparel_store	717 m	Meta	0.99	-
+Cabo Branco Grill Marmitaria	restaurant	718 m	Meta	0.26	https://cabobrancogrill.facilweb.com.br/@linkpatrocinado
+Condomínio do Edifício Residencial Kavachi	historic_site	721 m	Meta	0.33	-
+Barbearia Dantas	personal_or_beauty_service	722 m	Meta	0.99	-
+Primavera Praia	beach	727 m	Meta	0.59	-
+Marbeli	restaurant	727 m	Meta	0.97	https://www.instagram.com/marbeli_restaurante_/
+Espaço Lorena Neris	fashion_and_apparel_store	728 m	Meta	0.52	-
+Ale Visagista	personal_or_beauty_service	729 m	Meta	0.92	https://www.instagram.com/alevisagista
+Maraguaterra	shopping	730 m	Meta	0.53	https://maraguaterra.com.br/
+Bar Beach Club	bar	731 m	Meta	0.51	http://www.barbeachclub.com/
+USF Altiplano I e II	outpatient_care_facility	732 m	Meta	0.92	-
+Condomínio Residencial Riacho Verde	historic_site	732 m	Meta	0.92	-
+Minha Cria Veterinários	animal_or_pet_service	732 m	Foursquare	0.77	http://minhacria.com.br/petshop/
+Edificio 7 Piramide	historic_site	732 m	Meta	0.32	-
+Instituto Hispano Brasileiro Paraíba	b2b_office_and_professional_service	735 m	Meta	0.45	http://institutohispanobrasileiro.com.br/links
+Akropolis Mar Hotel	hotel	736 m	Foursquare	0.77	http://www.akropolismarhotel.com.br
+Espetinho Do Jailson	restaurant	740 m	Meta	0.93	https://instagram.com/espetinho_do_jailson
+Ilha Bar e Restaurante	restaurant	742 m	Meta	0.60	-
+Magas	bar	746 m	Meta	0.24	-
+Quiosque Tropical John Lennon	bar	747 m	Meta	0.78	-
+Burguerlandia - Hambúrguer Self-Service	restaurant	748 m	Meta	0.82	-
+Unique Cabo Branco	historic_site	748 m	Meta	0.91	-
+Ondas do atlântico	historic_site	750 m	Meta	0.91	https://deltaenge.com.br/
+CT Dálmata BJJ	sport_or_recreation_club	753 m	Meta	0.98	https://www.instagram.com/ctdalmatabjj/
+Rr Auto Mecanica	automotive_service	755 m	Meta	0.82	-
+Igreja Assembleia de Deus	religious_organization	759 m	Meta	0.59	-
+Edifício San Marino	historic_site	763 m	Meta	0.36	-
+Aliança Center	fashion_and_apparel_store	764 m	Meta	0.93	-
+Antony Cabeleireiros	personal_or_beauty_service	766 m	Meta	1.00	-
+Palm Club	bar	766 m	Meta	0.14	http://barmagapalmbeachclub.placeweb.site
+Maison Cabelo e Corpo	personal_or_beauty_service	768 m	Meta	0.47	-
+Condomínio Caroline Residence	historic_site	771 m	Meta	0.73	-
+Tropical Bar	bar	773 m	Meta	0.99	https://instagram.com/tropicalbar_quiosque
+Atlantis Varandas Cabo Branco	historic_site	775 m	Meta	0.84	-
+Ambidecor	home_service	779 m	Meta	0.59	-
+Porto De Galinhas - PE	beach	779 m	Meta	0.71	pt.wikipedia.org/wiki/Praia_de_Porto_de_Galinhas
+Manáesportes	-	780 m	Meta	0.35	-
+Ademicon - João Pessoa	financial_service	780 m	Meta	0.62	https://curitiba-cajuru.consorcioademilar.com.br/
+Quiosque Estrela do Mar	restaurant	783 m	Meta	0.86	http://quiosqueestreladomar.wix.com/estreladomar
+Caldo De Cana Hora Certa	restaurant	786 m	Meta	0.40	-
+Instituto Rodrigo Ferreira	dental_clinic	787 m	Meta	0.65	-
+Residencial Almeida	historic_site	789 m	Meta	0.50	-
+Dr Pedro Luiz	-	789 m	Meta	0.20	-
+Espaço Lingerie	fashion_and_apparel_store	791 m	Meta	0.55	-
+Edifício Bela Vista	historic_site	792 m	Meta	0.48	-
+ArteJampa Móveis e Decoração	hardware_home_and_garden_store	793 m	Meta	0.87	https://www.instagram.com/artejampa/
+Fibra Construtora e Incorporadora	real_estate_service	797 m	Meta	0.15	-
+Padaria e Mercadinho Gabriel Altiplano	casual_eatery	798 m	Meta	0.92	-
+Ziul Acessorios Femininos	fashion_and_apparel_store	799 m	Meta	0.80	-
+Sapore D'Italia	restaurant	799 m	Meta	1.00	http://www.saporeonline.com/
+Edifício Fontes Imperial	historic_site	800 m	Meta	0.73	-
